@@ -1,0 +1,36 @@
+this.btnAjouterImage.addActionListener(e -> {
+            
+            //changer le titre de la popup par "Entrez une valeur :"
+            //String input = JOptionPane.showInputDialog(this, "Nommer la ville :", "", JOptionPane.PLAIN_MESSAGE);  
+            //Object[] choixValeur = {"1", "2", "3", "4", "5", "6"};
+            //Object[] choixCouleur = {"Vert", "Bleu", "Jaune"};
+
+            //JPanel panel = new JPanel();
+            /*panel.setLayout(new GridLayout(4,1,2,2));
+        
+            JComboBox listValeur = new JComboBox(choixValeur);
+            JComboBox listCouleur = new JComboBox(choixCouleur);
+
+            JLabel labelValeur = new JLabel("Nombre de voiture :");
+            JLabel labelCouleur = new JLabel("Couleur de la section :");
+            
+            listValeur.setSelectedIndex(0);
+            listCouleur.setSelectedIndex(0);
+            panel.add(labelValeur);
+            panel.add(listValeur);
+            panel.add(labelCouleur);
+            panel.add(listCouleur);
+
+
+            JOptionPane.showMessageDialog(null, panel, "Trajet", JOptionPane.PLAIN_MESSAGE);
+            */
+/* *//*
+            panel.setLayout(new BorderLayout());
+            
+            
+            //ajouter la liste à la scrollBar
+            
+            this.setBackground(new Color(35,31,32));
+            this.add(panel);
+            this.setVisible(true);*/
+        });
