@@ -1,8 +1,7 @@
 ./src/Controleur.java
-./src/1/ihm/Gui.java
+./src/ihm/Gui.java
 ./src/ihm/PanelCarte.java
 ./src/ihm/PanelForm.java
-./src/metier/Compagnie.java
 ./src/metier/Arete.java
 ./src/metier/Noeud.java
 
