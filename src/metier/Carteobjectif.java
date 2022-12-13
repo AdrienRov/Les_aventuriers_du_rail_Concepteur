@@ -1,5 +1,6 @@
 package src.metier;
 
-public class CarteObjectif {
+public class CarteObjectif 
+{
     
 }
