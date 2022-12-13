@@ -21,16 +21,19 @@ import src.Controleur;
 import java.awt.GridLayout;
 import java.io.File;
 import java.awt.BorderLayout;
+import java.awt.event.*;
 
-public class PanelForm extends JPanel
+public class PanelForm extends JPanel implements ActionListener
 {
     private Controleur ctrl;
     private JButton btnAjouterImage;
+    private JButton btnAjouterNeud ;
 
     public PanelForm(Controleur ctrl)
     {
         this.ctrl = ctrl;
         this.btnAjouterImage = new JButton("Ajouter une image de map");
+        this.btnAjouterNeud = new JButton("Ajouter un neud");
         this.btnAjouterImage.setLocation(0, 50);
         //positionner le bouton vers le bas de la fenêtre (50px) 
         this.btnAjouterImage.setPreferredSize(new Dimension(200, 50));
@@ -46,6 +49,8 @@ public class PanelForm extends JPanel
             
         this.setBackground(new Color(35,31,32));
         this.add(this.btnAjouterImage);
+        this.add(this.btnAjouterNeud);
+        this.btnAjouterNeud.addActionListener(this);
         this.setVisible(true);
     }
     private File getFileDialog()
@@ -63,5 +68,13 @@ public class PanelForm extends JPanel
         {
             return null;
         }
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == this.btnAjouterNeud)
+        {
+            this.ctrl.setActiveNoeud();
+        }
+            
     }
 }
