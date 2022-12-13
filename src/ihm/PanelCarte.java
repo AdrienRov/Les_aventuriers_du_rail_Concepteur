@@ -21,18 +21,20 @@ import java.awt.Color;
 public class PanelCarte extends JPanel implements MouseListener
 {
     //image de fond de la carte 
-    private Image image ;
+    private Image image  ;
     private Graphics2D g2d;
     private Graphics2D g2d2;
  
     private Controleur ctrl;
 
-    public PanelCarte(Controleur ctrl, ImageIcon img)
+    public PanelCarte(Controleur ctrl)
     {
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
         this.setLayout  (null);
-        this.image = img.getImage();
+        
+        //adapter la taille de l'image au panel
+
         this.setFocusable(true);
         this.addMouseListener(this);
     }
@@ -59,6 +61,11 @@ public class PanelCarte extends JPanel implements MouseListener
         g2d2.fillRect(n.x(), n.y(), 30, 30);
         g2d2.setColor(Color.BLACK);
         g2d2.drawString(nom, n.x(), n.y());
+    }
+
+    public void resizeImage(int width, int height)
+    {
+        this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
    
 

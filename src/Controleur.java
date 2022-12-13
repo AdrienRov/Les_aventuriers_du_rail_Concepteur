@@ -24,14 +24,12 @@ public class Controleur
     public Controleur()
     {
         //importer la carte
-        ImageIcon img = new ImageIcon("./src/images/ajouter_carte.png");
-        this.gui = new Gui(this, img);
-        this.gui.setSize(img.getIconWidth()+200, img.getIconHeight());
+        this.gui = new Gui(this);
+        this.afficherCarte("src/images/ajouter_carte.png");
         cartesObjectif = new ArrayList<CarteObjectif>();
         cartesVoiture  = new ArrayList<CartesVoitures>();
         noeuds         = new ArrayList<Noeud>();
         aretes         = new ArrayList<Arete>();
-
 
     }
 
@@ -65,8 +63,6 @@ public class Controleur
         this.aretes.add(arete);
     }
 
-
-
     public boolean getActiveNoeud()
     {
         return gui.getActiveNoeud();
@@ -75,6 +71,11 @@ public class Controleur
     public void setActiveNoeud()
     {
         gui.activeAjouteNoeud();
+        
+
+    }
+    public void setSuivant()
+    {
     }
 
 
