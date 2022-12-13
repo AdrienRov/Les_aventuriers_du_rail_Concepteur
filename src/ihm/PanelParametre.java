@@ -31,7 +31,6 @@ public class PanelParametre extends JPanel {
 
     public PanelParametre(Controleur ctrl){
         this.ctrl = ctrl;
-
     }
     
 }
