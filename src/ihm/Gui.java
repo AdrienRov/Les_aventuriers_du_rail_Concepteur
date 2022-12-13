@@ -5,15 +5,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.*;
+import java.io.ObjectInputStream.GetField;
 
 import src.Controleur;
 
 
-public class Gui extends JFrame
+public class Gui extends JFrame 
 {
     private Controleur ctrl;
     private PanelCarte panelCarte;
     private PanelForm panelForm;
+    private boolean activeNoeud = false;
+   
     public Gui(Controleur ctrl,ImageIcon img)
     {
         this.ctrl = ctrl;
@@ -26,6 +30,7 @@ public class Gui extends JFrame
         this.add(this.panelForm, BorderLayout.WEST);
         this.add(this.panelCarte, BorderLayout.CENTER);
         //resize la fenetre quand on agrandit la fenetre
+
         this.setVisible(true);
     }
 
@@ -33,4 +38,25 @@ public class Gui extends JFrame
     {
         this.panelCarte.addCarte(path);
     }
+
+    public boolean getActiveNoeud()
+    {
+        return this.activeNoeud;
+    }
+
+    public void activeAjouteNoeud()
+    {
+        if(this.activeNoeud)
+        {
+            this.activeNoeud = false;
+        }
+        else
+        {
+            this.activeNoeud = true;
+        }
+    
+    
+    }
+
+    
 }

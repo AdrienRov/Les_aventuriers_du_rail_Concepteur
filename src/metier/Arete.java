@@ -1,5 +1,7 @@
 package src.metier;
 
+import java.awt.Color;
+
 public class Arete
 {
     private int n1y ;
@@ -10,9 +12,11 @@ public class Arete
     private Noeud noeudDepart;
     private Noeud noeudarrive;
 
+    private Color couleur;
+
     private int nbVoiture;
     
-    Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture)
+    Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur)
     {
         this.noeudDepart = noeudDepart;
         this.noeudarrive = noeudarrive;
@@ -22,8 +26,76 @@ public class Arete
         this.n1y = noeudarrive.y();
         this.n2x = noeudDepart.x();
         this.n2y = noeudDepart.y();
+        this.couleur = couleur;
 
     }
+
+    public int getN1x() {
+        return n1x;
+    }
+
+    public int getN1y() {
+        return n1y;
+    }
+
+    public int getN2x() {
+        return n2x;
+    }
+
+    public int getN2y() {
+        return n2y;
+    }
+
+    public int getNbVoiture() {
+        return nbVoiture;
+    }
+
+    public void setNbVoiture(int nbVoiture) {
+        this.nbVoiture = nbVoiture;
+    }
+
+    public Noeud getNoeudDepart() {
+        return noeudDepart;
+    }
+
+    public Noeud getNoeudarrive() {
+        return noeudarrive;
+    }
+
+    public void setNoeudDepart(Noeud noeudDepart) {
+        this.noeudDepart = noeudDepart;
+    }
+
+    public void setNoeudarrive(Noeud noeudarrive) {
+        this.noeudarrive = noeudarrive;
+    }
+
+    public void setN1x(int n1x) {
+        this.n1x = n1x;
+    }
+
+    public void setN1y(int n1y) {
+        this.n1y = n1y;
+    }
+
+    public void setN2x(int n2x) {
+        this.n2x = n2x;
+    }
+
+    public void setN2y(int n2y) {
+        this.n2y = n2y;
+    }
+
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    public String toString()
+    {
+        return "Arete [n1x=" + n1x + ", n1y=" + n1y + ", n2x=" + n2x + ", n2y=" + n2y + ", nbVoiture=" + nbVoiture + "]";
+    }
+
+    
    
 }
 

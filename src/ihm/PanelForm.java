@@ -12,6 +12,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
 import java.awt.FlowLayout;
 import java.util.Locale;
@@ -28,13 +29,17 @@ public class PanelForm extends JPanel implements ActionListener
     private Controleur ctrl;
     private JButton btnAjouterImage;
     private JButton btnAjouterNeud ;
+    private JButton btnCouleurNoeud;
+    private JButton btnParametres;
 
     public PanelForm(Controleur ctrl)
     {
         this.ctrl = ctrl;
+        this.setLayout(new GridLayout(5,1));
         this.btnAjouterImage = new JButton("Ajouter une image de map");
         this.btnAjouterNeud = new JButton("Ajouter un neud");
-        this.btnAjouterImage.setLocation(0, 50);
+        this.btnCouleurNoeud = new JButton("Couleur des noeuds");
+        this.btnParametres = new JButton("Paramètres");
         //positionner le bouton vers le bas de la fenêtre (50px) 
         this.btnAjouterImage.setPreferredSize(new Dimension(200, 50));
         //ouvrir l'arborecence de fichier pour choisir une image
@@ -50,6 +55,8 @@ public class PanelForm extends JPanel implements ActionListener
         this.setBackground(new Color(35,31,32));
         this.add(this.btnAjouterImage);
         this.add(this.btnAjouterNeud);
+        this.add(this.btnCouleurNoeud);
+        this.add(this.btnParametres);
         this.btnAjouterNeud.addActionListener(this);
         this.setVisible(true);
     }
