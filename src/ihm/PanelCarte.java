@@ -52,22 +52,15 @@ public class PanelCarte extends JPanel implements MouseListener
         this.repaint();
     }
 
-    // focntion qui ajoute un noeud au dessus de la carte 
-    public void ajouteNoeud(Graphics g,Noeud n)
+    public void ajouteNoeud(Noeud n, String nom)
     {
-
-        super.paintComponent(g);
-        g2d2 = (Graphics2D) g;
-        g2d2.setStroke(new BasicStroke(3));
+        g2d2 = (Graphics2D) this.getGraphics();
         g2d2.setColor(Color.RED);
-        g2d2.fillRect(n.x(), n.y(), 10, 10);
-
-        // écrit le nom au dessus du noeud
+        g2d2.fillRect(n.x(), n.y(), 30, 30);
         g2d2.setColor(Color.BLACK);
-        g2d2.drawString(n.nomNoeud(), n.x(), n.y());
-        this.repaint();
-
+        g2d2.drawString(nom, n.x(), n.y());
     }
+   
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -77,7 +70,10 @@ public class PanelCarte extends JPanel implements MouseListener
             String input = JOptionPane.showInputDialog("Nom du noeud");
             Noeud n = new Noeud(e.getX(), e.getY(),input);
             this.ctrl.ajouteNoeud(n);
-            this.ajouteNoeud(g2d, n);
+
+            //ajoute un carré sur la carte
+            this.ajouteNoeud(n, input);
+            
             System.out.println("x: "+e.getX()+" y: "+e.getY());
 
             this.ctrl.setActiveNoeud();
