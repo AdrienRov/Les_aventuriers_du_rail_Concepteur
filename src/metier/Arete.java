@@ -16,7 +16,7 @@ public class Arete
 
     private int nbVoiture;
     
-    Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur)
+    public Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur)
     {
         this.noeudDepart = noeudDepart;
         this.noeudarrive = noeudarrive;

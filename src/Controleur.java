@@ -77,6 +77,14 @@ public class Controleur
     {
         return gui.getActiveTrajet();
     }
+    public ArrayList<Arete> getAllTrajets()
+    {
+        return this.aretes;
+    }
+    public ArrayList<Noeud> getAllNoeuds()
+    {
+        return this.noeuds;
+    }
 
     public void setActiveTrajet(boolean active)
     {
@@ -87,6 +95,9 @@ public class Controleur
     {
         gui.notification(message);
     }
+
+   
+
 
     public ArrayList<Noeud> getListeNoeud()
     {
