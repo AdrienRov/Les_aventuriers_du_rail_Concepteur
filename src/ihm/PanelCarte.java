@@ -22,7 +22,7 @@ import java.awt.Color;
 public class PanelCarte extends JPanel implements MouseListener, ActionListener
 {
     //image de fond de la carte 
-    private Image image  ;
+    private Image image;
     private Graphics2D g2d;
     private Graphics2D g2d2;
     private ArrayList<Noeud> allNoeud;
@@ -33,10 +33,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     {
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
+        this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
         this.initNoeud();
-        this.image = new ImageIcon("src/img/carte.jpg").getImage();
-        
         //adapter la taille de l'image au panel
         this.setFocusable(true);
         this.addMouseListener(this);
