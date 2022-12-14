@@ -74,6 +74,21 @@ public class Controleur
         
 
     }
+
+    public boolean getActiveTrajet()
+    {
+        return gui.getActiveTrajet();
+    }
+
+    public void setActiveTrajet(boolean active)
+    {
+        gui.activeAjouteTrajet(active);
+    }
+    
+
+
+
+
     public void setSuivant()
     {
     }
