@@ -22,9 +22,11 @@ public class Gui extends JFrame
     private Controleur ctrl;
     private PanelCarte panelCarte;
     private PanelForm panelForm;
+    private PanelParametre panelParametre;
     private JPanel panelNotification;
     private boolean activeNoeud = false;
     private boolean activeTrajet = false;
+    private int etat = 0;
 
    
     public Gui(Controleur ctrl)
@@ -34,6 +36,7 @@ public class Gui extends JFrame
         //positionner la fenetre au centre de l'écran
         this.panelCarte = new PanelCarte(this.ctrl);
         this.panelForm  = new PanelForm(this.ctrl);
+        this.panelParametre = new PanelParametre(this.ctrl);
         this.panelNotification = new JPanel();
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
@@ -72,6 +75,25 @@ public class Gui extends JFrame
     public boolean getActiveTrajet()
     {
         return this.activeTrajet;
+    }
+    public void refresh()
+    {
+        this.revalidate();
+    }
+    public void getParametre(boolean active)
+    {
+        if(active == true)
+        {
+            this.remove(this.panelCarte);
+            this.add(this.panelParametre, BorderLayout.CENTER);
+        }
+        if(active == false)
+        {
+            this.remove(this.panelParametre);
+            this.add(this.panelCarte, BorderLayout.CENTER);
+        }
+        this.repaint();
+        this.revalidate();
     }
     
     public int getEtatSelectionNoeud(){return this.panelCarte.getEtatSelectionNoeud();}

@@ -36,6 +36,8 @@ public class PanelForm extends JPanel implements ActionListener
     private JButton btnPrecedent;
     private JPanel  panelMenu;
     private JButton btnAjouterTrajet;
+    private int etat = 0;
+    private boolean etatParam = false;
 
     public PanelForm(Controleur ctrl)
     {
@@ -44,14 +46,12 @@ public class PanelForm extends JPanel implements ActionListener
         this.setLayout(new GridBagLayout());
         
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
-        this.btnAjouterNoeud     = new JButton("Ajouter un noeud"         );
+        this.btnAjouterNoeud    = new JButton("Ajouter un noeud"         );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
         this.btnPrecedent       = new JButton("Precedent"               );
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
-
-        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
         
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
@@ -60,43 +60,13 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnAjouterImage.addActionListener(this);
         this.btnAjouterNoeud.addActionListener(this);
         this.btnAjouterTrajet.addActionListener(this);
+        this.btnSuivant.addActionListener(this);
+        this.btnPrecedent.addActionListener(this);
+        this.btnParametres.addActionListener(this);
 
         this.setBackground(new Color(35,31,32));
 
-       
-
-        for(int i = 0; i < tabBtn.length; i++)
-        {
-            if(i == 0)
-            {
-                //positionner le bouton vers le bas de la fenêtre (50px)
-                tabBtn[i].setPreferredSize    (new Dimension(150, 50));
-                g.insets = new Insets(10,10,50,10);
-                g.gridx = 0;
-                g.gridy = i;
-                this.add(tabBtn[i], g);
-            }
-            if(i == 6)
-            {
-                tabBtn[i].setPreferredSize    (new Dimension(150, 50));
-                g.insets = new Insets (50,0,0,0);
-                g.gridx = 0;
-                g.gridy = i;
-                this.add(tabBtn[i],g);
-            }
-            if(i != 0 && i != 6)
-            {
-                System.out.println("i = " + i);
-                tabBtn[i].setPreferredSize   (new Dimension(200, 50));
-                g.insets = new Insets(10,10,10,10);
-                g.gridx = 0;
-                g.gridy = i;
-                this.add(tabBtn[i],g);
-            }
-            
-        }
-        
-        
+        this.initPanel(this.etat);
         this.setVisible(true);
     }
     private File getFileDialog()
@@ -116,9 +86,60 @@ public class PanelForm extends JPanel implements ActionListener
         }
     }
 
+    public void initPanel(int numPanel)
+    {
+        if(numPanel >= 3)
+        {
+            this.etat = 2;
+        }
+        if(numPanel <= 0)
+        {
+            this.etat = 0;
+        }
+        numPanel = this.etat;
+        System.out.println("numPanel = " + numPanel);
+        this.removeAll();
+        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
+        GridBagConstraints g = new GridBagConstraints();
+        g.insets = new Insets(10,10,10,10);
+                
+        for(JButton btn : tabBtn)
+        {
+            btn.setPreferredSize    (new Dimension(150, 50));
+        }
+        g.gridx = 0;
+        g.gridy = 0;
+        this.add(tabBtn[0], g);
+
+        if(numPanel == 0)
+        {
+            g.gridy = g.gridy + 1;
+            this.add(tabBtn[1], g);
+            g.gridy = g.gridy + 1;
+            this.add(tabBtn[3], g);
+            g.gridy = g.gridy + 1;
+            this.add(tabBtn[4], g);
+        }
+        if(numPanel == 1)
+        {
+            g.gridy = g.gridy + 5;
+            this.add(tabBtn[2], g);
+            
+        }
+        if(numPanel == 2)
+        {
+            g.gridy = g.gridy + 1;
+            this.add(tabBtn[6], g);
+        }
+        g.gridy = g.gridy + 1;
+        this.add(tabBtn[5], g);
+
+        this.repaint();
+    }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) 
+    {
         if(e.getSource() == this.btnAjouterNoeud)
         {
             this.ctrl.setActiveNoeud(true);
@@ -135,6 +156,23 @@ public class PanelForm extends JPanel implements ActionListener
         {
             System.out.println("Ajouter un trajet");
             this.ctrl.setActiveTrajet(true);
+        }
+        if(e.getSource() == this.btnSuivant)
+        {
+            this.initPanel(++this.etat);
+            this.ctrl.refreshFrame();
+        }
+        if(e.getSource() == this.btnPrecedent)
+        {
+            this.initPanel(--this.etat);
+            this.ctrl.refreshFrame();
+        }
+
+        if(e.getSource() == this.btnParametres)
+        {
+            this.etatParam = !this.etatParam;
+            this.ctrl.getParametre(this.etatParam);
+            System.out.println("Parametres"+ this.etatParam);
         }
     }
 }

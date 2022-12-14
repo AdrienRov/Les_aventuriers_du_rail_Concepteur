@@ -20,6 +20,7 @@ public class Controleur
     private ArrayList<CarteObjectif> cartesObjectif;
     private ArrayList<Noeud> noeuds;
     private ArrayList<Arete> aretes;
+    private int numPanel = 0;
 
     public Controleur()
     {
@@ -96,9 +97,6 @@ public class Controleur
         gui.notification(message);
     }
 
-   
-
-
     public ArrayList<Noeud> getListeNoeud()
     {
         return this.noeuds;
@@ -106,9 +104,18 @@ public class Controleur
 
     public int getEtatSelectionNoeud(){return this.gui.getEtatSelectionNoeud();}
 
+    public void refreshFrame()
+    {
+        this.gui.refresh();
+    }
+    public void getParametre(boolean etat)
+    {
+        this.gui.getParametre(etat);
+    }
 
     public static void main(String[] args) 
     {
         new Controleur();
     }
 }
+
