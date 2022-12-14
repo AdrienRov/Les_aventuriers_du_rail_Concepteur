@@ -29,7 +29,7 @@ public class PanelForm extends JPanel implements ActionListener
 {
     private Controleur ctrl;
     private JButton btnAjouterImage;
-    private JButton btnAjouterNeud ;
+    private JButton btnAjouterNoeud ;
     private JButton btnCouleurNoeud;
     private JButton btnParametres;
     private JButton btnSuivant;
@@ -44,21 +44,25 @@ public class PanelForm extends JPanel implements ActionListener
         this.setLayout(new GridBagLayout());
         
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
-        this.btnAjouterNeud     = new JButton("Ajouter un neud"         );
+        this.btnAjouterNoeud     = new JButton("Ajouter un noeud"         );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
         this.btnPrecedent       = new JButton("Precedent"               );
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
 
+<<<<<<< HEAD
+        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
+=======
         JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNeud, this.btnCouleurNoeud, this.btnParametres, this.btnAjouterTrajet, this.btnSuivant};
+>>>>>>> ca4ab5f200a17291daf63b36ba356b5ecc883de2
         
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
         this.btnPrecedent.setBackground (Color.RED);
         //ouvrir l'arborecence de fichier pour choisir une image
         this.btnAjouterImage.addActionListener(this);
-        this.btnAjouterNeud.addActionListener(this);
+        this.btnAjouterNoeud.addActionListener(this);
 
         this.setBackground(new Color(35,31,32));
 
@@ -115,7 +119,7 @@ public class PanelForm extends JPanel implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.btnAjouterNeud)
+        if(e.getSource() == this.btnAjouterNoeud)
         {
             this.ctrl.setActiveNoeud(true);
         }
