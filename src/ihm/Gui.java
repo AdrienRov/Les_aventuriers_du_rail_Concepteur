@@ -3,7 +3,11 @@ package src.ihm;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 import java.io.ObjectInputStream.GetField;
@@ -18,8 +22,10 @@ public class Gui extends JFrame
     private Controleur ctrl;
     private PanelCarte panelCarte;
     private PanelForm panelForm;
+    private JPanel panelNotification;
     private boolean activeNoeud = false;
     private boolean activeTrajet = false;
+
    
     public Gui(Controleur ctrl)
     {
@@ -28,6 +34,7 @@ public class Gui extends JFrame
         //positionner la fenetre au centre de l'écran
         this.panelCarte = new PanelCarte(this.ctrl);
         this.panelForm  = new PanelForm(this.ctrl);
+        this.panelNotification = new JPanel();
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 panelCarte.resizeImage(panelCarte.getWidth(), panelCarte.getHeight());
@@ -66,6 +73,8 @@ public class Gui extends JFrame
     {
         return this.activeTrajet;
     }
+    
+    public int getEtatSelectionNoeud(){return this.panelCarte.getEtatSelectionNoeud();}
 
     public void activeAjouteTrajet(boolean active)
     {
@@ -73,6 +82,14 @@ public class Gui extends JFrame
     
     }
 
-
-    
+    public void notification(String message)
+    {
+        this.panelNotification.removeAll();
+        JLabel label = new JLabel(message);
+        this.panelNotification.add(label);
+        this.panelNotification.setBackground(Color.red);
+        this.add(this.panelNotification, BorderLayout.NORTH);
+        this.revalidate();
+       
+    }
 }

@@ -148,6 +148,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
     }
+
+    public int getEtatSelectionNoeud(){return this.cpt;}
    
 
     @Override
@@ -201,7 +203,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                     if(n.btn() == e.getSource())
                         noeudDepart = n;
                 cpt++;
-                
+                this.ctrl.notification("Selectionner le noeud d'arrivée");
             }
             else if(cpt == 1)
             {
