@@ -110,7 +110,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         System.out.println(noeudArrivee.x() + " " + noeudArrivee.y());
 
         Object[] choixValeur = {"1", "2", "3", "4", "5", "6"};
-        Object[] choixCouleur = {Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK, Color.WHITE, Color.GRAY};
+        Object[] choixCouleur = {"Vert", "Rouge", "Bleu", "Jaune", "Orange", "Noir", "Blanc", "Gris"};
+
+        Color[ ] colors = {Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK, Color.WHITE, Color.GRAY};
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4,1,2,2));
@@ -128,9 +130,11 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         panel.add(labelCouleur);
         panel.add(listCouleur);
 
+
+
         JOptionPane.showMessageDialog(null, panel, "Trajet", JOptionPane.PLAIN_MESSAGE);
         // recuperer la valeur de la liste déroulante
-        Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()),(Color) listCouleur.getSelectedItem());
+        Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()), colors[listCouleur.getSelectedIndex()]);
     
         this.ctrl.ajouteArete(arete);
         this.repaint();
