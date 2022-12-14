@@ -97,10 +97,18 @@ public class Controleur
         gui.notification(message);
     }
 
+
     public ArrayList<Noeud> getListeNoeud()
     {
         return this.noeuds;
     }
+
+    //supprimer un noeud
+    public void supprimerNoeud(Noeud noeud)
+    {
+        this.noeuds.remove(noeud);
+    }
+    
 
     public int getEtatSelectionNoeud(){return this.gui.getEtatSelectionNoeud();}
 

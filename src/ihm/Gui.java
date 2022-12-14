@@ -107,11 +107,12 @@ public class Gui extends JFrame
     public void notification(String message)
     {
         this.panelNotification.removeAll();
+        this.panelNotification.repaint();
         JLabel label = new JLabel(message);
         this.panelNotification.add(label);
-        this.panelNotification.setBackground(Color.red);
+        this.panelNotification.setBackground(Color.GRAY);
         this.add(this.panelNotification, BorderLayout.NORTH);
-        this.revalidate();
+        this.validate(); 
        
     }
 }

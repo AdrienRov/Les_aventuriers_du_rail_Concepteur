@@ -3,10 +3,12 @@ package src.ihm;
 import javax.swing.GrayFilter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import src.Controleur;
 import src.metier.Arete;
@@ -69,7 +71,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             for(Noeud noeud : this.allNoeud)
             {
                 g2d.setColor(Color.BLACK);
-                g2d.drawString(noeud.nomNoeud(), noeud.x()-10, noeud.y()-20);
+                g2d.drawString(noeud.getNom(), noeud.x()-10, noeud.y()-20);
             }
         }
         
@@ -87,6 +89,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void ajouteNoeud(int x, int y)
     {
         String input = JOptionPane.showInputDialog("Nom du noeud");
+
+        if(input == null)return;
+        
         JButton btn = new JButton("");
        
         btn.setBounds(x, y, 50, 50);
@@ -110,7 +115,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         System.out.println(noeudArrivee.x() + " " + noeudArrivee.y());
 
         Object[] choixValeur = {"1", "2", "3", "4", "5", "6"};
-        Object[] choixCouleur = {Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK, Color.WHITE, Color.GRAY};
+        Object[] choixCouleur = {"Vert", "Rouge", "Bleu", "Jaune", "Orange", "Noir", "Blanc", "Gris"};
+
+        Color[ ] colors = {Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK, Color.WHITE, Color.GRAY};
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4,1,2,2));
@@ -128,9 +135,11 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         panel.add(labelCouleur);
         panel.add(listCouleur);
 
+
+
         JOptionPane.showMessageDialog(null, panel, "Trajet", JOptionPane.PLAIN_MESSAGE);
         // recuperer la valeur de la liste déroulante
-        Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()),(Color) listCouleur.getSelectedItem());
+        Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()), colors[listCouleur.getSelectedIndex()]);
     
         this.ctrl.ajouteArete(arete);
         this.repaint();
@@ -157,6 +166,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             this.ajouteNoeud(e.getX(), e.getY());
             System.out.println("x: "+e.getX()+" y: "+e.getY());
             this.ctrl.setActiveNoeud(false);
+            this.ctrl.notification("Vous avez ajouté une ville");
         }
         
     }
@@ -196,7 +206,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             if(cpt == 0)
             {
                 for(Noeud n : allNoeud)
-                    if(n.btn() == e.getSource())
+                    if(n.getButton()  == e.getSource())
                         noeudDepart = n;
                 cpt++;
                 this.ctrl.notification("Selectionner le noeud d'arrivée");
@@ -205,13 +215,60 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             {
                 System.out.println("cpt = 1");
                 for(Noeud n : allNoeud)
-                    if(n.btn() == e.getSource())
+                    if(n.getButton() == e.getSource())
                         noeudArrivee = n;
                 this.ajouterTrajet(noeudDepart, noeudArrivee);
                 this.ctrl.setActiveTrajet(false);
                 cpt = 0;
+                this.ctrl.notification("Vous avez ajouté un trajet");
                 
             }
+        }
+        else 
+        {
+            //modifier le noeud quand on clique dessus pop up pour modifier le nom ou supprimer le noeud 
+           
+            System.out.println("modifier noeud");
+            allNoeud =  this.ctrl.getListeNoeud();
+            for(Noeud n : allNoeud)
+                if(n.getButton() == e.getSource())
+                {
+                    System.out.println("noeud trouvé");
+                    
+                    //pop up  pour modifier le nom avec un zone de texte ou une case à coché pour supprimer le noeud
+                    Object[] choix = {"Modifier le nom", "Supprimer le noeud"};
+                    JPanel panel = new JPanel();
+                    panel.setLayout(new GridLayout(1,1,2,2));
+                    
+                    // textfield pour modifier le nom
+                    JTextField text = new JTextField();
+                    text.setText(n.getNom());
+                    
+                    // checkbox pour supprimer le noeud
+                    JCheckBox check = new JCheckBox("Supprimer le noeud");
+                    panel.add(text);
+                    panel.add(check);
+                    JOptionPane.showMessageDialog(null, panel, "Modifier le noeud", JOptionPane.PLAIN_MESSAGE);
+                    String input = text.getText();
+
+                    // suppirmer le noeud si la case est coché et enlever le bouton du panel
+                    if(check.isSelected())
+                    {
+                        this.ctrl.supprimerNoeud(n);
+                        this.remove(n.getButton());
+                        this.repaint();
+                    }
+                    
+                
+                    
+                    // recuperer la valeur de la liste déroulante
+
+                    n.setNom(input);
+                    this.repaint();
+                }
+
+
+
         }
     }
     
