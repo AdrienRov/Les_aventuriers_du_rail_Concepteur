@@ -35,7 +35,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.ctrl = ctrl;
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
-        this.initNoeud();
         //adapter la taille de l'image au panel
         this.setFocusable(true);
         this.addMouseListener(this);
@@ -56,34 +55,29 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.repaint();
     }
 
-    public void ajouteNoeud(Noeud n, String nom)
+    public void ajouteNoeud(int x, int y)
     {
-        JButton btn = new JButton(nom);
-
-        btn.setBounds(n.x(), n.y(), 50, 50);
+        String input = JOptionPane.showInputDialog("Nom du noeud");
+        JButton btn = new JButton(input);
+       
+        btn.setBounds(x, y, 50, 50);
         btn.setSize(20,20);
         btn.setBackground(Color.RED);
+       
+        Noeud n = new Noeud(x, y,input, btn);
+        
+        this.ctrl.ajouteNoeud(n);
         this.add(btn);
         this.repaint();
         
     }
 
-    public void initNoeud()
-    {
-        if(this.allNoeud != null)
-        {
-            for (Noeud noeud : allNoeud) 
-            {
-                this.ajouteNoeud(noeud, noeud.nomNoeud());
-            }
-        }
-        
-    }
+
 
     public void resizeImage(int width, int height)
     {
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        this.initNoeud();
+
     }
    
 
@@ -92,12 +86,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         if (ctrl.getActiveNoeud())
         {
             
-            String input = JOptionPane.showInputDialog("Nom du noeud");
-            Noeud n = new Noeud(e.getX(), e.getY(),input);
-            this.ctrl.ajouteNoeud(n);
-
-            //ajoute un carré sur la carte
-            this.ajouteNoeud(n, input);
+            this.ajouteNoeud(e.getX(), e.getY());
             System.out.println("x: "+e.getX()+" y: "+e.getY());
             this.ctrl.setActiveNoeud(false);
         }
@@ -129,8 +118,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+    public void actionPerformed(ActionEvent e) 
+    {
+       
 
         
 
