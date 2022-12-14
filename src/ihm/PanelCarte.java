@@ -2,6 +2,7 @@ package src.ihm;
 
 import javax.swing.GrayFilter;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -18,7 +19,7 @@ import java.awt.*;
 import java.awt.Color;
 
 
-public class PanelCarte extends JPanel implements MouseListener
+public class PanelCarte extends JPanel implements MouseListener, ActionListener
 {
     //image de fond de la carte 
     private Image image  ;
@@ -26,6 +27,7 @@ public class PanelCarte extends JPanel implements MouseListener
     private Graphics2D g2d2;
     private ArrayList<Noeud> allNoeud;
     private Controleur ctrl;
+    private ArrayList<JButton> allBtnNoeud;
 
     public PanelCarte(Controleur ctrl)
     {
@@ -56,11 +58,14 @@ public class PanelCarte extends JPanel implements MouseListener
 
     public void ajouteNoeud(Noeud n, String nom)
     {
-        g2d2 = (Graphics2D) this.getGraphics();
-        g2d2.setColor(Color.RED);
-        g2d2.fillRect(n.x(), n.y(), 30, 30);
-        g2d2.setColor(Color.BLACK);
-        g2d2.drawString(nom, n.x(), n.y());
+        JButton btn = new JButton(nom);
+
+        btn.setBounds(n.x(), n.y(), 50, 50);
+        btn.setSize(20,20);
+        btn.setBackground(Color.RED);
+        this.add(btn);
+        this.repaint();
+        
     }
 
     public void initNoeud()
@@ -93,9 +98,7 @@ public class PanelCarte extends JPanel implements MouseListener
 
             //ajoute un carré sur la carte
             this.ajouteNoeud(n, input);
-            this.allNoeud = this.ctrl.getListeNoeud();
             System.out.println("x: "+e.getX()+" y: "+e.getY());
-
             this.ctrl.setActiveNoeud(false);
         }
         
@@ -124,5 +127,22 @@ public class PanelCarte extends JPanel implements MouseListener
         // TODO Auto-generated method stub
         
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+
+        
+
+
+        
+    }
+
+
+   
+
+>>>>>>> 864c787e15fd4bd2e7066155e35c4d62dd7e55c3
     
 }
