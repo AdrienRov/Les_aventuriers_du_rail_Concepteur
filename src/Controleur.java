@@ -74,6 +74,17 @@ public class Controleur
         
 
     }
+
+    public boolean getActiveTrajet()
+    {
+        return gui.getActiveTrajet();
+    }
+
+    public void setActiveTrajet(boolean active)
+    {
+        gui.activeAjouteTrajet(active);
+    }
+
     public void setSuivant()
     {
     }
@@ -82,10 +93,7 @@ public class Controleur
     {
         return this.noeuds;
     }
-    public void supprimeNoeud(Noeud noeud)
-    {
-        this.noeuds.remove(noeud);
-    }
+
 
     public static void main(String[] args) 
     {

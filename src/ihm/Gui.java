@@ -19,6 +19,7 @@ public class Gui extends JFrame
     private PanelCarte panelCarte;
     private PanelForm panelForm;
     private boolean activeNoeud = false;
+    private boolean activeTrajet = false;
    
     public Gui(Controleur ctrl)
     {
@@ -60,6 +61,18 @@ public class Gui extends JFrame
         this.activeNoeud = active ;
     
     }
+
+    public boolean getActiveTrajet()
+    {
+        return this.activeTrajet;
+    }
+
+    public void activeAjouteTrajet(boolean active)
+    {
+        this.activeTrajet = active ;
+    
+    }
+
 
     
 }
