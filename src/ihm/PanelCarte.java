@@ -87,6 +87,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void ajouteNoeud(int x, int y)
     {
         String input = JOptionPane.showInputDialog("Nom du noeud");
+
+        if(input == null)return;
+        
         JButton btn = new JButton("");
        
         btn.setBounds(x, y, 50, 50);
@@ -229,6 +232,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 {
                     System.out.println("noeud trouvé");
                     String input = JOptionPane.showInputDialog("Nom du noeud");
+                    // si on clique sur annuler
+                    if(input == null) return;
                     n.setNom(input);
                     this.repaint();
                 }
