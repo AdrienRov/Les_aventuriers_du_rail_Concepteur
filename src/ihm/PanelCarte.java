@@ -128,8 +128,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         // TODO Auto-generated method stub
         
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -140,10 +138,5 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
 
         
     }
-
-
-   
-
->>>>>>> 864c787e15fd4bd2e7066155e35c4d62dd7e55c3
     
 }
