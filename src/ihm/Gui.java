@@ -55,17 +55,9 @@ public class Gui extends JFrame
         return this.activeNoeud;
     }
 
-    public void activeAjouteNoeud()
+    public void activeAjouteNoeud(boolean active)
     {
-        if(this.activeNoeud)
-        {
-            this.activeNoeud = false;
-        }
-        else
-        {
-            this.activeNoeud = true;
-        }
-    
+        this.activeNoeud = active ;
     
     }
 

@@ -83,7 +83,7 @@ public class PanelCarte extends JPanel implements MouseListener
             
             System.out.println("x: "+e.getX()+" y: "+e.getY());
 
-            this.ctrl.setActiveNoeud();
+            this.ctrl.setActiveNoeud(false);
         }
         
     }

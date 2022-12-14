@@ -68,9 +68,9 @@ public class Controleur
         return gui.getActiveNoeud();
     }
 
-    public void setActiveNoeud()
+    public void setActiveNoeud(boolean active)
     {
-        gui.activeAjouteNoeud();
+        gui.activeAjouteNoeud(active);
         
 
     }

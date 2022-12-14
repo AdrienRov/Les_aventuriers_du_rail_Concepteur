@@ -119,7 +119,7 @@ public class PanelForm extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.btnAjouterNeud)
         {
-            this.ctrl.setActiveNoeud();
+            this.ctrl.setActiveNoeud(true);
         }
         if(e.getSource() == this.btnAjouterImage)
         {
