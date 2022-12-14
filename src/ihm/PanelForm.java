@@ -1,29 +1,19 @@
 package src.ihm;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
-
-import java.awt.FlowLayout;
-import java.util.Locale;
 import java.awt.Color;
 import java.awt.Dimension;
-import src.Controleur;
-import java.awt.GridLayout;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
-import java.awt.BorderLayout;
-import java.awt.event.*;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+
+import src.Controleur;
 
 public class PanelForm extends JPanel implements ActionListener
 {
@@ -34,7 +24,6 @@ public class PanelForm extends JPanel implements ActionListener
     private JButton btnParametres;
     private JButton btnSuivant;
     private JButton btnPrecedent;
-    private JPanel  panelMenu;
     private JButton btnAjouterTrajet;
     private int etat = 0;
     private boolean etatParam = false;
@@ -42,7 +31,6 @@ public class PanelForm extends JPanel implements ActionListener
     public PanelForm(Controleur ctrl)
     {
         this.ctrl = ctrl;
-        GridBagConstraints g = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
         
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
