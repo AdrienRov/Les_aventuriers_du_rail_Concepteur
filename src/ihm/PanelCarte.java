@@ -124,9 +124,5 @@ public class PanelCarte extends JPanel implements MouseListener
         // TODO Auto-generated method stub
         
     }
-
-
-   
-
     
 }

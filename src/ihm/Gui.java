@@ -28,7 +28,6 @@ public class Gui extends JFrame
         //positionner la fenetre au centre de l'écran
         this.panelCarte = new PanelCarte(this.ctrl);
         this.panelForm  = new PanelForm(this.ctrl);
-        this.addCarte("src/images/ajouter_carte.png");
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 panelCarte.resizeImage(panelCarte.getWidth(), panelCarte.getHeight());
