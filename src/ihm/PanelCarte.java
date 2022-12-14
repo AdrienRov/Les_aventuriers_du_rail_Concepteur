@@ -18,7 +18,6 @@ import java.awt.*;
 
 import java.awt.Color;
 
-rnvernvrn
 public class PanelCarte extends JPanel implements MouseListener, ActionListener
 {
     //image de fond de la carte 
@@ -33,7 +32,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private int cpt = 0;
     private Noeud noeudDepart;
     private Noeud noeudArrivee;
-    hfgfgfggg
+
     public PanelCarte(Controleur ctrl)
     {
         //définir l'image de fond du panel 
