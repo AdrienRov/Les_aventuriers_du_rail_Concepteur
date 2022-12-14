@@ -3,10 +3,12 @@ package src.ihm;
 import javax.swing.GrayFilter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import src.Controleur;
 import src.metier.Arete;
@@ -225,15 +227,42 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         else 
         {
             //modifier le noeud quand on clique dessus pop up pour modifier le nom ou supprimer le noeud 
+           
             System.out.println("modifier noeud");
             allNoeud =  this.ctrl.getListeNoeud();
             for(Noeud n : allNoeud)
                 if(n.getButton() == e.getSource())
                 {
                     System.out.println("noeud trouvé");
-                    String input = JOptionPane.showInputDialog("Nom du noeud");
-                    // si on clique sur annuler
-                    if(input == null) return;
+                    
+                    //pop up  pour modifier le nom avec un zone de texte ou une case à coché pour supprimer le noeud
+                    Object[] choix = {"Modifier le nom", "Supprimer le noeud"};
+                    JPanel panel = new JPanel();
+                    panel.setLayout(new GridLayout(1,1,2,2));
+                    
+                    // textfield pour modifier le nom
+                    JTextField text = new JTextField();
+                    text.setText(n.getNom());
+                    
+                    // checkbox pour supprimer le noeud
+                    JCheckBox check = new JCheckBox("Supprimer le noeud");
+                    panel.add(text);
+                    panel.add(check);
+                    JOptionPane.showMessageDialog(null, panel, "Modifier le noeud", JOptionPane.PLAIN_MESSAGE);
+                    String input = text.getText();
+
+                    // suppirmer le noeud si la case est coché et enlever le bouton du panel
+                    if(check.isSelected())
+                    {
+                        this.ctrl.supprimerNoeud(n);
+                        this.remove(n.getButton());
+                        this.repaint();
+                    }
+                    
+                
+                    
+                    // recuperer la valeur de la liste déroulante
+
                     n.setNom(input);
                     this.repaint();
                 }
