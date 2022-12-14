@@ -69,7 +69,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             for(Noeud noeud : this.allNoeud)
             {
                 g2d.setColor(Color.BLACK);
-                g2d.drawString(noeud.nomNoeud(), noeud.x()-10, noeud.y()-20);
+                g2d.drawString(noeud.getNom(), noeud.x()-10, noeud.y()-20);
             }
         }
         
@@ -200,7 +200,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             if(cpt == 0)
             {
                 for(Noeud n : allNoeud)
-                    if(n.btn() == e.getSource())
+                    if(n.getButton()  == e.getSource())
                         noeudDepart = n;
                 cpt++;
                 this.ctrl.notification("Selectionner le noeud d'arrivée");
@@ -209,13 +209,30 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             {
                 System.out.println("cpt = 1");
                 for(Noeud n : allNoeud)
-                    if(n.btn() == e.getSource())
+                    if(n.getButton() == e.getSource())
                         noeudArrivee = n;
                 this.ajouterTrajet(noeudDepart, noeudArrivee);
                 this.ctrl.setActiveTrajet(false);
                 cpt = 0;
                 
             }
+        }
+        else 
+        {
+            //modifier le noeud quand on clique dessus pop up pour modifier le nom ou supprimer le noeud 
+            System.out.println("modifier noeud");
+            allNoeud =  this.ctrl.getListeNoeud();
+            for(Noeud n : allNoeud)
+                if(n.getButton() == e.getSource())
+                {
+                    System.out.println("noeud trouvé");
+                    String input = JOptionPane.showInputDialog("Nom du noeud");
+                    n.setNom(input);
+                    this.repaint();
+                }
+
+
+
         }
     }
     
