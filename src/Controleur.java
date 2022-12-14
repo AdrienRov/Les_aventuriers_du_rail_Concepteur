@@ -96,8 +96,6 @@ public class Controleur
         gui.notification(message);
     }
 
-   
-
 
     public ArrayList<Noeud> getListeNoeud()
     {

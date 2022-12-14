@@ -161,6 +161,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             this.ajouteNoeud(e.getX(), e.getY());
             System.out.println("x: "+e.getX()+" y: "+e.getY());
             this.ctrl.setActiveNoeud(false);
+            this.ctrl.notification("Vous avez ajouté une ville");
         }
         
     }
@@ -214,6 +215,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 this.ajouterTrajet(noeudDepart, noeudArrivee);
                 this.ctrl.setActiveTrajet(false);
                 cpt = 0;
+                this.ctrl.notification("Vous avez ajouté un trajet");
                 
             }
         }
