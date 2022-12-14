@@ -59,6 +59,7 @@ public class PanelForm extends JPanel implements ActionListener
         //ouvrir l'arborecence de fichier pour choisir une image
         this.btnAjouterImage.addActionListener(this);
         this.btnAjouterNoeud.addActionListener(this);
+        this.btnAjouterTrajet.addActionListener(this);
 
         this.setBackground(new Color(35,31,32));
 
@@ -129,6 +130,11 @@ public class PanelForm extends JPanel implements ActionListener
             {
                 this.ctrl.afficherCarte(f.getAbsolutePath());
             }
+        }
+        if(e.getSource() == this.btnAjouterTrajet)
+        {
+            System.out.println("Ajouter un trajet");
+            this.ctrl.setActiveTrajet(true);
         }
     }
 }
