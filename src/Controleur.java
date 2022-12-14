@@ -71,8 +71,6 @@ public class Controleur
     public void setActiveNoeud(boolean active)
     {
         gui.activeAjouteNoeud(active);
-        
-
     }
 
     public boolean getActiveTrajet()
@@ -85,14 +83,17 @@ public class Controleur
         gui.activeAjouteTrajet(active);
     }
 
-    public void setSuivant()
+    public void notification(String message)
     {
+        gui.notification(message);
     }
 
     public ArrayList<Noeud> getListeNoeud()
     {
         return this.noeuds;
     }
+
+    public int getEtatSelectionNoeud(){return this.gui.getEtatSelectionNoeud();}
 
 
     public static void main(String[] args) 
