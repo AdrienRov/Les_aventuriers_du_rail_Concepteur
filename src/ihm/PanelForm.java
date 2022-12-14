@@ -51,14 +51,7 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnPrecedent       = new JButton("Precedent"               );
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
 
-<<<<<<< HEAD
         JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
-=======
-
-        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnAjouterTrajet, this.btnSuivant};
-
-        
->>>>>>> ca90e0a8bcedb6a512186acc7aa63bb408e24a18
         
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
