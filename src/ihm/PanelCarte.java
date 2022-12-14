@@ -35,6 +35,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.ctrl = ctrl;
         this.setLayout  (null);
         this.initNoeud();
+        this.image = new ImageIcon("src/img/carte.jpg").getImage();
         
         //adapter la taille de l'image au panel
         this.setFocusable(true);
