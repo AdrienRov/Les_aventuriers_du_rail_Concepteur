@@ -18,7 +18,7 @@ import java.awt.*;
 
 import java.awt.Color;
 
-
+rnvernvrn
 public class PanelCarte extends JPanel implements MouseListener, ActionListener
 {
     //image de fond de la carte 
