@@ -35,6 +35,7 @@ public class PanelForm extends JPanel implements ActionListener
     private JButton btnSuivant;
     private JButton btnPrecedent;
     private JPanel  panelMenu;
+    private JButton btnAjouterTrajet;
 
     public PanelForm(Controleur ctrl)
     {
@@ -48,8 +49,9 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
         this.btnPrecedent       = new JButton("Precedent"               );
+        this.btnAjouterTrajet = new JButton("Ajouter un trajet");
 
-        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant};
+        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
         
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
@@ -74,7 +76,7 @@ public class PanelForm extends JPanel implements ActionListener
                 g.gridy = i;
                 this.add(tabBtn[i], g);
             }
-            if(i == 5)
+            if(i == 6)
             {
                 tabBtn[i].setPreferredSize    (new Dimension(150, 50));
                 g.insets = new Insets (50,0,0,0);
@@ -82,7 +84,7 @@ public class PanelForm extends JPanel implements ActionListener
                 g.gridy = i;
                 this.add(tabBtn[i],g);
             }
-            if(i != 0 && i != 5)
+            if(i != 0 && i != 6)
             {
                 System.out.println("i = " + i);
                 tabBtn[i].setPreferredSize   (new Dimension(200, 50));

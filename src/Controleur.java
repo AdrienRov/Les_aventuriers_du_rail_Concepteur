@@ -78,6 +78,11 @@ public class Controleur
     {
     }
 
+    public ArrayList<Noeud> getListeNoeud()
+    {
+        return this.noeuds;
+    }
+
 
     public static void main(String[] args) 
     {
