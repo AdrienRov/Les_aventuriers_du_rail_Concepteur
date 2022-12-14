@@ -82,7 +82,10 @@ public class Controleur
     {
         return this.noeuds;
     }
-
+    public void supprimeNoeud(Noeud noeud)
+    {
+        this.noeuds.remove(noeud);
+    }
 
     public static void main(String[] args) 
     {

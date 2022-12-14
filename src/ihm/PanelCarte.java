@@ -32,6 +32,7 @@ public class PanelCarte extends JPanel implements MouseListener
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
         this.setLayout  (null);
+        this.initNoeud();
         
         //adapter la taille de l'image au panel
 
@@ -63,9 +64,22 @@ public class PanelCarte extends JPanel implements MouseListener
         g2d2.drawString(nom, n.x(), n.y());
     }
 
+    public void initNoeud()
+    {
+        if(this.allNoeud != null)
+        {
+            for (Noeud noeud : allNoeud) 
+            {
+                this.ajouteNoeud(noeud, noeud.nomNoeud());
+            }
+        }
+        
+    }
+
     public void resizeImage(int width, int height)
     {
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        this.initNoeud();
     }
    
 
@@ -85,6 +99,20 @@ public class PanelCarte extends JPanel implements MouseListener
             System.out.println("x: "+e.getX()+" y: "+e.getY());
             
             this.ctrl.setActiveNoeud(false);
+        }
+        else{
+            for (Noeud noeud : allNoeud) {
+                if(e.getX() >= noeud.x() && e.getX() <= noeud.x()+30 && e.getY() >= noeud.y() && e.getY() <= noeud.y()+30)
+                {
+                    int res = JOptionPane.showConfirmDialog(null, "Voulez vous supprimer le noeud " + noeud.nomNoeud() + " ? " );
+                    if (res == JOptionPane.YES_OPTION)
+                    {
+                        this.ctrl.supprimeNoeud(noeud);
+                        this.repaint();
+
+                    }
+                }
+            }
         }
         
     }
