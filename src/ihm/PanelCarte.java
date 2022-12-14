@@ -47,7 +47,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
     }
-
+aorhfpaiozerhfpoaizerhfaioêzhfiazeohf
+efaznebfpiberfpubarfpubaerfpuzrafjp
     public void addCarte(String path) 
     {
         this.image = new ImageIcon(path).getImage();
