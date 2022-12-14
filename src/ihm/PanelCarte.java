@@ -32,6 +32,7 @@ public class PanelCarte extends JPanel implements MouseListener
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
         this.setLayout  (null);
+        this.initNoeud();
         
         //adapter la taille de l'image au panel
         this.setFocusable(true);
@@ -62,9 +63,22 @@ public class PanelCarte extends JPanel implements MouseListener
         g2d2.drawString(nom, n.x(), n.y());
     }
 
+    public void initNoeud()
+    {
+        if(this.allNoeud != null)
+        {
+            for (Noeud noeud : allNoeud) 
+            {
+                this.ajouteNoeud(noeud, noeud.nomNoeud());
+            }
+        }
+        
+    }
+
     public void resizeImage(int width, int height)
     {
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        this.initNoeud();
     }
    
 
@@ -79,10 +93,9 @@ public class PanelCarte extends JPanel implements MouseListener
 
             //ajoute un carré sur la carte
             this.ajouteNoeud(n, input);
-            //récupére l'arrayList de noeuds
-            this.allNoeud = this.ctrl.getListeNoeud();
-            System.out.println("x: "+e.getX()+" y: "+e.getY());
             
+            System.out.println("x: "+e.getX()+" y: "+e.getY());
+
             this.ctrl.setActiveNoeud(false);
         }
         
