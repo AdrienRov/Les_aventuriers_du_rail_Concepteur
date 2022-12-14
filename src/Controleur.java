@@ -84,10 +84,6 @@ public class Controleur
     {
         gui.activeAjouteTrajet(active);
     }
-    
-
-
-
 
     public void setSuivant()
     {

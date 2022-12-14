@@ -93,7 +93,7 @@ public class PanelCarte extends JPanel implements MouseListener
 
             //ajoute un carré sur la carte
             this.ajouteNoeud(n, input);
-            
+            this.allNoeud = this.ctrl.getListeNoeud();
             System.out.println("x: "+e.getX()+" y: "+e.getY());
 
             this.ctrl.setActiveNoeud(false);
