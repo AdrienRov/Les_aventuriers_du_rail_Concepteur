@@ -44,7 +44,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g2d = (Graphics2D) g;d
+        g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
     }
 
