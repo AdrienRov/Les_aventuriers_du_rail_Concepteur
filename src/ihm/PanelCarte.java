@@ -1,6 +1,17 @@
 package src.ihm;
 
-import javax.swing.GrayFilter;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,15 +24,6 @@ import javax.swing.JTextField;
 import src.Controleur;
 import src.metier.Arete;
 import src.metier.Noeud;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.awt.*;
-
-import java.awt.Color;
 
 public class PanelCarte extends JPanel implements MouseListener, ActionListener
 {

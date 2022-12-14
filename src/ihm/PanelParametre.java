@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-
 import javax.swing.JPanel;
-
 import javax.swing.JTextField;
-
 
 import src.Controleur;
 

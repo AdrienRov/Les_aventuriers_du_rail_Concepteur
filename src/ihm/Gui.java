@@ -1,18 +1,14 @@
 package src.ihm;
 
 
-import javax.swing.ImageIcon;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.*;
-import java.io.ObjectInputStream.GetField;
-import java.awt.Toolkit;
-import java.awt.Dimension;
 
 import src.Controleur;
 
