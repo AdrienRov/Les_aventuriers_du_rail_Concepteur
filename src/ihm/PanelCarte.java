@@ -25,10 +25,15 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private Image image;
     private Graphics2D g2d;
     private Graphics2D g2d2;
+    
     private ArrayList<Noeud> allNoeud;
     private Controleur ctrl;
     private ArrayList<JButton> allBtnNoeud;
 
+    private int cpt = 0;
+    private Noeud noeudDepart;
+    private Noeud noeudArrivee;
+    hfgfgfggg
     public PanelCarte(Controleur ctrl)
     {
         //définir l'image de fond du panel 
@@ -68,8 +73,25 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         
         this.ctrl.ajouteNoeud(n);
         this.add(btn);
+        btn.addActionListener(this);
         this.repaint();
         
+    }
+
+    public void ajouterTrajet(Noeud noeudDepart, Noeud noeudArrivee)
+    {
+        System.out.println("ajouter trajet");
+        System.out.println(noeudDepart.x() + " " + noeudDepart.y());
+        System.out.println(noeudArrivee.x() + " " + noeudArrivee.y());
+        // desinner un trai entre les deux noeuds
+        g2d = (Graphics2D) this.getGraphics();
+        // en noir et epais 
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(5));
+        g2d.drawLine(noeudDepart.x()+10, noeudDepart.y()+10, noeudArrivee.x()+10, noeudArrivee.y()+10);
+
+
+
     }
 
 
@@ -85,6 +107,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void mouseClicked(MouseEvent e) {
         if (ctrl.getActiveNoeud())
         {
+            System.out.println("click");
             
             this.ajouteNoeud(e.getX(), e.getY());
             System.out.println("x: "+e.getX()+" y: "+e.getY());
@@ -120,6 +143,33 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        System.out.println("action");
+        if(this.ctrl.getActiveTrajet())
+        {
+            System.out.println("active trajet");
+            allNoeud =  this.ctrl.getListeNoeud();
+            if(cpt == 0)
+            {
+                for(Noeud n : allNoeud)
+                    if(n.btn() == e.getSource())
+                        noeudDepart = n;
+                cpt++;
+                
+            }
+            else if(cpt == 1)
+            {
+                System.out.println("cpt = 1");
+                for(Noeud n : allNoeud)
+                    if(n.btn() == e.getSource())
+                        noeudArrivee = n;
+                this.ajouterTrajet(noeudDepart, noeudArrivee);
+                this.ctrl.setActiveTrajet(false);
+                cpt = 0;
+                
+            }
+            
+            
+        }
        
 
         
