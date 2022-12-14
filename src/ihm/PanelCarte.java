@@ -32,6 +32,7 @@ public class PanelCarte extends JPanel implements MouseListener
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
         this.setLayout  (null);
+        this.initNoeud();
         
         //adapter la taille de l'image au panel
 
@@ -63,9 +64,22 @@ public class PanelCarte extends JPanel implements MouseListener
         g2d2.drawString(nom, n.x(), n.y());
     }
 
+    public void initNoeud()
+    {
+        if(this.allNoeud != null)
+        {
+            for (Noeud noeud : allNoeud) 
+            {
+                this.ajouteNoeud(noeud, noeud.nomNoeud());
+            }
+        }
+        
+    }
+
     public void resizeImage(int width, int height)
     {
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        this.initNoeud();
     }
    
 
@@ -85,8 +99,6 @@ public class PanelCarte extends JPanel implements MouseListener
 
             this.ctrl.setActiveNoeud(false);
         }
-
-       
         
     }
 
