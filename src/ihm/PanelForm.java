@@ -121,6 +121,7 @@ public class PanelForm extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.btnAjouterNoeud)
         {
+            this.ctrl.notification("Cliquer sur la map pour ajouter un noeud");
             this.ctrl.setActiveNoeud(true);
         }
         if(e.getSource() == this.btnAjouterImage)
@@ -134,6 +135,7 @@ public class PanelForm extends JPanel implements ActionListener
         if(e.getSource() == this.btnAjouterTrajet)
         {
             System.out.println("Ajouter un trajet");
+            this.ctrl.notification("Sélectionner un noeud de départ");
             this.ctrl.setActiveTrajet(true);
         }
     }
