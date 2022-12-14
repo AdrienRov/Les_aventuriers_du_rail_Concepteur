@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import src.Controleur;
+import src.metier.Arete;
 import src.metier.Noeud;
 
 import java.awt.Graphics;
@@ -26,6 +27,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private Graphics2D g2d2;
     
     private ArrayList<Noeud> allNoeud;
+    private ArrayList<Arete> allTrajets;
     private Controleur ctrl;
     private ArrayList<JButton> allBtnNoeud;
 
@@ -37,6 +39,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     {
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
+        this.allTrajets = new ArrayList<Arete>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
         //adapter la taille de l'image au panel
@@ -49,6 +52,19 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
+        this.allTrajets = this.ctrl.getAllTrajets();
+        this.allNoeud = this.ctrl.getAllNoeuds();
+        if(this.allTrajets != null)
+        {
+            for(Arete arete : this.allTrajets)
+            {
+                g2d.setColor(arete.getCouleur());
+                g2d.setStroke(new BasicStroke(5));
+                g2d.drawLine(arete.getNoeudDepart().x()+10, arete.getNoeudDepart().y()+10, arete.getNoeudarrive().x()+10, arete.getNoeudarrive().y()+10);
+            }
+        }
+        
+        
     }
 
     public void addCarte(String path) 
@@ -73,6 +89,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.ctrl.ajouteNoeud(n);
         this.add(btn);
         btn.addActionListener(this);
+        
         this.repaint();
         
     }
@@ -89,7 +106,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         g2d.setStroke(new BasicStroke(5));
         g2d.drawLine(noeudDepart.x()+10, noeudDepart.y()+10, noeudArrivee.x()+10, noeudArrivee.y()+10);
 
-
+        Arete arete = new Arete(noeudDepart, noeudArrivee,1,Color.BLACK);
+        this.ctrl.ajouteArete(arete);
+        this.repaint();
 
     }
 
@@ -166,15 +185,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 cpt = 0;
                 
             }
-            
-            
         }
-       
-
-        
-
-
-        
     }
     
 }
