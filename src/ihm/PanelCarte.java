@@ -12,7 +12,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.*;
-
+import java.util.ArrayList;
 import java.awt.*;
 
 import java.awt.Color;
@@ -24,7 +24,7 @@ public class PanelCarte extends JPanel implements MouseListener
     private Image image  ;
     private Graphics2D g2d;
     private Graphics2D g2d2;
- 
+    private ArrayList<Noeud> allNoeud;
     private Controleur ctrl;
 
     public PanelCarte(Controleur ctrl)
@@ -80,9 +80,10 @@ public class PanelCarte extends JPanel implements MouseListener
 
             //ajoute un carré sur la carte
             this.ajouteNoeud(n, input);
-            
+            //récupére l'arrayList de noeuds
+            this.allNoeud = this.ctrl.getListeNoeud();
             System.out.println("x: "+e.getX()+" y: "+e.getY());
-
+            
             this.ctrl.setActiveNoeud(false);
         }
         

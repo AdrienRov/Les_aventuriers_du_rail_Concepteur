@@ -49,9 +49,9 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
         this.btnPrecedent       = new JButton("Precedent"               );
-        this.btnAjouterTrajet = new JButton("Ajouter un trajet");
+        this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
 
-        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
+        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNeud, this.btnCouleurNoeud, this.btnParametres, this.btnAjouterTrajet, this.btnSuivant};
         
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
@@ -60,10 +60,7 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnAjouterImage.addActionListener(this);
         this.btnAjouterNeud.addActionListener(this);
 
-
         this.setBackground(new Color(35,31,32));
-
-       
 
         for(int i = 0; i < tabBtn.length; i++)
         {
@@ -86,7 +83,6 @@ public class PanelForm extends JPanel implements ActionListener
             }
             if(i != 0 && i != 6)
             {
-                System.out.println("i = " + i);
                 tabBtn[i].setPreferredSize   (new Dimension(200, 50));
                 g.insets = new Insets(10,10,10,10);
                 g.gridx = 0;
@@ -130,6 +126,11 @@ public class PanelForm extends JPanel implements ActionListener
             {
                 this.ctrl.afficherCarte(f.getAbsolutePath());
             }
+        }
+
+        if(e.getSource() == this.btnParametres)
+        {
+            
         }
     }
 }
