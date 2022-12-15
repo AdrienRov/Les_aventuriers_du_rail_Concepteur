@@ -37,7 +37,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private Controleur ctrl;
     private ArrayList<JButton> allBtnNoeud;
 
-    private int cpt = 0;
+    private int cpt  = 0;
+    private int etat = 0;
     private Noeud noeudDepart;
     private Noeud noeudArrivee;
 
@@ -48,6 +49,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.allTrajets = new ArrayList<Arete>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
+        
         //adapter la taille de l'image au panel
         this.setFocusable(true);
         this.addMouseListener(this);
@@ -155,13 +157,17 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
     }
+    public void setEtatPanel(int etat)
+    {
+        this.etat = etat;
+    }
 
     public int getEtatSelectionNoeud(){return this.cpt;}
    
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (ctrl.getActiveNoeud())
+        if ( ctrl.getEtatPanel()==1)
         {
             System.out.println("click");
             
@@ -201,7 +207,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void actionPerformed(ActionEvent e) 
     {
         System.out.println("action");
-        if(this.ctrl.getActiveTrajet())
+        
+        if(this.ctrl.getEtatPanel()==2)
         {
             System.out.println("active trajet");
             allNoeud =  this.ctrl.getListeNoeud();
@@ -213,16 +220,30 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 cpt++;
                 this.ctrl.notification("Selectionner le noeud d'arrivée");
             }
-            else if(cpt == 1)
+            else if(cpt == 1 )
             {
                 System.out.println("cpt = 1");
                 for(Noeud n : allNoeud)
                     if(n.getButton() == e.getSource())
-                        noeudArrivee = n;
-                this.ajouterTrajet(noeudDepart, noeudArrivee);
-                this.ctrl.setActiveTrajet(false);
+                    {
+                        if(n != noeudDepart)
+                        {
+                            noeudArrivee = n;
+                            this.ajouterTrajet(noeudDepart, noeudArrivee);
+                            this.ctrl.setActiveTrajet(false);
+                            this.ctrl.notification("Vous avez ajouté un trajet");
+                        }
+                        else 
+                        {
+                            this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
+                            return;
+                        }
+
+                    }
+                        
+                
+                
                 cpt = 0;
-                this.ctrl.notification("Vous avez ajouté un trajet");
                 
             }
         }
@@ -260,9 +281,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                         this.remove(n.getButton());
                         this.repaint();
                     }
-                    
-                
-                    
                     // recuperer la valeur de la liste déroulante
 
                     n.setNom(input);

@@ -39,7 +39,7 @@ public class Gui extends JFrame
                 panelCarte.resizeImage(panelCarte.getWidth(), panelCarte.getHeight());
             }
         });
-        
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(this.panelForm, BorderLayout.WEST);
         this.add(this.panelCarte, BorderLayout.CENTER);
