@@ -10,12 +10,15 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+<<<<<<< HEAD
 import javax.swing.colorchooser.*;
+=======
+import javax.swing.JComponent;
+>>>>>>> 493ea906d774e4afecf02ed7a8738c6e9c126319
 
 import src.Controleur;
 
@@ -29,6 +32,7 @@ public class PanelForm extends JPanel implements ActionListener
     private JButton btnSuivant;
     private JButton btnPrecedent;
     private JButton btnAjouterTrajet;
+    private JButton btnGenererXml;
     private int etat = 0;
     private boolean etatParam = false;
 
@@ -44,10 +48,12 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnSuivant         = new JButton("Suivant"                 );
         this.btnPrecedent       = new JButton("Precedent"               );
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
+        this.btnGenererXml      = new JButton("Générer le fichier XML"  );
         
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
         this.btnPrecedent.setBackground (Color.RED);
+        this.btnGenererXml.setBackground(Color.GREEN);
         //ouvrir l'arborecence de fichier pour choisir une image
         this.btnAjouterImage.addActionListener(this);
         this.btnAjouterNoeud.addActionListener(this);
@@ -56,6 +62,7 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnSuivant.addActionListener(this);
         this.btnPrecedent.addActionListener(this);
         this.btnParametres.addActionListener(this);
+        this.btnGenererXml.addActionListener(this);
 
         this.setBackground(new Color(35,31,32));
 
@@ -81,21 +88,24 @@ public class PanelForm extends JPanel implements ActionListener
 
     public void initPanel(int numPanel)
     {
-        if(numPanel >= 3)
+        if(numPanel >= 5)
+        if(numPanel >= 5)
         {
-            this.etat = 2;
+            this.etat = 4;
+            this.etat = 4;
         }
         if(numPanel <= 0)
         {
             this.etat = 0;
         }
+        
         numPanel = this.etat;
         System.out.println("numPanel = " + numPanel);
         this.removeAll();
-        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
+        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet, this.btnGenererXml};
         GridBagConstraints g = new GridBagConstraints();
         g.insets = new Insets(10,10,10,10);
-                
+
         for(JButton btn : tabBtn)
         {
             btn.setPreferredSize    (new Dimension(150, 50));
@@ -124,9 +134,22 @@ public class PanelForm extends JPanel implements ActionListener
             g.gridy = g.gridy + 1;
             this.add(tabBtn[6], g);
         }
-        g.gridy = g.gridy + 1;
-        this.add(tabBtn[5], g);
-
+        if(numPanel == 3)
+        {
+            g.gridy = g.gridy + 1;
+            this.ctrl.setEtatPanel(numPanel);
+            this.add(tabBtn[4], g);
+        }
+        if(numPanel == 4)
+        {
+            g.gridy = g.gridy + 50;
+            this.add(tabBtn[7], g);
+        }
+        else
+        {
+            g.gridy = g.gridy + 1;
+            this.add(tabBtn[5], g);
+        }
         this.repaint();
     }
 
@@ -168,6 +191,11 @@ public class PanelForm extends JPanel implements ActionListener
             this.etatParam = !this.etatParam;
             this.ctrl.getParametre(this.etatParam);
             System.out.println("Parametres"+ this.etatParam);
+        }
+        if(e.getSource() == this.btnGenererXml)
+        {
+            this.ctrl.genererXml();
+            System.out.println("Générer XML");
         }
     }
 }

@@ -37,7 +37,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private Controleur ctrl;
     private ArrayList<JButton> allBtnNoeud;
 
-    private int cpt = 0;
+    private int cpt  = 0;
+    private int etat = 0;
     private Noeud noeudDepart;
     private Noeud noeudArrivee;
 
@@ -155,6 +156,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
     }
+    public void setEtatPanel(int etat)
+    {
+        this.etat = etat;
+    }
 
     public int getEtatSelectionNoeud(){return this.cpt;}
    
@@ -260,9 +265,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                         this.remove(n.getButton());
                         this.repaint();
                     }
-                    
-                
-                    
                     // recuperer la valeur de la liste déroulante
 
                     n.setNom(input);
