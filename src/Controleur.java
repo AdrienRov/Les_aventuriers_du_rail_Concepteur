@@ -21,6 +21,10 @@ public class Controleur
     private ArrayList<Noeud> noeuds;
     private ArrayList<Arete> aretes;
     private int numPanel = 0;
+    private int nbJoueur;
+    private int nbWagons;
+    private int nbWagonsFin;
+    private int nbPoint1;
 
     public Controleur()
     {
@@ -119,6 +123,26 @@ public class Controleur
     public void getParametre(boolean etat)
     {
         this.gui.getParametre(etat);
+    }
+
+    public void setNombreJoueur(int nombre)
+    {
+        this.nbJoueur = nombre;   
+    }
+
+    public void setNombreWagon(int nombre)
+    {
+        this.nbWagons = nombre;
+    }
+
+    public void setNombreWagonFin(int nombre)
+    {
+        this.nbWagonsFin = nombre;
+    }
+
+    public void setNombrePoint1(int nombre)
+    {
+        this.nbPoint1 = nombre;
     }
 
     public static void main(String[] args) 
