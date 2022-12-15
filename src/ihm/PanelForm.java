@@ -1,7 +1,9 @@
 package src.ihm;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,8 +12,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.colorchooser.*;
 
 import src.Controleur;
 
@@ -34,7 +38,7 @@ public class PanelForm extends JPanel implements ActionListener
         this.setLayout(new GridBagLayout());
         
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
-        this.btnAjouterNoeud    = new JButton("Ajouter un noeud"         );
+        this.btnAjouterNoeud    = new JButton("Ajouter un noeud"        );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
@@ -47,6 +51,7 @@ public class PanelForm extends JPanel implements ActionListener
         //ouvrir l'arborecence de fichier pour choisir une image
         this.btnAjouterImage.addActionListener(this);
         this.btnAjouterNoeud.addActionListener(this);
+        this.btnCouleurNoeud.addActionListener(this);
         this.btnAjouterTrajet.addActionListener(this);
         this.btnSuivant.addActionListener(this);
         this.btnPrecedent.addActionListener(this);
