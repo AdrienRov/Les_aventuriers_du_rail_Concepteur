@@ -8,10 +8,10 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JComponent;
 
 import src.Controleur;
 
@@ -76,21 +76,22 @@ public class PanelForm extends JPanel implements ActionListener
 
     public void initPanel(int numPanel)
     {
-        if(numPanel >= 3)
+        if(numPanel >= 5)
         {
-            this.etat = 2;
+            this.etat = 4;
         }
         if(numPanel <= 0)
         {
             this.etat = 0;
         }
+        
         numPanel = this.etat;
         System.out.println("numPanel = " + numPanel);
         this.removeAll();
         JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet};
         GridBagConstraints g = new GridBagConstraints();
         g.insets = new Insets(10,10,10,10);
-                
+
         for(JButton btn : tabBtn)
         {
             btn.setPreferredSize    (new Dimension(150, 50));
@@ -118,6 +119,12 @@ public class PanelForm extends JPanel implements ActionListener
         {
             g.gridy = g.gridy + 1;
             this.add(tabBtn[6], g);
+        }
+        if(numPanel == 3)
+        {
+            g.gridy = g.gridy + 1;
+            this.ctrl.setEtatPanel(numPanel);
+            this.add(tabBtn[4], g);
         }
         g.gridy = g.gridy + 1;
         this.add(tabBtn[5], g);

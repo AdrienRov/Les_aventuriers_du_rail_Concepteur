@@ -116,6 +116,12 @@ public class Controleur
     {
         this.gui.refresh();
     }
+
+    public void setEtatPanel(int etat)
+    {
+        this.gui.setEtatPanel(etat);
+    }
+
     public void getParametre(boolean etat)
     {
         this.gui.getParametre(etat);
