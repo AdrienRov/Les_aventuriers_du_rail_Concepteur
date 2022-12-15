@@ -7,6 +7,9 @@ import src.metier.CartesVoitures;
 import src.metier.Joueur;
 import src.metier.Noeud;
 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -116,9 +119,51 @@ public class Controleur
     {
         this.gui.refresh();
     }
+
+    public void setEtatPanel(int etat)
+    {
+        this.gui.setEtatPanel(etat);
+    }
+
     public void getParametre(boolean etat)
     {
         this.gui.getParametre(etat);
+    }
+    public void genererXml()
+    {
+        try
+
+        {
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("FichierSortie.xml"), "UTF-8"));
+
+            pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+            pw.println("<jeu>");
+            pw.println("\t<listeNoeuds>");
+            for (Noeud n : noeuds) {
+                pw.println("\t\t<noeud nom=\"" + n.getNom() + "\">");
+                pw.println("\t\t\t<coordonees x=\"" + n.x() + "\" y=\"" + n.y() + "\"/>");
+                pw.println("\t\t</noeud>");
+            }
+            pw.println("\t</listeNoeuds>");
+            pw.println("\t<listeArete>");
+            for (Arete arete : aretes) {
+                pw.println("\t\t<arete>");
+                pw.println("\t\t\t<noeudDepart nom=\"" + arete.getNoeudDepart().getNom() + "\"/>");
+                pw.println("\t\t\t<noeudArrive nom=\"" + arete.getNoeudarrive().getNom() + "\"/>");
+                pw.println("\t\t\t<coordonneesDepart x=\"" + arete.getN2x() + "\" y=\"" + arete.getN2y() + "\"/>");
+                pw.println("\t\t\t<coordonneesArrive x=\"" + arete.getN1x() + "\" y=\"" + arete.getN1y() + "\"/>");
+                pw.println("\t\t\t<nbWagon=\"" + arete.getNbVoiture() + "\"/>");
+                pw.println("\t\t\t<couleur=\"" + arete.getCouleur() + "\"/>");
+                pw.println("\t\t</arete>");
+            }
+            pw.println("\t</listeArete>");
+            pw.println("</jeu>");
+
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) 
