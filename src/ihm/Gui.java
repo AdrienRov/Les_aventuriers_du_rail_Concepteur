@@ -67,10 +67,6 @@ public class Gui extends JFrame
         this.activeNoeud = active ;
     
     }
-    public void setEtatPanel(int etat)
-    {
-        this.etat = etat;
-    }
 
     public boolean getActiveTrajet()
     {

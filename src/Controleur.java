@@ -110,6 +110,7 @@ public class Controleur
     public void supprimerNoeud(Noeud noeud)
     {
         this.noeuds.remove(noeud);
+        System.out.println("Noeud supprimé");
     }
     
 
@@ -119,10 +120,15 @@ public class Controleur
     {
         this.gui.refresh();
     }
-
+    //Modifier le numero du panel actuel
     public void setEtatPanel(int etat)
     {
-        this.gui.setEtatPanel(etat);
+        this.numPanel = etat;
+    }
+    //Obtenir le numero du panel actuel
+    public int getEtatPanel()
+    {
+        return this.numPanel;
     }
 
     public void getParametre(boolean etat)

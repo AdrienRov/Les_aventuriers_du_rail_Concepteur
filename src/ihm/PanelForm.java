@@ -2,6 +2,7 @@ package src.ihm;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
 
@@ -81,7 +83,6 @@ public class PanelForm extends JPanel implements ActionListener
     public void initPanel(int numPanel)
     {
         if(numPanel >= 5)
-        if(numPanel >= 5)
         {
             this.etat = 4;
             this.etat = 4;
@@ -118,18 +119,23 @@ public class PanelForm extends JPanel implements ActionListener
         if(numPanel == 1)
         {
             g.gridy = g.gridy + 5;
-            this.add(tabBtn[2], g);
+            JLabel label = new JLabel("<html><center>Cliquer sur <br>la mappe pour <br>placer un nœud</center></html>");
+            label.setForeground(Color.WHITE);
+            label.setFont(new Font("Arial", Font.BOLD, 20));
+            this.add(label, g);
             
         }
         if(numPanel == 2)
         {
             g.gridy = g.gridy + 1;
-            this.add(tabBtn[6], g);
+            JLabel label = new JLabel("<html><center>Cliquer sur <br> deux nœuds pour <br> créer une arête</center></html>");
+            label.setForeground(Color.WHITE);
+            label.setFont(new Font("Arial", Font.BOLD, 20));
+            this.add(label, g);
         }
         if(numPanel == 3)
         {
             g.gridy = g.gridy + 1;
-            this.ctrl.setEtatPanel(numPanel);
             this.add(tabBtn[4], g);
         }
         if(numPanel == 4)
@@ -142,6 +148,7 @@ public class PanelForm extends JPanel implements ActionListener
             g.gridy = g.gridy + 1;
             this.add(tabBtn[5], g);
         }
+        this.ctrl.setEtatPanel(numPanel);
         this.repaint();
     }
 

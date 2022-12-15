@@ -166,7 +166,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (ctrl.getActiveNoeud())
+        if ( ctrl.getEtatPanel()==1)
         {
             System.out.println("click");
             
@@ -206,7 +206,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void actionPerformed(ActionEvent e) 
     {
         System.out.println("action");
-        if(this.ctrl.getActiveTrajet())
+        
+        if(this.ctrl.getEtatPanel()==2)
         {
             System.out.println("active trajet");
             allNoeud =  this.ctrl.getListeNoeud();
@@ -218,7 +219,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 cpt++;
                 this.ctrl.notification("Selectionner le noeud d'arrivée");
             }
-            else if(cpt == 1)
+            else if(cpt == 1 )
             {
                 System.out.println("cpt = 1");
                 for(Noeud n : allNoeud)
@@ -228,7 +229,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 this.ctrl.setActiveTrajet(false);
                 cpt = 0;
                 this.ctrl.notification("Vous avez ajouté un trajet");
-                
             }
         }
         else 
