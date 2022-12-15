@@ -34,11 +34,7 @@ public class Gui extends JFrame
         this.panelForm  = new PanelForm(this.ctrl);
         this.panelParametre = new PanelParametre(this.ctrl);
         this.panelNotification = new JPanel();
-        this.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent componentEvent) {
-                panelCarte.resizeImage(panelCarte.getWidth(), panelCarte.getHeight());
-            }
-        });
+        this.setResizable(false);        
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(this.panelForm, BorderLayout.WEST);
