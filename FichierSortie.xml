@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jeu>
 	<listeNoeuds>
+		<noeud nom="fylfyl">
+			<coordonees x="494" y="323"/>
+		</noeud>
+		<noeud nom="thrthrtj">
+			<coordonees x="942" y="304"/>
+		</noeud>
+		<noeud nom="rye">
+			<coordonees x="600" y="394"/>
+		</noeud>
 	</listeNoeuds>
 	<listeArete>
+		<arete>
+			<noeudDepart nom="fylfyl"/>
+			<noeudArrive nom="rye"/>
+			<coordonneesDepart x="494" y="323"/>
+			<coordonneesArrive x="600" y="394"/>
+			<nbWagon="1"/>
+			<couleur="java.awt.Color[r=0,g=255,b=0]"/>
+		</arete>
+		<arete>
+			<noeudDepart nom="rye"/>
+			<noeudArrive nom="thrthrtj"/>
+			<coordonneesDepart x="600" y="394"/>
+			<coordonneesArrive x="942" y="304"/>
+			<nbWagon="3"/>
+			<couleur="java.awt.Color[r=0,g=255,b=0]"/>
+		</arete>
 	</listeArete>
+	<listeParametres>
+		<parametre>
+			<nbJoueur="1"/>
+			<nbWagon="1"/>
+			<nbWagonFin="1"/>
+			<nbPoint1="1"/>
+			<nbPoint2="1"/>
+		</parametre>
+	</listeParametres>
 </jeu>

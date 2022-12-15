@@ -28,6 +28,12 @@ public class Controleur
     private int nbWagons;
     private int nbWagonsFin;
     private int nbPoint1;
+    private int nbPoint2;
+    private int nbPoint3;
+    private int nbPoint4;
+    private int nbPoint5;
+    private int nbPoint6;
+    private int nbJoueurDoublesVoies;
 
     public Controleur()
     {
@@ -167,6 +173,16 @@ public class Controleur
                 pw.println("\t\t</arete>");
             }
             pw.println("\t</listeArete>");
+            pw.println("\t<listeParametres>");
+            pw.println("\t\t<parametre>");
+            pw.println("\t\t\t<nbJoueur=\"" + this.nbJoueur + "\"/>");
+            pw.println("\t\t\t<nbWagon=\"" + this.nbWagons + "\"/>");
+            pw.println("\t\t\t<nbWagonFin=\"" + this.nbWagonsFin + "\"/>");
+            pw.println("\t\t\t<nbPoint1=\"" + this.nbPoint1 + "\"/>");
+            pw.println("\t\t\t<nbPoint2=\"" + this.nbPoint2 + "\"/>");
+            pw.println("\t\t</parametre>");
+            pw.println("\t</listeParametres>");
+
             pw.println("</jeu>");
 
             pw.close();
@@ -176,24 +192,54 @@ public class Controleur
 
     }
 
-    public void setNombreJoueur(int nombre)
+    public void setNbJoueur(int nombre)
     {
         this.nbJoueur = nombre;   
     }
 
-    public void setNombreWagon(int nombre)
+    public void setNbWagonJoueur(int nombre)
     {
         this.nbWagons = nombre;
     }
 
-    public void setNombreWagonFin(int nombre)
+    public void setNbWagonFinPartie(int nombre)
     {
         this.nbWagonsFin = nombre;
     }
 
-    public void setNombrePoint1(int nombre)
+    public void setNbPoint1Wagon(int nombre)
     {
         this.nbPoint1 = nombre;
+    }
+
+    public void setNbPoint2Wagon(int nombre)
+    {
+        this.nbPoint2 = nombre;
+    }
+
+    public void setNbPoint3Wagon(int nombre)
+    {
+        this.nbPoint3 = nombre;
+    }
+
+    public void setNbPoint4Wagon(int nombre)
+    {
+        this.nbPoint4 = nombre;
+    }
+
+    public void setNbPoint5Wagon(int nombre)
+    {
+        this.nbPoint5 = nombre;
+    }
+
+    public void setNbPoint6Wagon(int nombre)
+    {
+        this.nbPoint6 = nombre;
+    }
+
+    public void setNbJoueurDoublesVoies(int nombre)
+    {
+        this.nbJoueurDoublesVoies = nombre;
     }
 
     public static void main(String[] args) 

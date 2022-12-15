@@ -10,11 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.*;
 
+import java.awt.event.*;
+
 import src.Controleur;
 
 
 
-public class PanelParametre extends JPanel 
+public class PanelParametre extends JPanel implements ActionListener
 {
 
     private JTextField texte1;
@@ -41,6 +43,7 @@ public class PanelParametre extends JPanel
     private JButton btnSauvegarder;
     private Controleur ctrl;
     private JPanel panelCentre;
+    private JLabel labelTitre;
 
     public PanelParametre(Controleur ctrl)
     {
@@ -69,6 +72,7 @@ public class PanelParametre extends JPanel
         label9 = new JLabel("Nombre de points pour 6 wagons");
         texte10 = new JTextField();
         label10 = new JLabel("<html>À partir de combien de joueur voulez </br>vous ajouter les doubles voies</html>");
+        labelTitre = new JLabel("Paramètres");
         btnSauvegarder = new JButton("Sauvegarder");
 
         JTextField[] tabJTextFields = {  this.texte1, this.texte2, this.texte3, this.texte4, this.texte5, this.texte6, this.texte7,this.texte8,this.texte9,this.texte10};
@@ -97,18 +101,43 @@ public class PanelParametre extends JPanel
             this.panelCentre.add(tLabels[i]);
             this.panelCentre.add(tabJTextFields[i]);
         }
+        //centrer le titre
+        this.labelTitre.setHorizontalAlignment(JLabel.CENTER);
 
-        this.add(this.panelCentre, BorderLayout.CENTER);
+        this.labelTitre.setForeground(Color.WHITE);
+        this.labelTitre.setFont(new Font("Arial", Font.BOLD, 20));
+        this.btnSauvegarder.setPreferredSize(new Dimension(100, 20));
+        this.btnSauvegarder.setFont(new Font("Arial", Font.BOLD, 10));
+        this.btnSauvegarder.addActionListener(this);
 
- 
 
-        
+        this.add(this.labelTitre, BorderLayout.NORTH);
+        this.add(this.btnSauvegarder, BorderLayout.SOUTH);
+        this.add(this.panelCentre, BorderLayout.CENTER);    
+
+
 
         //récupérer les valurs des textes et les envoyer au controleur
-        this.texte1.addActionListener(e -> this.ctrl.setNombreJoueur(Integer.parseInt(this.texte1.getText())));
-        this.texte2.addActionListener(e -> this.ctrl.setNombreWagon(Integer.parseInt(this.texte2.getText())));
-        this.texte3.addActionListener(e -> this.ctrl.setNombreWagonFin(Integer.parseInt(this.texte3.getText())));
-        this.texte4.addActionListener(e -> this.ctrl.setNombrePoint1(Integer.parseInt(this.texte4.getText())));
+        
+
     }
-    
+    public void actionPerformed(ActionEvent e) 
+    {
+        if (e.getSource() == this.btnSauvegarder) 
+        {
+            System.out.println("Sauvegarder");
+            //récupérer les valeurs des textes et les envoyer au controleur
+            this.ctrl.setNbJoueur(Integer.parseInt(this.texte1.getText()));
+            this.ctrl.setNbWagonJoueur(Integer.parseInt(this.texte2.getText()));
+            this.ctrl.setNbWagonFinPartie(Integer.parseInt(this.texte3.getText()));
+            this.ctrl.setNbPoint1Wagon(Integer.parseInt(this.texte4.getText()));
+            this.ctrl.setNbPoint2Wagon(Integer.parseInt(this.texte5.getText()));
+            this.ctrl.setNbPoint3Wagon(Integer.parseInt(this.texte6.getText()));
+            this.ctrl.setNbPoint4Wagon(Integer.parseInt(this.texte7.getText()));
+            this.ctrl.setNbPoint5Wagon(Integer.parseInt(this.texte8.getText()));
+            this.ctrl.setNbPoint6Wagon(Integer.parseInt(this.texte9.getText()));
+            this.ctrl.setNbJoueurDoublesVoies(Integer.parseInt(this.texte10.getText()));
+            
+        }
+    }
 }
