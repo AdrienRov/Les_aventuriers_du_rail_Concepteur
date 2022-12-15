@@ -48,6 +48,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.allTrajets = new ArrayList<Arete>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
+        
         //adapter la taille de l'image au panel
         this.setFocusable(true);
         this.addMouseListener(this);
@@ -218,11 +219,26 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                 System.out.println("cpt = 1");
                 for(Noeud n : allNoeud)
                     if(n.getButton() == e.getSource())
-                        noeudArrivee = n;
-                this.ajouterTrajet(noeudDepart, noeudArrivee);
-                this.ctrl.setActiveTrajet(false);
+                    {
+                        if(n != noeudDepart)
+                        {
+                            noeudArrivee = n;
+                            this.ajouterTrajet(noeudDepart, noeudArrivee);
+                            this.ctrl.setActiveTrajet(false);
+                            this.ctrl.notification("Vous avez ajouté un trajet");
+                        }
+                        else 
+                        {
+                            this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
+                            return;
+                        }
+
+                    }
+                        
+                
+                
                 cpt = 0;
-                this.ctrl.notification("Vous avez ajouté un trajet");
+                
                 
             }
         }
