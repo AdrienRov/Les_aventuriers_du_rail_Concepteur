@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import src.Controleur;
+import src.metier.Noeud;
 
 public class PanelForm extends JPanel implements ActionListener
 {
@@ -28,6 +32,9 @@ public class PanelForm extends JPanel implements ActionListener
     private JButton btnPrecedent;
     private JButton btnAjouterTrajet;
     private JButton btnGenererXml;
+    private JTable table;
+    private Object[][] donnees = {{"", "", ""}};
+    private String[] entetes = {"Nom", "X", "Y"};
     private int etat = 0;
     private boolean etatParam = false;
 
@@ -45,6 +52,7 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
         this.btnGenererXml      = new JButton("Générer le fichier XML"  );
         
+        this.table = new JTable(this.donnees, this.entetes);
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
         this.btnPrecedent.setBackground (Color.RED);
@@ -123,8 +131,11 @@ public class PanelForm extends JPanel implements ActionListener
             JLabel label = new JLabel("<html><center>Cliquer sur <br>la mappe pour <br>placer un nœud</center></html>");
             label.setForeground(Color.WHITE);
             label.setFont(new Font("Arial", Font.BOLD, 20));
-            this.add(label, g);
-            
+            this.add(label, g);  
+            g.gridy = g.gridy + 1;
+            JScrollPane scrollPane = new JScrollPane(this.table);
+            scrollPane.setPreferredSize(new Dimension(200, 150));
+            this.add(scrollPane, g);
         }
         if(numPanel == 2)
         {
@@ -151,7 +162,31 @@ public class PanelForm extends JPanel implements ActionListener
         }
         this.ctrl.setEtatPanel(numPanel);
         this.repaint();
+        this.revalidate();
     }
+
+    public void refreshTabNoeud()
+    {
+        System.out.println("refreshTabNoeud");
+        if(this.ctrl.getListeNoeud().isEmpty())
+        {
+            Object[][] donnees = {{"", "", ""}};
+            this.table = new JTable(donnees, entetes);
+            return;
+        }
+        Object[][] donnees = new Object[this.ctrl.getListeNoeud().size()][3];
+        String[] entetes = {"Nom", "X", "Y"};
+        for(int i = 0; i < this.ctrl.getListeNoeud().size(); i++)
+        {
+            Noeud n = this.ctrl.getListeNoeud().get(i);
+            System.out.println("VALLLLLLL = "+n.getNom());
+            donnees[i][0] = n.getNom();
+            donnees[i][1] = n.x();
+            donnees[i][2] = n.y();
+        }
+        this.table = new JTable(donnees, entetes);
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) 

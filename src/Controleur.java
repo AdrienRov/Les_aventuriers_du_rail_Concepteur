@@ -72,6 +72,7 @@ public class Controleur
     public void ajouteNoeud(Noeud noeud)
     {
         this.noeuds.add(noeud);
+        this.gui.refreshTabNoeud();
     }
 
     public void ajouteArete(Arete arete)
@@ -132,6 +133,8 @@ public class Controleur
                 this.itNoeud.remove();
             }
         }
+        
+        this.gui.refreshTabNoeud();
     }
     
 

@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import src.Controleur;
+import src.metier.Noeud;
 
 
 public class Gui extends JFrame 
@@ -104,7 +105,13 @@ public class Gui extends JFrame
         this.repaint();
         this.revalidate();
     }
-    
+    public void refreshTabNoeud()
+    {
+        System.out.println("refresh tab noeud");
+        this.panelForm.refreshTabNoeud();
+        this.panelForm.initPanel(1);
+    }
+   
     
     public int getEtatSelectionNoeud(){return this.panelCarte.getEtatSelectionNoeud();}
 
