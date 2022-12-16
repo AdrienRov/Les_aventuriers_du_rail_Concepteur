@@ -145,6 +145,12 @@ public class Controleur
     {
         this.gui.getParametre(etat);
     }
+
+    public void getParametreSuivant(boolean etatSuiv)
+    {
+        this.gui.getParametreSuivant(etatSuiv);
+    }
+    
     public void genererXml()
     {
         try
