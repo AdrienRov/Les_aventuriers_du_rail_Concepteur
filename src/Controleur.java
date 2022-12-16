@@ -157,9 +157,14 @@ public class Controleur
         this.gui.getParametre(etat);
     }
 
-    public void getParametreSuivant(boolean etatSuiv)
+    public void getParametreSuivant()
     {
-        this.gui.getParametreSuivant(etatSuiv);
+        this.gui.getParametreSuivant();
+    }
+
+    public void afficherPanelParam()
+    {
+        this.gui.afficherPanelParametre();
     }
     
     public void genererXml()

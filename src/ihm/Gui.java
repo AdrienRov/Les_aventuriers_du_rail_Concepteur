@@ -89,18 +89,18 @@ public class Gui extends JFrame
         this.repaint();
         this.revalidate();
     }
-    public void getParametreSuivant(boolean active)
+    public void getParametreSuivant()
     {
-        if(active == true)
-        {
-            this.remove(this.panelParametre);
-            this.add(this.panelParamSuivant, BorderLayout.CENTER);
-        }
-        if(active == false)
-        {
-            this.remove(this.panelParamSuivant);
-            this.add(this.panelParametre, BorderLayout.CENTER);
-        }
+        this.remove(this.panelParametre);
+        this.add(this.panelParamSuivant, BorderLayout.CENTER);
+        this.repaint();
+        this.revalidate();
+    }
+
+    public void afficherPanelParametre()
+    {
+        this.remove(this.panelParamSuivant);
+        this.add(this.panelParametre, BorderLayout.CENTER);
         this.repaint();
         this.revalidate();
     }

@@ -33,7 +33,6 @@ public class PanelParametre extends JPanel implements ActionListener
     private JPanel panelSud;
     private JLabel labelTitre;
 
-    private boolean etatParamSuiv = false;
 
     public PanelParametre(Controleur ctrl)
     {
@@ -181,9 +180,7 @@ public class PanelParametre extends JPanel implements ActionListener
 
         if(e.getSource() == this.btnSuivant)
         {
-            this.etatParamSuiv = !this.etatParamSuiv;
-            this.ctrl.getParametreSuivant(this.etatParamSuiv);
-            System.out.println("Parametres"+ this.etatParamSuiv);
+            this.ctrl.getParametreSuivant();
         }
     }
 }

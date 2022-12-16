@@ -24,8 +24,6 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
     ArrayList<JPanel> listePanel;
 
     private JButton btnPrecedent;
-    private JButton btnCarteFace;
-    private JButton btnCarteDos;
     private JPanel panelSud;
     private JPanel panelCentre;
     private JFileChooser fc = new JFileChooser();
@@ -88,12 +86,11 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
 
         
         this.btnPrecedent = new JButton("Précédent");
-        this.btnCarteFace = new JButton();
-        this.btnCarteDos = new JButton();
+        this.btnPrecedent.addActionListener(this);
 
         this.panelSud = new JPanel();
         this.panelCentre = new JPanel();
-        this.panelCentre.setLayout(new GridLayout(4, 1,0,0));
+        this.panelCentre.setLayout(new GridLayout(6, 1,0,0));
         this.panelSud.add(this.btnPrecedent);
 
         for (JPanel panel : listePanel) 
@@ -101,29 +98,13 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
             this.panelCentre.add(panel);
         }
 
-        this.btnCarteDos.addActionListener(this);
-        this.btnCarteFace.addActionListener(this);
-
+        for (JButton bouton : listeBtn)
+        {
+            bouton.addActionListener(this);
+        }
         this.add(panelSud, BorderLayout.SOUTH);
         this.add(panelCentre, BorderLayout.CENTER);
 
-    }
-
-    private File getFileDialog()
-    {
-        JFileChooser fc = new JFileChooser();
-        File workingDirectory = new File(System.getProperty("user.dir"));
-        fc.setCurrentDirectory(workingDirectory);
-        int returnVal = fc.showOpenDialog(this);
-        
-        if (returnVal == JFileChooser.APPROVE_OPTION)
-        {
-            return fc.getSelectedFile();
-        }
-        else
-        {
-            return null;
-        }
     }
 
     @Override
@@ -148,10 +129,23 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
                     {
                         Image image = new ImageIcon(fichier.getPath()).getImage();
                         this.listeBtn.get(i).setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+                        //définir la taille de l'image dans le bouton
+                        this.listeBtn.get(i).setBorderPainted(false);
+                        this.listeBtn.get(i).setContentAreaFilled(false);
+                        this.listeBtn.get(i).setFocusPainted(false);
+                        this.listeBtn.get(i).setOpaque(false);
+                        this.listeBtn.get(i).setBorder(null);
+
+                    
                         
                     }
                 }
             }
+        }
+
+        if(e.getSource() == this.btnPrecedent)
+        {
+            this.ctrl.afficherPanelParam();
         }
         
     }
