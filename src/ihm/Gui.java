@@ -19,6 +19,7 @@ public class Gui extends JFrame
     private PanelCarte panelCarte;
     private PanelForm panelForm;
     private PanelParametre panelParametre;
+    private PanelParamSuivant panelParamSuivant;
     private JPanel panelNotification;
     private boolean activeNoeud = false;
     private boolean activeTrajet = false;
@@ -33,6 +34,7 @@ public class Gui extends JFrame
         this.panelCarte = new PanelCarte(this.ctrl);
         this.panelForm  = new PanelForm(this.ctrl);
         this.panelParametre = new PanelParametre(this.ctrl);
+        this.panelParamSuivant = new PanelParamSuivant(this.ctrl);
         this.panelNotification = new JPanel();
         this.setResizable(false);        
         this.setResizable(false);
@@ -87,6 +89,22 @@ public class Gui extends JFrame
         this.repaint();
         this.revalidate();
     }
+    public void getParametreSuivant(boolean active)
+    {
+        if(active == true)
+        {
+            this.remove(this.panelParametre);
+            this.add(this.panelParamSuivant, BorderLayout.CENTER);
+        }
+        if(active == false)
+        {
+            this.remove(this.panelParamSuivant);
+            this.add(this.panelParametre, BorderLayout.CENTER);
+        }
+        this.repaint();
+        this.revalidate();
+    }
+    
     
     public int getEtatSelectionNoeud(){return this.panelCarte.getEtatSelectionNoeud();}
 
