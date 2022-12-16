@@ -214,6 +214,11 @@ public class PanelForm extends JPanel implements ActionListener
         {
             this.initPanel(++this.etat);
             this.ctrl.refreshFrame();
+            if(this.etat == 1 && this.etatParam == true)
+            {
+                this.etatParam = false;
+                this.ctrl.getParametre(this.etatParam);
+            }
         }
         if(e.getSource() == this.btnPrecedent)
         {
