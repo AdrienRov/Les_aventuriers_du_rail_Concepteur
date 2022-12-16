@@ -2,6 +2,7 @@ package src.ihm;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,10 +34,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private Graphics2D g2d;
     private Graphics2D g2d2;
     
-    private ArrayList<Noeud> allNoeud;
-    private ArrayList<Arete> allTrajets;
+    private List<Noeud> allNoeud;
+    private List<Arete> allTrajets;
     private Controleur ctrl;
-    private ArrayList<JButton> allBtnNoeud;
+    private List<JButton> allBtnNoeud;
 
     private int cpt  = 0;
     private int etat = 0;
@@ -47,6 +49,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         //définir l'image de fond du panel 
         this.ctrl = ctrl;
         this.allTrajets = new ArrayList<Arete>();
+        this.allNoeud   = new ArrayList<Noeud>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
         
@@ -240,11 +243,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                         }
 
                     }
-                        
-                
-                
                 cpt = 0;
-                
             }
         }
         else 
@@ -252,9 +251,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             //modifier le noeud quand on clique dessus pop up pour modifier le nom ou supprimer le noeud 
            
             System.out.println("modifier noeud");
-            allNoeud =  this.ctrl.getListeNoeud();
-            for(Noeud n : allNoeud)
-                if(n.getButton() == e.getSource())
+            this.allNoeud =  this.ctrl.getListeNoeud();
+            for(int i = 0; i < allNoeud.size(); i++)
+            {
+                if(this.allNoeud.get(i).getButton() == e.getSource())
                 {
                     System.out.println("noeud trouvé");
                     
@@ -265,7 +265,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                     
                     // textfield pour modifier le nom
                     JTextField text = new JTextField();
-                    text.setText(n.getNom());
+                    text.setText(this.allNoeud.get(i).getNom());
                     
                     // checkbox pour supprimer le noeud
                     JCheckBox check = new JCheckBox("Supprimer le noeud");
@@ -274,21 +274,19 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
                     JOptionPane.showMessageDialog(null, panel, "Modifier le noeud", JOptionPane.PLAIN_MESSAGE);
                     String input = text.getText();
 
+                    this.allNoeud.get(i).setNom(input);
+
                     // suppirmer le noeud si la case est coché et enlever le bouton du panel
                     if(check.isSelected())
                     {
-                        this.ctrl.supprimerNoeud(n);
-                        this.remove(n.getButton());
-                        this.repaint();
+                        this.remove(this.allNoeud.get(i).getButton());
+                        this.ctrl.supprimerNoeud(this.allNoeud.get(i));
                     }
                     // recuperer la valeur de la liste déroulante
-
-                    n.setNom(input);
+                    
                     this.repaint();
                 }
-
-
-
+            }
         }
     }
     

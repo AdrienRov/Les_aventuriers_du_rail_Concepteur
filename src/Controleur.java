@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -18,11 +20,12 @@ import javax.swing.ImageIcon;
 public class Controleur 
 {
     private Gui gui;
-    private ArrayList<Joueur> joueurs;
-    private ArrayList<CartesVoitures> cartesVoiture;
-    private ArrayList<CarteObjectif> cartesObjectif;
-    private ArrayList<Noeud> noeuds;
-    private ArrayList<Arete> aretes;
+    private List<Joueur> joueurs;
+    private List<CartesVoitures> cartesVoiture;
+    private List<CarteObjectif> cartesObjectif;
+    private List<Noeud> noeuds;
+    private Iterator<Noeud> itNoeud ;
+    private List<Arete> aretes;
     private int numPanel = 0;
     private int nbJoueur;
     private int nbWagons;
@@ -40,11 +43,10 @@ public class Controleur
         //importer la carte
         this.gui = new Gui(this);
         this.afficherCarte("src/images/ajouter_carte.png");
-        cartesObjectif = new ArrayList<CarteObjectif>();
-        cartesVoiture  = new ArrayList<CartesVoitures>();
-        noeuds         = new ArrayList<Noeud>();
-        aretes         = new ArrayList<Arete>();
-
+        this.cartesObjectif = new ArrayList<CarteObjectif>();
+        this.cartesVoiture  = new ArrayList<CartesVoitures>();
+        this.noeuds         = new ArrayList<Noeud>();
+        this.aretes         = new ArrayList<Arete>();
     }
 
     public void afficherCarte(String path)
@@ -91,11 +93,11 @@ public class Controleur
     {
         return gui.getActiveTrajet();
     }
-    public ArrayList<Arete> getAllTrajets()
+    public List<Arete> getAllTrajets()
     {
         return this.aretes;
     }
-    public ArrayList<Noeud> getAllNoeuds()
+    public List<Noeud> getAllNoeuds()
     {
         return this.noeuds;
     }
@@ -111,7 +113,7 @@ public class Controleur
     }
 
 
-    public ArrayList<Noeud> getListeNoeud()
+    public List<Noeud> getListeNoeud()
     {
         return this.noeuds;
     }
@@ -119,8 +121,17 @@ public class Controleur
     //supprimer un noeud
     public void supprimerNoeud(Noeud noeud)
     {
-        this.noeuds.remove(noeud);
         System.out.println("Noeud supprimé");
+        
+        this.itNoeud        = this.noeuds.iterator();
+        while(this.itNoeud.hasNext())
+        {
+            Noeud n = this.itNoeud.next();
+            if(n.equals(noeud))
+            {
+                this.itNoeud.remove();
+            }
+        }
     }
     
 
