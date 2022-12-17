@@ -55,7 +55,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.txtXNoeud          = new JTextField();
         this.txtYNoeud          = new JTextField();
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
-        this.btnAjouterNoeud    = new JButton("Ajouter un noeud"        );
+        this.btnAjouterNoeud    = new JButton("Ajouter"        );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
@@ -157,8 +157,11 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             this.add(label, g);  
             g.gridy = g.gridy + 1;
             JScrollPane scrollPane = new JScrollPane(this.table);
-            scrollPane.setPreferredSize(new Dimension(200, 150));
+            scrollPane.setPreferredSize(new Dimension(200, 100));
             this.add(scrollPane, g);
+            g.gridy = g.gridy + 1;
+            tabBtn[2].setPreferredSize    (new Dimension(100, 25));
+            this.add(tabBtn[2],g);
         }
         if(numPanel == 2)
         {

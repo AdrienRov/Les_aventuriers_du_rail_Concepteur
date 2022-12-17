@@ -61,10 +61,9 @@ public class Gui extends JFrame
         return this.activeNoeud;
     }
 
-    public void activeAjouteNoeud(boolean active)
+    public void AjouteNoeud()
     {
-        this.activeNoeud = active ;
-    
+        this.panelCarte.ajouteNoeud(this.panelCarte.getWidth()/2, this.panelCarte.getHeight()/2);
     }
 
     public boolean getActiveTrajet()
@@ -85,6 +84,7 @@ public class Gui extends JFrame
         if(active == false)
         {
             this.remove(this.panelParametre);
+            this.remove(this.panelParamSuivant);
             this.add(this.panelCarte, BorderLayout.CENTER);
         }
         this.repaint();

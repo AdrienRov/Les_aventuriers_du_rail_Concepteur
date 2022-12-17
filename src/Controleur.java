@@ -87,7 +87,7 @@ public class Controleur
 
     public void setActiveNoeud(boolean active)
     {
-        gui.activeAjouteNoeud(active);
+        gui.AjouteNoeud();
     }
 
     public boolean getActiveTrajet()
