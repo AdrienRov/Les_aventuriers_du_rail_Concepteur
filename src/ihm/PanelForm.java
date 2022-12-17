@@ -11,17 +11,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.table.TableColumn;
 
 import src.Controleur;
 import src.metier.Noeud;
 
-public class PanelForm extends JPanel implements ActionListener
+public class PanelForm extends JPanel implements ActionListener, CellEditorListener
 {
     private Controleur ctrl;
     private JButton btnAjouterImage;
@@ -32,6 +37,9 @@ public class PanelForm extends JPanel implements ActionListener
     private JButton btnPrecedent;
     private JButton btnAjouterTrajet;
     private JButton btnGenererXml;
+    private JTextField txtNomNoeud;
+    private JTextField txtXNoeud;
+    private JTextField txtYNoeud;
     private JTable table;
     private Object[][] donnees = {{"", "", ""}};
     private String[] entetes = {"Nom", "X", "Y"};
@@ -43,6 +51,9 @@ public class PanelForm extends JPanel implements ActionListener
         this.ctrl = ctrl;
         this.setLayout(new GridBagLayout());
         
+        this.txtNomNoeud        = new JTextField();
+        this.txtXNoeud          = new JTextField();
+        this.txtYNoeud          = new JTextField();
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
         this.btnAjouterNoeud    = new JButton("Ajouter un noeud"        );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
@@ -53,6 +64,18 @@ public class PanelForm extends JPanel implements ActionListener
         this.btnGenererXml      = new JButton("Générer le fichier XML"  );
         
         this.table = new JTable(this.donnees, this.entetes);
+        TableColumn col1 = table.getColumnModel().getColumn(0);
+        TableColumn col2 = table.getColumnModel().getColumn(1);
+		TableColumn col3 = table.getColumnModel().getColumn(2);
+
+        col1.setCellEditor(new DefaultCellEditor(this.txtNomNoeud));
+        col2.setCellEditor(new DefaultCellEditor(this.txtXNoeud));
+        col3.setCellEditor(new DefaultCellEditor(this.txtYNoeud));
+
+        col1.getCellEditor().addCellEditorListener(this);
+        col2.getCellEditor().addCellEditorListener(this);
+        col3.getCellEditor().addCellEditorListener(this);
+        this.table.setFillsViewportHeight(true);
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
         this.btnPrecedent.setBackground (Color.RED);
@@ -242,5 +265,33 @@ public class PanelForm extends JPanel implements ActionListener
             this.ctrl.genererXml();
             System.out.println("Générer XML");
         }
+    }
+
+    public void editingStopped(ChangeEvent e) {
+        // Mettre a jour les valeurs
+        // Phase de vérification des entrées dans le panel
+        if(this.table.getSelectedColumn() == 0)
+        {
+            String nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+            System.out.println("colonnes = "+this.table.getSelectedColumn());
+            
+        }
+        if(this.table.getSelectedColumn() == 1)
+        {
+            int x = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+            System.out.println("colonnes = "+this.table.getSelectedColumn());
+            
+        }
+        if(this.table.getSelectedColumn() == 2)
+        {
+            int qte = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+            System.out.println("colonnes = "+this.table.getSelectedColumn());
+
+        }
+    }
+    @Override
+    public void editingCanceled(ChangeEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
