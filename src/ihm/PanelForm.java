@@ -24,6 +24,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableColumn;
 
 import src.Controleur;
+import src.metier.Arete;
 import src.metier.Noeud;
 
 public class PanelForm extends JPanel implements ActionListener, CellEditorListener
@@ -37,12 +38,13 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     private JButton btnPrecedent;
     private JButton btnAjouterTrajet;
     private JButton btnGenererXml;
-    private JTextField txtNomNoeud;
-    private JTextField txtXNoeud;
-    private JTextField txtYNoeud;
+    private JTextField  tabTxtNoeud[] = new JTextField[3];
+    private JTextField  tabTxtTrajet[] = new JTextField[3];
     private JTable table;
-    private Object[][] donnees = {{"", "", ""}};
-    private String[] entetes = {"Nom", "X", "Y"};
+    private Object[][] donneesNoeud     = {{"", "", ""}};
+    private String[] entetesNoeud       = {"Nom", "X", "Y"};
+    private Object[][] donneesTrajet    = {{"", "", ""}};
+    private String[] entetesTrajet      = {"Ville Départ", "Nombre de sections", "Ville Arrivée"};
     private int etat = 0;
     private boolean etatParam = false;
 
@@ -51,9 +53,6 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.ctrl = ctrl;
         this.setLayout(new GridBagLayout());
         
-        this.txtNomNoeud        = new JTextField();
-        this.txtXNoeud          = new JTextField();
-        this.txtYNoeud          = new JTextField();
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
         this.btnAjouterNoeud    = new JButton("Ajouter"        );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
@@ -62,8 +61,12 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.btnPrecedent       = new JButton("Precedent"               );
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
         this.btnGenererXml      = new JButton("Générer le fichier XML"  );
-        
-        this.table = new JTable(this.donnees, this.entetes);
+        for(int i = 0; i < 3; i++)
+        {
+            this.tabTxtNoeud[i] = new JTextField();
+            this.tabTxtTrajet[i] = new JTextField();
+        }
+        this.table = new JTable(this.donneesNoeud, this.entetesNoeud);
         
         this.table.setFillsViewportHeight(true);
         //Ajout de la couleur sur les boutons
@@ -128,14 +131,9 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         g.gridx = 0;
         g.gridy = 0;
 
-        TableColumn tabColNoeud[] = new TableColumn[3];
-        JTextField  tabTxtNoeud[] = {this.txtNomNoeud, this.txtXNoeud, this.txtYNoeud};
-        for(int i = 0; i < tabColNoeud.length; i++)
-        {
-            tabColNoeud[i] = this.table.getColumnModel().getColumn(i);
-            tabColNoeud[i].setCellEditor(new DefaultCellEditor(tabTxtNoeud[i]));
-            tabColNoeud[i].getCellEditor().addCellEditorListener(this);
-        }
+        
+
+        
         this.add(tabBtn[0], g);
 
         if(numPanel == 0)
@@ -149,6 +147,15 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         if(numPanel == 1)
         {
+            this.refreshTabNoeud();
+            TableColumn tabColNoeud[] = new TableColumn[3];
+        
+            for(int i = 0; i < tabColNoeud.length; i++)
+            {
+                tabColNoeud[i] = this.table.getColumnModel().getColumn(i);
+                tabColNoeud[i].setCellEditor(new DefaultCellEditor(tabTxtNoeud[i]));
+                tabColNoeud[i].getCellEditor().addCellEditorListener(this);
+            }
             g.gridy = g.gridy + 5;
             JLabel label = new JLabel("<html><center>Cliquer sur <br>la mappe pour <br>placer un nœud</center></html>");
             label.setForeground(Color.WHITE);
@@ -172,11 +179,30 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         if(numPanel == 2)
         {
+            this.refreshTabTrajet();
+            TableColumn tabColTrajet[] = new TableColumn[3];
+            for(int i = 0; i < tabColTrajet.length; i++)
+            {
+                tabColTrajet[i] = this.table.getColumnModel().getColumn(i);
+                tabColTrajet[i].setCellEditor(new DefaultCellEditor(tabTxtTrajet[i]));
+                tabColTrajet[i].getCellEditor().addCellEditorListener(this);
+            }
             g.gridy = g.gridy + 1;
             JLabel label = new JLabel("<html><center>Cliquer sur <br> deux nœuds pour <br> créer une arête</center></html>");
             label.setForeground(Color.WHITE);
             label.setFont(new Font("Arial", Font.BOLD, 20));
             this.add(label, g);
+            g.gridy = g.gridy + 1;
+            JScrollPane scrollPane = new JScrollPane(this.table);
+            scrollPane.setPreferredSize(new Dimension(200, 100));
+            if(this.ctrl.getAllTrajets().isEmpty())
+            {
+                this.remove(scrollPane);
+            }
+            else
+            {
+                this.add(scrollPane, g);
+            }
         }
         if(numPanel == 3)
         {
@@ -201,23 +227,45 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     public void refreshTabNoeud()
     {
         System.out.println("refreshTabNoeud");
-        if(this.ctrl.getListeNoeud().isEmpty())
+        if(this.ctrl.getAllNoeuds().isEmpty())
         {
-            Object[][] donnees = {{"", "", ""}};
-            this.table = new JTable(donnees, entetes);
+            Object[][] donneesNoeud = {{"", "", ""}};
+            this.table = new JTable(donneesNoeud, entetesNoeud);
             return;
         }
-        Object[][] donnees = new Object[this.ctrl.getListeNoeud().size()][3];
-        String[] entetes = {"Nom", "X", "Y"};
-        for(int i = 0; i < this.ctrl.getListeNoeud().size(); i++)
+        Object[][] donneesNoeud = new Object[this.ctrl.getAllNoeuds().size()][3];
+        String[] entetesNoeud = {"Nom", "X", "Y"};
+        for(int i = 0; i < this.ctrl.getAllNoeuds().size(); i++)
         {
-            Noeud n = this.ctrl.getListeNoeud().get(i);
+            Noeud n = this.ctrl.getAllNoeuds().get(i);
             System.out.println("VALLLLLLL = "+n.getNom());
-            donnees[i][0] = n.getNom();
-            donnees[i][1] = n.x();
-            donnees[i][2] = n.y();
+            donneesNoeud[i][0] = n.getNom();
+            donneesNoeud[i][1] = n.x();
+            donneesNoeud[i][2] = n.y();
         }
-        this.table = new JTable(donnees, entetes);
+        this.table = new JTable(donneesNoeud, entetesNoeud);
+    }
+
+    public void refreshTabTrajet()
+    {
+        System.out.println("refreshTabTrajet");
+        if(this.ctrl.getAllTrajets().isEmpty())
+        {
+            Object[][] donneesTrajet = {{"", "", ""}};
+            this.table = new JTable(donneesTrajet, entetesTrajet);
+            return;
+        }
+        Object[][] donneesTrajet = new Object[this.ctrl.getAllTrajets().size()][3];
+        String[] entetesTrajet = {"Départ", "Voitures", "Arrivée"};
+        for(int i = 0; i < this.ctrl.getAllTrajets().size(); i++)
+        {
+            Arete a = this.ctrl.getAllTrajets().get(i);
+            System.out.println("VALLLLLLL = "+a.getNoeudDepart().getNom() + " " + a.getNbVoiture() + " " + a.getNoeudarrive().getNom());
+            donneesTrajet[i][0] = a.getNoeudDepart().getNom();
+            donneesTrajet[i][1] = ""+a.getNbVoiture();
+            donneesTrajet[i][2] = a.getNoeudarrive().getNom();
+        }
+        this.table = new JTable(donneesTrajet, entetesTrajet);
     }
 
 

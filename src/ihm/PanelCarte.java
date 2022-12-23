@@ -232,7 +232,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         if(this.ctrl.getEtatPanel()==2)
         {
             System.out.println("active trajet");
-            allNoeud =  this.ctrl.getListeNoeud();
+            allNoeud =  this.ctrl.getAllNoeuds();
             if(cpt == 0)
             {
                 for(Noeud n : allNoeud)
@@ -269,7 +269,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             //modifier le noeud quand on clique dessus pop up pour modifier le nom ou supprimer le noeud 
            
             System.out.println("modifier noeud");
-            this.allNoeud =  this.ctrl.getListeNoeud();
+            this.allNoeud =  this.ctrl.getAllNoeuds();
             for(int i = 0; i < allNoeud.size(); i++)
             {
                 if(this.allNoeud.get(i).getButton() == e.getSource())

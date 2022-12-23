@@ -113,6 +113,12 @@ public class Gui extends JFrame
         this.panelForm.refreshTabNoeud();
         this.panelForm.initPanel(1);
     }
+    public void refreshTabTrajet()
+    {
+        System.out.println("refresh tab trajet");
+        this.panelForm.refreshTabTrajet();
+        this.panelForm.initPanel(2);
+    }
    
     
     public int getEtatSelectionNoeud(){return this.panelCarte.getEtatSelectionNoeud();}

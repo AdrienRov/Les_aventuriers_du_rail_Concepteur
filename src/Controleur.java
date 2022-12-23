@@ -78,6 +78,7 @@ public class Controleur
     public void ajouteArete(Arete arete)
     {
         this.aretes.add(arete);
+        this.gui.refreshTabTrajet();
     }
 
     public boolean getActiveNoeud()
@@ -111,12 +112,6 @@ public class Controleur
     public void notification(String message)
     {
         gui.notification(message);
-    }
-
-
-    public List<Noeud> getListeNoeud()
-    {
-        return this.noeuds;
     }
 
     //supprimer un noeud
