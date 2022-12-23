@@ -64,17 +64,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.btnGenererXml      = new JButton("Générer le fichier XML"  );
         
         this.table = new JTable(this.donnees, this.entetes);
-        TableColumn col1 = table.getColumnModel().getColumn(0);
-        TableColumn col2 = table.getColumnModel().getColumn(1);
-		TableColumn col3 = table.getColumnModel().getColumn(2);
-
-        col1.setCellEditor(new DefaultCellEditor(this.txtNomNoeud));
-        col2.setCellEditor(new DefaultCellEditor(this.txtXNoeud));
-        col3.setCellEditor(new DefaultCellEditor(this.txtYNoeud));
-
-        col1.getCellEditor().addCellEditorListener(this);
-        col2.getCellEditor().addCellEditorListener(this);
-        col3.getCellEditor().addCellEditorListener(this);
+        
         this.table.setFillsViewportHeight(true);
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
@@ -137,6 +127,15 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         g.gridx = 0;
         g.gridy = 0;
+
+        TableColumn tabColNoeud[] = new TableColumn[3];
+        JTextField  tabTxtNoeud[] = {this.txtNomNoeud, this.txtXNoeud, this.txtYNoeud};
+        for(int i = 0; i < tabColNoeud.length; i++)
+        {
+            tabColNoeud[i] = this.table.getColumnModel().getColumn(i);
+            tabColNoeud[i].setCellEditor(new DefaultCellEditor(tabTxtNoeud[i]));
+            tabColNoeud[i].getCellEditor().addCellEditorListener(this);
+        }
         this.add(tabBtn[0], g);
 
         if(numPanel == 0)
@@ -158,7 +157,15 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             g.gridy = g.gridy + 1;
             JScrollPane scrollPane = new JScrollPane(this.table);
             scrollPane.setPreferredSize(new Dimension(200, 100));
-            this.add(scrollPane, g);
+            if(this.ctrl.getAllNoeuds().isEmpty())
+            {
+                this.remove(scrollPane);
+            }
+            else
+            {
+                this.add(scrollPane, g);
+            }
+            
             g.gridy = g.gridy + 1;
             tabBtn[2].setPreferredSize    (new Dimension(100, 25));
             this.add(tabBtn[2],g);
@@ -273,24 +280,32 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     public void editingStopped(ChangeEvent e) {
         // Mettre a jour les valeurs
         // Phase de vérification des entrées dans le panel
+        String nom = "";
+        int x = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).x();
+        int y = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).y();
         if(this.table.getSelectedColumn() == 0)
         {
-            String nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+            nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
             System.out.println("colonnes = "+this.table.getSelectedColumn());
-            
+            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setNom(nom);            
         }
         if(this.table.getSelectedColumn() == 1)
         {
-            int x = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+            x = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
             System.out.println("colonnes = "+this.table.getSelectedColumn());
+            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setX(x);
             
         }
         if(this.table.getSelectedColumn() == 2)
         {
-            int qte = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+            y = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
             System.out.println("colonnes = "+this.table.getSelectedColumn());
-
+            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setY(y);
         }
+        JButton btn = new JButton("");
+        btn.setLocation(x, y);
+        this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setButton(btn);
+        this.ctrl.refreshFrame();
     }
     @Override
     public void editingCanceled(ChangeEvent e) {

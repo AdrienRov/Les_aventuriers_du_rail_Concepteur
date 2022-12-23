@@ -78,7 +78,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             for(Noeud noeud : this.allNoeud)
             {
                 g2d.setColor(Color.BLACK);
-                g2d.drawString(noeud.getNom(), noeud.x()-10, noeud.y()-20);
+                g2d.drawString(noeud.getNom(), noeud.x()-5, noeud.y()-5);
             }
         }
         
@@ -105,14 +105,13 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         btn.setSize(20,20);
         btn.setBackground(Color.RED);
        
-        Noeud n = new Noeud(x+10, y+10,input, btn);
+        Noeud n = new Noeud(x, y,input, btn);
         // dessiner le nom du noeud au dessus de 5px
         this.ctrl.ajouteNoeud(n);
         this.add(btn);
         btn.addActionListener(this);
         
         this.repaint();
-        
     }
 
     public void ajouterTrajet(Noeud noeudDepart, Noeud noeudArrivee)
@@ -143,7 +142,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         panel.add(listCouleur);
 
 
-
         JOptionPane.showMessageDialog(null, panel, "Trajet", JOptionPane.PLAIN_MESSAGE);
         // recuperer la valeur de la liste déroulante
         Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()), colors[listCouleur.getSelectedIndex()]);
@@ -151,6 +149,27 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.ctrl.ajouteArete(arete);
         this.repaint();
 
+    }
+    public void refreshNoeuds()
+    {
+        this.allNoeud = this.ctrl.getAllNoeuds();
+        //supprimer tout les boutons du panel
+        
+        this.removeAll();
+        //ajouter les boutons
+        for(Noeud noeud : this.allNoeud)
+        {
+            JButton btn = noeud.getButton();
+            btn.setSize(20,20);
+            btn.setBackground(Color.RED);
+            btn.addActionListener(this);
+            this.add(btn);
+            System.out.println("bouton" + noeud.getButton().getLocation());
+            System.out.println("add button"+ noeud.getNom() + " " + noeud.x() + " " + noeud.y());
+        }
+        this.repaint();
+        this.revalidate();
+        System.out.println("refresh Carte");
     }
 
 
@@ -176,7 +195,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             
             this.ajouteNoeud(e.getX(), e.getY());
             System.out.println("x: "+e.getX()+" y: "+e.getY());
-            this.ctrl.setActiveNoeud(false);
             this.ctrl.notification("Vous avez ajouté une ville");
         }
         

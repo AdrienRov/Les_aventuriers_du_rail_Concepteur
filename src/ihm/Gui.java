@@ -72,6 +72,8 @@ public class Gui extends JFrame
     }
     public void refresh()
     {
+        panelCarte.refreshNoeuds();
+        this.repaint();
         this.revalidate();
     }
     public void getParametre(boolean active)

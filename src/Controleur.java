@@ -143,6 +143,7 @@ public class Controleur
     public void refreshFrame()
     {
         this.gui.refresh();
+        System.out.println("Refresh Frame");
     }
     //Modifier le numero du panel actuel
     public void setEtatPanel(int etat)
