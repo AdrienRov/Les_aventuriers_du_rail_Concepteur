@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import src.Controleur;
 import src.metier.Arete;
 import src.metier.Noeud;
 
-public class PanelCarte extends JPanel implements MouseListener, ActionListener
+public class PanelCarte extends JPanel implements MouseListener, ActionListener, MouseMotionListener
 {
     //image de fond de la carte 
     private Image image;
@@ -43,6 +44,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     private int etat = 0;
     private Noeud noeudDepart;
     private Noeud noeudArrivee;
+    private int xDifference;
+    private int yDifference;
+    private boolean isDragged = false;
 
     public PanelCarte(Controleur ctrl)
     {
@@ -52,10 +56,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.allNoeud   = new ArrayList<Noeud>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
-        
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
         //adapter la taille de l'image au panel
         this.setFocusable(true);
-        this.addMouseListener(this);
     }
 
     public void paintComponent(Graphics g)
@@ -110,7 +114,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
         this.ctrl.ajouteNoeud(n);
         this.add(btn);
         btn.addActionListener(this);
-        
+        btn.addMouseListener(this);
+        btn.addMouseMotionListener(this);
         this.repaint();
     }
 
@@ -163,6 +168,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             btn.setSize(20,20);
             btn.setBackground(Color.RED);
             btn.addActionListener(this);
+            btn.addMouseListener(this);
+            btn.addMouseMotionListener(this);
             this.add(btn);
         }
         this.repaint();
@@ -204,7 +211,25 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-        
+        if(this.ctrl.getEtatPanel() == 1 && e.getSource() instanceof JButton && isDragged == true)
+        {
+            for(int i = 0; i<this.ctrl.getAllNoeuds().size();i++)
+            {
+                if(this.ctrl.getAllNoeuds().get(i).getButton() == e.getSource())
+                {
+                    this.ctrl.getAllNoeuds().get(i).setX(e.getX()+xDifference);
+                    this.ctrl.getAllNoeuds().get(i).setY(e.getY()+yDifference);
+                    this.ctrl.getAllNoeuds().get(i).getButton().setLocation(e.getX()+xDifference, e.getY()+yDifference);                                                                                                                                                                                                                                                                                                                                                  
+                    System.out.println("Noeud modifié x:" + e.getX()+xDifference + " y:" + e.getY()+yDifference);
+                    this.ctrl.notification("Vous avez déplacé une ville");
+                }
+            }
+            System.out.println("Sortie du bouton");
+            this.ctrl.refreshFrame();
+            this.refreshNoeuds();
+            isDragged = false;
+           
+        }
     }
 
     @Override
@@ -217,6 +242,26 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
         
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+        if(this.ctrl.getEtatPanel() == 1 && e.getSource() instanceof JButton)
+        {
+            System.out.println("Modif btn");            
+            isDragged = true;
+            System.out.println("xNew: "+xDifference+" yNew: "+yDifference);
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+        if(e.getSource() == this)
+        {
+            xDifference = e.getX();
+            yDifference = e.getY();
+        }
     }
 
     @Override
@@ -302,5 +347,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             }
         }
     }
+
+    
     
 }
