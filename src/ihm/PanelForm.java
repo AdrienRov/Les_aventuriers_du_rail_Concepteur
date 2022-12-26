@@ -46,7 +46,9 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     private Object[][] donneesTrajet    = {{"", "", ""}};
     private String[] entetesTrajet      = {"Ville Départ", "Nombre de sections", "Ville Arrivée"};
     private int etat = 0;
+    private int verif = 0;
     private boolean etatParam = false;
+    private TableColumn tabColNoeud[] = new TableColumn[3];
 
     public PanelForm(Controleur ctrl)
     {
@@ -68,7 +70,8 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         this.table = new JTable(this.donneesNoeud, this.entetesNoeud);
         
-        this.table.setFillsViewportHeight(true);
+        
+        
         //Ajout de la couleur sur les boutons
         this.btnSuivant.setBackground   (Color.GREEN  );
         this.btnPrecedent.setBackground (Color.RED);
@@ -148,8 +151,15 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         if(numPanel == 1)
         {
             this.refreshTabNoeud();
-            TableColumn tabColNoeud[] = new TableColumn[3];
-        
+            //supprimer le listener sur les cellules
+            for(int i = 0; i < tabColNoeud.length; i++)
+            {
+                if(tabColNoeud[i] != null)
+                {
+                    tabColNoeud[i].getCellEditor().removeCellEditorListener(this);
+                }
+            }
+            
             for(int i = 0; i < tabColNoeud.length; i++)
             {
                 tabColNoeud[i] = this.table.getColumnModel().getColumn(i);
@@ -179,14 +189,14 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         if(numPanel == 2)
         {
-            this.refreshTabTrajet();
-            TableColumn tabColTrajet[] = new TableColumn[3];
-            for(int i = 0; i < tabColTrajet.length; i++)
+            //this.refreshTabTrajet();
+            // TableColumn tabColTrajet[] = new TableColumn[3];
+            /*for(int i = 0; i < tabColTrajet.length; i++)
             {
                 tabColTrajet[i] = this.table.getColumnModel().getColumn(i);
                 tabColTrajet[i].setCellEditor(new DefaultCellEditor(tabTxtTrajet[i]));
                 tabColTrajet[i].getCellEditor().addCellEditorListener(this);
-            }
+            }*/
             g.gridy = g.gridy + 1;
             JLabel label = new JLabel("<html><center>Cliquer sur <br> deux nœuds pour <br> créer une arête</center></html>");
             label.setForeground(Color.WHITE);
@@ -245,7 +255,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         this.table = new JTable(donneesNoeud, entetesNoeud);
     }
-
+    /*
     public void refreshTabTrajet()
     {
         System.out.println("refreshTabTrajet");
@@ -267,6 +277,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         this.table = new JTable(donneesTrajet, entetesTrajet);
     }
+    */
 
 
     @Override
@@ -328,7 +339,10 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     public void editingStopped(ChangeEvent e) {
         // Mettre a jour les valeurs
         // Phase de vérification des entrées dans le panel
+
         String nom = "";
+        this.verif++;
+        System.out.println("verif = "+this.verif+"---------------------------------" + e.getSource());
         int x = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).x();
         int y = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).y();
         if(this.table.getSelectedColumn() == 0)

@@ -164,8 +164,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
             btn.setBackground(Color.RED);
             btn.addActionListener(this);
             this.add(btn);
-            System.out.println("bouton" + noeud.getButton().getLocation());
-            System.out.println("add button"+ noeud.getNom() + " " + noeud.x() + " " + noeud.y());
         }
         this.repaint();
         this.revalidate();
@@ -191,10 +189,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener
     public void mouseClicked(MouseEvent e) {
         if ( ctrl.getEtatPanel()==1)
         {
-            System.out.println("click");
-            
             this.ajouteNoeud(e.getX(), e.getY());
-            System.out.println("x: "+e.getX()+" y: "+e.getY());
             this.ctrl.notification("Vous avez ajouté une ville");
         }
         
