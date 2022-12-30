@@ -26,6 +26,7 @@ public class Controleur
     private List<Noeud> noeuds;
     private Iterator<Noeud> itNoeud ;
     private List<Arete> aretes;
+    private int widthPanelCarte;
     private int numPanel = 0;
     private int nbJoueur;
     private int nbWagons;
@@ -42,7 +43,7 @@ public class Controleur
     {
         //importer la carte
         this.gui = new Gui(this);
-        this.afficherCarte("src/images/ajouter_carte.png");
+        this.afficherCarte("images/ajouter_carte.png");
         this.cartesObjectif = new ArrayList<CarteObjectif>();
         this.cartesVoiture  = new ArrayList<CartesVoitures>();
         this.noeuds         = new ArrayList<Noeud>();
@@ -57,7 +58,18 @@ public class Controleur
     public void resizeGui(int width, int height)
     {
         this.gui.setSize(width+200, height);
+        this.widthPanelCarte = this.gui.getWidthPanelCarte();
     }
+    public void setWidthPanelCarte(int width)
+    {
+        this.widthPanelCarte = width;
+    }
+    
+    public int getWidthPanelCarte()
+    {
+        return this.widthPanelCarte;
+    }
+    
 
     public void ajouteCarteVoiture(CartesVoitures carte)
     {
@@ -145,11 +157,17 @@ public class Controleur
     {
         this.numPanel = etat;
     }
+
+    public void resizeParametre(int width, int height)
+    {
+        this.gui.resizeParametre(width, height);
+    }
     //Obtenir le numero du panel actuel
     public int getEtatPanel()
     {
         return this.numPanel;
     }
+
 
     public void getParametre(boolean etat)
     {
@@ -169,7 +187,6 @@ public class Controleur
     public void genererXml()
     {
         try
-
         {
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("FichierSortie.xml"), "UTF-8"));
 
@@ -183,7 +200,8 @@ public class Controleur
             }
             pw.println("\t</listeNoeuds>");
             pw.println("\t<listeArete>");
-            for (Arete arete : aretes) {
+            for (Arete arete : aretes) 
+            {
                 pw.println("\t\t<arete>");
                 pw.println("\t\t\t<noeudDepart nom=\"" + arete.getNoeudDepart().getNom() + "\"/>");
                 pw.println("\t\t\t<noeudArrive nom=\"" + arete.getNoeudarrive().getNom() + "\"/>");
@@ -203,14 +221,12 @@ public class Controleur
             pw.println("\t\t\t<nbPoint2=\"" + this.nbPoint2 + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
-
             pw.println("</jeu>");
-
             pw.close();
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             e.printStackTrace();
         }
-
     }
 
     public void setNbJoueur(int nombre)

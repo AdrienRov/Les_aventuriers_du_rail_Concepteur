@@ -69,11 +69,35 @@ public class PanelParametre extends JPanel implements ActionListener
 
         labelTitre = new JLabel("Paramètres");
         btnSauvegarder = new JButton("<html>Sauvegarder</html>");
-        for (JLabel label : listeLabel) 
+
+        int x = 10;
+        int y = 30;
+        int cpt = 0;
+        for (int i = 0; i < listeLabel.size(); i++) 
         {
-            label.setForeground(Color.WHITE);
-            label.setFont(new Font("Arial", Font.BOLD, 10));
+            if(cpt == 0)
+            {
+                listeLabel.get(i).setBounds(x, y, 300, 30);
+                this.add(listeLabel.get(i));
+                cpt++;
+            }
+            else
+            {
+                //obtenle centre du panel carte
+                System.out.println(this.getWidth());
+                x += this.getWidth()/2 -250;
+                listeLabel.get(i).setBounds(x, y, 300, 30);
+                this.add(listeLabel.get(i));
+                y += 30;
+                cpt = 0;
+                x = 10;
+            }
         }
+
+        
+        
+        
+        /*
 
         for(int i=0; i<6; i++)
         {
@@ -82,16 +106,16 @@ public class PanelParametre extends JPanel implements ActionListener
 
         for(int i=0; i<listePanel.size(); i++)
         {
-            listePanel.get(i).setLayout(new GridLayout(1, 4,0,0));
+            listePanel.get(i).setLayout(null);
             listePanel.get(i).setBackground(new Color(35,31,32));
         }
-
+        
         for(int i=0; i<2; i++)
         {
             listePanel.get(1).add(listeLabel.get(i));
             listePanel.get(1).add(listeTexte.get(i));
         }
-
+        
         for(int i=2; i<4; i++)
         {
             listePanel.get(2).add(listeLabel.get(i));
@@ -112,7 +136,7 @@ public class PanelParametre extends JPanel implements ActionListener
             listePanel.get(5).add(listeLabel.get(i));
             listePanel.get(5).add(listeTexte.get(i));
         }
-
+        */
         //faire un panel au centre pour mettre les labels
         this.panelCentre = new JPanel();
         this.panelCentre.setLayout(new GridLayout(6, 1,0,0));
@@ -151,11 +175,11 @@ public class PanelParametre extends JPanel implements ActionListener
         if (e.getSource() == this.btnSauvegarder) 
         {
             //vérifier que toutes les valeurs sont rentrées
-            if(this.listeTexte.get(0).getText().equals("") || this.listeTexte.get(1).getText().equals("") || 
-            this.listeTexte.get(2).getText().equals("") || this.listeTexte.get(3).getText().equals("") || 
-            this.listeTexte.get(4).getText().equals("") || this.listeTexte.get(5).getText().equals("") || 
-            this.listeTexte.get(6).getText().equals("") || this.listeTexte.get(7).getText().equals("") || 
-            this.listeTexte.get(8).getText().equals("") || this.listeTexte.get(9).getText().equals("") || 
+            if(this.listeTexte.get(0).getText().equals("")  || this.listeTexte.get(1).getText().equals("") || 
+            this.listeTexte.get(2).getText().equals("")     || this.listeTexte.get(3).getText().equals("") || 
+            this.listeTexte.get(4).getText().equals("")     || this.listeTexte.get(5).getText().equals("") || 
+            this.listeTexte.get(6).getText().equals("")     || this.listeTexte.get(7).getText().equals("") || 
+            this.listeTexte.get(8).getText().equals("")     || this.listeTexte.get(9).getText().equals("") || 
             this.listeTexte.get(10).getText().equals(""))
             {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);

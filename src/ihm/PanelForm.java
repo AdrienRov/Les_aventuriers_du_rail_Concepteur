@@ -49,6 +49,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     private int verif = 0;
     private boolean etatParam = false;
     private TableColumn tabColNoeud[] = new TableColumn[3];
+    private TableColumn tabColTrajet[] = new TableColumn[3];
 
     public PanelForm(Controleur ctrl)
     {
@@ -134,9 +135,6 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         g.gridx = 0;
         g.gridy = 0;
 
-        
-
-        
         this.add(tabBtn[0], g);
 
         if(numPanel == 0)
@@ -189,14 +187,21 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         if(numPanel == 2)
         {
-            //this.refreshTabTrajet();
+            this.refreshTabTrajet();
             // TableColumn tabColTrajet[] = new TableColumn[3];
-            /*for(int i = 0; i < tabColTrajet.length; i++)
+            for(int i = 0; i < tabColTrajet.length; i++)
+            {
+                if(tabColTrajet[i] != null)
+                {
+                    tabColTrajet[i].getCellEditor().removeCellEditorListener(this);
+                }
+            }
+            for(int i = 0; i < tabColTrajet.length; i++)
             {
                 tabColTrajet[i] = this.table.getColumnModel().getColumn(i);
                 tabColTrajet[i].setCellEditor(new DefaultCellEditor(tabTxtTrajet[i]));
                 tabColTrajet[i].getCellEditor().addCellEditorListener(this);
-            }*/
+            }
             g.gridy = g.gridy + 1;
             JLabel label = new JLabel("<html><center>Cliquer sur <br> deux nœuds pour <br> créer une arête</center></html>");
             label.setForeground(Color.WHITE);
@@ -255,7 +260,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         this.table = new JTable(donneesNoeud, entetesNoeud);
     }
-    /*
+    
     public void refreshTabTrajet()
     {
         System.out.println("refreshTabTrajet");
@@ -277,8 +282,6 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         this.table = new JTable(donneesTrajet, entetesTrajet);
     }
-    */
-
 
     @Override
     public void actionPerformed(ActionEvent e) 

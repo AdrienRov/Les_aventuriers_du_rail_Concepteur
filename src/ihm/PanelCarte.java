@@ -67,6 +67,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
+        //augmenter la taille de la police
+        g2d.setFont(g2d.getFont().deriveFont(20f));
         this.allTrajets = this.ctrl.getAllTrajets();
         this.allNoeud = this.ctrl.getAllNoeuds();
         
@@ -76,7 +78,11 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             {
                 g2d.setColor(arete.getCouleur());
                 g2d.setStroke(new BasicStroke(5));
-                g2d.drawLine(arete.getNoeudDepart().x(), arete.getNoeudDepart().y(), arete.getNoeudarrive().x(), arete.getNoeudarrive().y());
+                g2d.drawLine(arete.getNoeudDepart().x()+15, arete.getNoeudDepart().y()+15, arete.getNoeudarrive().x()+15, arete.getNoeudarrive().y()+15);
+                int x = (arete.getNoeudDepart().x() + arete.getNoeudarrive().x())/2;
+                int y = (arete.getNoeudDepart().y() + arete.getNoeudarrive().y())/2;
+                g2d.setColor(Color.BLACK);
+                g2d.drawString(arete.getNbVoiture()+"", x, y);
             }
             // dessiner les nom des noeuds
             for(Noeud noeud : this.allNoeud)
@@ -85,16 +91,17 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 g2d.drawString(noeud.getNom(), noeud.x()-5, noeud.y()-5);
             }
         }
-        
-        
     }
 
     public void addCarte(String path) 
     {
         this.image = new ImageIcon(path).getImage();
         this.setSize(this.image.getWidth(null), this.image.getHeight(null));
+        
         this.ctrl.resizeGui(this.image.getWidth(null), this.image.getHeight(null));
         this.repaint();
+        this.ctrl.setWidthPanelCarte(this.image.getWidth(null));
+        this.ctrl.resizeParametre(this.getWidth(), this.getHeight());
     }
 
     public void ajouteNoeud(int x, int y)
@@ -167,6 +174,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             JButton btn = noeud.getButton();
             btn.setSize(20,20);
             btn.setBackground(Color.RED);
+            btn.removeActionListener(this);
+            btn.removeMouseListener(this);
+            btn.removeMouseMotionListener(this);
             btn.addActionListener(this);
             btn.addMouseListener(this);
             btn.addMouseMotionListener(this);
@@ -176,8 +186,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.revalidate();
         System.out.println("refresh Carte");
     }
-
-
 
     public void resizeImage(int width, int height)
     {
@@ -191,7 +199,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
     public int getEtatSelectionNoeud(){return this.cpt;}
    
-
     @Override
     public void mouseClicked(MouseEvent e) {
         if ( ctrl.getEtatPanel()==1)
@@ -199,14 +206,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             this.ajouteNoeud(e.getX(), e.getY());
             this.ctrl.notification("Vous avez ajouté une ville");
         }
-        
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -228,7 +231,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             this.ctrl.refreshFrame();
             this.refreshNoeuds();
             isDragged = false;
-           
         }
     }
 
@@ -239,10 +241,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void mouseExited(MouseEvent e) {}
     @Override
     public void mouseDragged(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -347,7 +346,4 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             }
         }
     }
-
-    
-    
 }

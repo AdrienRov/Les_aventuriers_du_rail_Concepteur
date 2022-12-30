@@ -38,12 +38,10 @@ public class Gui extends JFrame
         this.panelParamSuivant = new PanelParamSuivant(this.ctrl);
         this.panelNotification = new JPanel();
         this.setResizable(false);        
-        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(this.panelForm, BorderLayout.WEST);
         this.add(this.panelCarte, BorderLayout.CENTER);
        
-
         this.pack();
         this.setLocationRelativeTo(null);
         //rendre la fenetre visible 
@@ -54,6 +52,10 @@ public class Gui extends JFrame
     {
         this.panelCarte.addCarte(path);
         this.setLocationRelativeTo(null);
+    }
+    public int getWidthPanelCarte()
+    {
+        return this.panelCarte.getWidth();
     }
 
     public boolean getActiveNoeud()
@@ -113,6 +115,10 @@ public class Gui extends JFrame
         System.out.println("refresh tab noeud");
         this.panelForm.refreshTabNoeud();
         this.panelForm.initPanel(1);
+    }
+    public void resizeParametre(int width, int height)
+    {
+        this.panelParametre.setSize(width, height);
     }
     public void refreshTabTrajet()
     {
