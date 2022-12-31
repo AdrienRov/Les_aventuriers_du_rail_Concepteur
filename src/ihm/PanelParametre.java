@@ -72,54 +72,10 @@ public class PanelParametre extends JPanel implements ActionListener
 
         labelTitre = new JLabel("Paramètres");
         btnSauvegarder = new JButton("Sauvegarder");
-        
-        /*
 
-        for(int i=0; i<6; i++)
-        {
-            listePanel.add(new JPanel());
-        }
-
-        for(int i=0; i<listePanel.size(); i++)
-        {
-            listePanel.get(i).setLayout(null);
-            listePanel.get(i).setBackground(new Color(35,31,32));
-        }
-        
-        for(int i=0; i<2; i++)
-        {
-            listePanel.get(1).add(listeLabel.get(i));
-            listePanel.get(1).add(listeTexte.get(i));
-        }
-        
-        for(int i=2; i<4; i++)
-        {
-            listePanel.get(2).add(listeLabel.get(i));
-            listePanel.get(2).add(listeTexte.get(i));
-        }
-        for(int i=4; i<6; i++)
-        {
-            listePanel.get(3).add(listeLabel.get(i));
-            listePanel.get(3).add(listeTexte.get(i));
-        }
-        for(int i=6; i<8; i++)
-        {
-            listePanel.get(4).add(listeLabel.get(i));
-            listePanel.get(4).add(listeTexte.get(i));
-        }
-        for(int i=8; i<10; i++)
-        {
-            listePanel.get(5).add(listeLabel.get(i));
-            listePanel.get(5).add(listeTexte.get(i));
-        }
-        */
         //faire un panel au centre pour mettre les labels
         this.panelCentre.setBackground(new Color(35,31,32));
-    /*
-        for (JPanel panel : listePanel) 
-        {
-            panelCentre.add(panel);
-        }*/
+   
         //centrer le titre
         this.labelTitre.setHorizontalAlignment(JLabel.CENTER);
 
