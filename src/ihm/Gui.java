@@ -84,6 +84,9 @@ public class Gui extends JFrame
         if(active == true)
         {
             this.remove(this.panelCarte);
+            this.panelParametre = new PanelParametre(this.ctrl);
+            this.panelParametre.initParametre(this.panelCarte.getWidth(), this.panelCarte.getHeight());
+            System.out.println("width : " + this.panelCarte.getWidth() + " height : " + this.panelCarte.getHeight());
             this.add(this.panelParametre, BorderLayout.CENTER);
         }
         if(active == false)
@@ -119,7 +122,10 @@ public class Gui extends JFrame
     public void resizeParametre(int width, int height)
     {
         this.panelParametre.setSize(width, height);
+        this.revalidate();
+        this.repaint();
     }
+
     public void refreshTabTrajet()
     {
         System.out.println("refresh tab trajet");

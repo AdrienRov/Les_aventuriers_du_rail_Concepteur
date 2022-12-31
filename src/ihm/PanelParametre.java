@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.*;
 
@@ -43,7 +44,9 @@ public class PanelParametre extends JPanel implements ActionListener
         this.listeTexte = new ArrayList<JTextField>();
         this.listeLabel = new ArrayList<JLabel>();
         this.listePanel = new ArrayList<JPanel>();
+        this.panelCentre = new JPanel();
         
+        this.panelCentre.setLayout(null);
         for(int i=0; i<11; i++)
         {
             this.listeTexte.add(new JTextField());
@@ -55,8 +58,8 @@ public class PanelParametre extends JPanel implements ActionListener
             texte.setFont(new Font("Arial", Font.PLAIN, 20));
         }
 
-        listeLabel.get(0).setText("<html>Nombre de Joueur minimum</html>");
-        listeLabel.get(1).setText("À maximum");
+        listeLabel.get(0).setText("Nombre de Joueur minimum");
+        listeLabel.get(1).setText("Nombre de Joueur maximum");
         listeLabel.get(2).setText("<html>Nombre de wagon que détient un joueur déclanchant la fin de partie</html>");
         listeLabel.get(3).setText("<html>Nombre de points pour 1 wagon</html>");
         listeLabel.get(4).setText("<html>Nombre de points pour 2 wagons</html>");
@@ -64,38 +67,11 @@ public class PanelParametre extends JPanel implements ActionListener
         listeLabel.get(6).setText("<html>Nombre de points pour 4 wagons</html>");
         listeLabel.get(7).setText("<html>Nombre de points pour 5 wagons</html>");
         listeLabel.get(8).setText("<html>Nombre de points pour 6 wagons</html>");
-        listeLabel.get(9).setText("<html>Nombre de wagon pour chaque joueur</html>");
-        listeLabel.get(10).setText("<html>À partir de combien de joueur voulez vous ajouter les doubles voies</html>");
+        listeLabel.get(9).setText("<html>Nombre de wagon pour chaque joueur");
+        listeLabel.get(10).setText("<html>Nombre de joueur pour ajouter les doubles voies</html>");
 
         labelTitre = new JLabel("Paramètres");
-        btnSauvegarder = new JButton("<html>Sauvegarder</html>");
-
-        int x = 10;
-        int y = 30;
-        int cpt = 0;
-        for (int i = 0; i < listeLabel.size(); i++) 
-        {
-            if(cpt == 0)
-            {
-                listeLabel.get(i).setBounds(x, y, 300, 30);
-                this.add(listeLabel.get(i));
-                cpt++;
-            }
-            else
-            {
-                //obtenle centre du panel carte
-                System.out.println(this.getWidth());
-                x += this.getWidth()/2 -250;
-                listeLabel.get(i).setBounds(x, y, 300, 30);
-                this.add(listeLabel.get(i));
-                y += 30;
-                cpt = 0;
-                x = 10;
-            }
-        }
-
-        
-        
+        btnSauvegarder = new JButton("Sauvegarder");
         
         /*
 
@@ -138,14 +114,12 @@ public class PanelParametre extends JPanel implements ActionListener
         }
         */
         //faire un panel au centre pour mettre les labels
-        this.panelCentre = new JPanel();
-        this.panelCentre.setLayout(new GridLayout(6, 1,0,0));
         this.panelCentre.setBackground(new Color(35,31,32));
-    
+    /*
         for (JPanel panel : listePanel) 
         {
             panelCentre.add(panel);
-        }
+        }*/
         //centrer le titre
         this.labelTitre.setHorizontalAlignment(JLabel.CENTER);
 
@@ -164,12 +138,52 @@ public class PanelParametre extends JPanel implements ActionListener
         this.panelSud.setBackground(new Color(35,31,32));
         this.panelSud.add(this.btnSauvegarder);
         this.panelSud.add(this.btnSuivant);
+        
         this.add(this.labelTitre, BorderLayout.NORTH);
-        this.add(this.panelSud, BorderLayout.SOUTH);
-        this.add(this.panelCentre, BorderLayout.CENTER);
+        this.add(this.panelSud, BorderLayout.SOUTH);      
         
 
     }
+
+    public void  initParametre(int largeur , int hauteur) 
+    {
+        this.remove(this.panelCentre);
+        this.setSize(largeur, hauteur);
+        System.out.println("Largeur :  "+ largeur);
+        System.out.println("Hauteur :  "+ hauteur);
+        int x = 50;
+        int ecart = largeur/2 + 50;
+        int y = 0;
+        int police = 12;
+        if(largeur > 600 && hauteur > 600)
+        {
+            police = 15;
+            x = largeur/5;
+            ecart = largeur/2 + 20;
+        }
+        
+        this.add(listeLabel.get(0));
+        for (int i = 0; i < listeLabel.size(); i++) 
+        {
+            y += hauteur/13 -5 ;
+            System.out.println("y : " + y);
+            listeLabel.get(i).setBounds(x, y, 250,50);
+            listeLabel.get(i).setForeground(Color.WHITE);
+            listeLabel.get(i).setFont(new Font("Arial", Font.BOLD, police));
+            listeTexte.get(i).setBounds(ecart, y, largeur/3, hauteur/20);
+        }
+
+        //ajouter les textes au panel
+        for (int i = 0; i < listeTexte.size(); i++) 
+        {
+            this.panelCentre.add(listeLabel.get(i));
+            this.panelCentre.add(listeTexte.get(i));
+        }
+        this.add(this.panelCentre, BorderLayout.CENTER);
+        System.out.println(this.listeLabel.get(9).getBounds());
+        System.out.println(this.listeLabel.get(10).getBounds());
+    }
+
     public void actionPerformed(ActionEvent e) 
     {
         if (e.getSource() == this.btnSauvegarder) 
