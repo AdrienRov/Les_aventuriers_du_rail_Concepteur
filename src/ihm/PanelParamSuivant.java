@@ -145,7 +145,7 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
 
         if(e.getSource() == this.btnPrecedent)
         {
-            this.ctrl.afficherPanelParam();
+            this.ctrl.getParametre(true);
         }
         
     }

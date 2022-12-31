@@ -58,7 +58,6 @@ public class Controleur
     public void resizeGui(int width, int height)
     {
         this.gui.setSize(width+200, height);
-        this.widthPanelCarte = this.gui.getWidthPanelCarte();
     }
     public void setWidthPanelCarte(int width)
     {
@@ -177,11 +176,6 @@ public class Controleur
     public void getParametreSuivant()
     {
         this.gui.getParametreSuivant();
-    }
-
-    public void afficherPanelParam()
-    {
-        this.gui.afficherPanelParametre();
     }
     
     public void genererXml()
