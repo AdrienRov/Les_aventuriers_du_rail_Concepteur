@@ -76,6 +76,18 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         {
             for(Arete arete : this.allTrajets)
             {
+                if(this.ctrl.getAreteInverse(arete) != null)
+                {
+                    Arete areteInverse = this.ctrl.getAreteInverse(arete);
+                    g2d.setColor(areteInverse.getCouleur());
+                    g2d.setStroke(new BasicStroke(5));
+                    g2d.drawLine(areteInverse.getNoeudDepart().x()+5, areteInverse.getNoeudDepart().y()+5, areteInverse.getNoeudarrive().x()+5, areteInverse.getNoeudarrive().y()+5);
+                    int x = (areteInverse.getNoeudDepart().x() + areteInverse.getNoeudarrive().x())/2;
+                    int y = (areteInverse.getNoeudDepart().y() + areteInverse.getNoeudarrive().y())/2;
+                    g2d.setColor(Color.BLACK);
+                    g2d.drawString(areteInverse.getNbVoiture()+"", x+20, y+20);
+                }
+
                 g2d.setColor(arete.getCouleur());
                 g2d.setStroke(new BasicStroke(5));
                 g2d.drawLine(arete.getNoeudDepart().x()+15, arete.getNoeudDepart().y()+15, arete.getNoeudarrive().x()+15, arete.getNoeudarrive().y()+15);
@@ -83,6 +95,14 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 int y = (arete.getNoeudDepart().y() + arete.getNoeudarrive().y())/2;
                 g2d.setColor(Color.BLACK);
                 g2d.drawString(arete.getNbVoiture()+"", x, y);
+                
+                //g2d.setColor(arete.getCouleur());
+                //g2d.setStroke(new BasicStroke(5));
+                //g2d.drawLine(arete.getNoeudDepart().x()+15, arete.getNoeudDepart().y()+15, arete.getNoeudarrive().x()+15, arete.getNoeudarrive().y()+15);
+                //int x = (arete.getNoeudDepart().x() + arete.getNoeudarrive().x())/2;
+                //int y = (arete.getNoeudDepart().y() + arete.getNoeudarrive().y())/2;
+                //g2d.setColor(Color.BLACK);
+                //g2d.drawString(arete.getNbVoiture()+"", x, y);
             }
             // dessiner les nom des noeuds
             for(Noeud noeud : this.allNoeud)
@@ -131,6 +151,16 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         System.out.println("ajouter trajet");
         System.out.println(noeudDepart.x() + " " + noeudDepart.y());
         System.out.println(noeudArrivee.x() + " " + noeudArrivee.y());
+
+        // Verifier si le trajet existe deja dans la liste des trajets
+        for(Arete arete : this.allTrajets)
+        {
+            if(arete.getNoeudDepart().equals(noeudDepart) && arete.getNoeudarrive().equals(noeudArrivee))
+            {
+                JOptionPane.showMessageDialog(null, "Le trajet est deja existant");
+                return;
+            }
+        }
 
         Object[] choixValeur = {"1", "2", "3", "4", "5", "6"};
         Object[] choixCouleur = {"Vert", "Rouge", "Bleu", "Jaune", "Orange", "Noir", "Blanc", "Gris"};
