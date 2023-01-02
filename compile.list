@@ -1,7 +1,15 @@
 ./src/Controleur.java
+
 ./src/ihm/Gui.java
 ./src/ihm/PanelCarte.java
 ./src/ihm/PanelForm.java
-./src/metier/panelParametre.java
+./src/ihm/panelParametre.java
+./src/ihm/panelParamSuivant.java
+./src/ihm/RoundedBorder.java
+
 ./src/metier/Arete.java
 ./src/metier/Noeud.java
+./src/metier/CarteObjectif.java
+./src/metier/CartesVoitures.java
+./src/metier/Joueur.java
+
