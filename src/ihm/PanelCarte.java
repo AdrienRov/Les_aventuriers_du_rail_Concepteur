@@ -103,32 +103,30 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 int y2_2 = y2 + (int) (distanceAuBord * Math.sin(angle2));
 
                 // Dessiner le second trajet en utilisant les coordonnées décalées
-                /*
+                
                 if(arete.getCouleur() == Color.BLACK)
                     g2d.setColor(Color.WHITE);
                 else   
                     g2d.setColor(Color.BLACK);
                 g2d.setStroke(new BasicStroke(25));
                 g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
-                */
+                
                 // Calculer la distance entre les noeuds du second trajet
                 int distance = (int) Math.sqrt(Math.pow(x1_2 - x2_2, 2) + Math.pow(y1_2 - y2_2, 2));
                 int distanceEntreVoiture = distance / (arete.getNbVoiture());
 
                 // Placer les voitures sur le second trajet
-                 for (int i = 1; i < arete.getNbVoiture() + 1; i++) {
+                // Placer les voitures sur le second trajet
+                for (int i = 1; i < arete.getNbVoiture() + 1; i++) {
                     int xVoiture = (int) (x1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.cos(angle));
                     int yVoiture = (int) (y1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.sin(angle));
 
                     int xVoiture2 = (int) (x1_2 + (i * distanceEntreVoiture - 10 ) * Math.cos(angle));
                     int yVoiture2 = (int) (y1_2 + (i * distanceEntreVoiture - 10 ) * Math.sin(angle));
                     g2d.setColor(arete.getCouleur());
-                    g2d.rotate(angle, xVoiture + 12, yVoiture + 12);
-                    //dessiner la voiture avec un rectangle 
-                    //adapter la largeur du rectangle en fonction de la distance entre les deux noeuds
-                    g2d.fillRect(xVoiture, yVoiture, distance/arete.getNbVoiture(), 25);
-
-                    g2d.rotate(-angle, xVoiture + 12, yVoiture + 12);
+                    g2d.setStroke(new BasicStroke(15));
+                    g2d.drawLine(xVoiture + 15, yVoiture + 15, xVoiture2 +15, yVoiture2 + 15);
+                    
                 }
                  
        
