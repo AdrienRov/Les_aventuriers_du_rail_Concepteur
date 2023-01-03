@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 import src.Controleur;
 import src.metier.Arete;
+import src.metier.CarteObjectif;
 import src.metier.Noeud;
 
 public class PanelCarte extends JPanel implements MouseListener, ActionListener, MouseMotionListener
@@ -37,6 +38,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     
     private List<Noeud> allNoeud;
     private List<Arete> allTrajets;
+    private List<CarteObjectif> allObjectif;
     private Controleur ctrl;
     private List<JButton> allBtnNoeud;
 
@@ -54,6 +56,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.ctrl = ctrl;
         this.allTrajets = new ArrayList<Arete>();
         this.allNoeud   = new ArrayList<Noeud>();
+        this.allObjectif = new ArrayList<CarteObjectif>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
         this.addMouseListener(this);
@@ -228,6 +231,17 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.repaint();
 
     }
+
+    public void ajouterObjectif(Noeud noeudDepart, Noeud noeudArrivee)
+    {
+
+        String input = JOptionPane.showInputDialog("Nombre de point ");
+
+        // recuperer le nombre de point
+        CarteObjectif carteObjectif = new CarteObjectif(noeudDepart, noeudArrivee, Integer.parseInt(input));
+        this.ctrl.ajouteCarteObjectif(carteObjectif);
+
+    }
     
     public void resizeImage(int width, int height)
     {
@@ -247,6 +261,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     public void mouseClicked(MouseEvent e) 
     {
         this.etat = this.ctrl.getEtatPanel();
+        System.out.println("ETAT : " + this.etat);
         if(this.etat == 1)
         {
             System.out.println("modifier noeud");
@@ -334,14 +349,56 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                             this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
                             return;
                         }
-
                     }
                 }
                 cpt = 0;
             }
         }
-        
-    }
+
+            if(this.etat == 3)
+            {
+                System.out.println("active Objectif");
+                allNoeud =  this.ctrl.getAllNoeuds();
+                if(cpt == 0)
+                {
+                    for(Noeud n : allNoeud)
+                    {
+                        int lx = n.x();
+                        int ly = n.y();
+                        if (lx <= e.getX() && e.getX() <= lx + 35 && ly <= e.getY() && e.getY() <= ly + 35)
+                        {
+                            noeudDepart = n;
+                        }
+                    }
+                    cpt++;
+                    this.ctrl.notification("Selectionner le noeud d'arrivée");
+                }
+                else if(cpt == 1 )
+                {
+                    System.out.println("cpt = 1");
+                    for(Noeud n : allNoeud)
+                    {
+                        int lx = n.x();
+                        int ly = n.y();
+                        if (lx <= e.getX() && e.getX() <= lx + 35 && ly <= e.getY() && e.getY() <= ly + 35)
+                        {
+                            if(n != noeudDepart)
+                            {
+                                noeudArrivee = n;
+                                this.ajouterObjectif(noeudDepart, noeudArrivee);
+                                this.ctrl.notification("Vous avez ajouté un objectif");
+                        }
+                        else 
+                        {
+                            this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
+                            return;
+                        }
+                    }
+                }
+                cpt = 0;
+                }
+            }
+        }
 
     @Override
     public void mousePressed(MouseEvent e) 

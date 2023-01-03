@@ -26,6 +26,7 @@ import javax.swing.table.TableColumn;
 
 import src.Controleur;
 import src.metier.Arete;
+import src.metier.CarteObjectif;
 import src.metier.Noeud;
 
 public class PanelForm extends JPanel implements ActionListener, CellEditorListener
@@ -41,16 +42,20 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     private JButton btnGenererXml;
     private JTextField  tabTxtNoeud[] = new JTextField[3];
     private JTextField  tabTxtTrajet[] = new JTextField[3];
+    private JTextField  tabTxtObjectif[] = new JTextField[3];
     private JTable table;
     private Object[][] donneesNoeud     = {{"", "", ""}};
     private String[] entetesNoeud       = {"Nom", "X", "Y"};
     private Object[][] donneesTrajet    = {{"", "", ""}};
     private String[] entetesTrajet      = {"Ville Départ", "Nombre de sections", "Ville Arrivée"};
+    private Object[][] donneesObjectif    = {{"", "", ""}};
+    private String[] entetesObjectif      = {"Ville Départ", "Ville Arrivée", "Nombre de points"};
     private int etat = 0;
     private int verif = 0;
     private boolean etatParam = false;
     private TableColumn tabColNoeud[] = new TableColumn[3];
     private TableColumn tabColTrajet[] = new TableColumn[3];
+    private TableColumn tabColObjectif[] = new TableColumn[3];
 
     public PanelForm(Controleur ctrl)
     {
@@ -69,6 +74,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         {
             this.tabTxtNoeud[i] = new JTextField();
             this.tabTxtTrajet[i] = new JTextField();
+            this.tabTxtObjectif[i] = new JTextField();
         }
         this.table = new JTable(this.donneesNoeud, this.entetesNoeud);
         
@@ -224,8 +230,37 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         if(numPanel == 3)
         {
+            this.refreshTableObjectif();
+            for(int i = 0; i < tabColObjectif.length; i++)
+            {
+                if(tabColObjectif[i] != null)
+                {
+                    tabColObjectif[i].getCellEditor().removeCellEditorListener(this);
+                }
+            }
+            for(int i = 0; i < tabColObjectif.length; i++)
+            {
+                tabColObjectif[i] = this.table.getColumnModel().getColumn(i);
+                tabColObjectif[i].setCellEditor(new DefaultCellEditor(tabTxtObjectif[i]));
+                tabColObjectif[i].getCellEditor().addCellEditorListener(this);
+            }
             g.gridy = g.gridy + 1;
-            this.add(tabBtn[4], g);
+            JLabel labelObjectif = new JLabel("<html><center>Cliquer sur <br> deux nœuds pour <br> créer un objectif</center></html>");
+            labelObjectif.setForeground(Color.WHITE);
+            labelObjectif.setFont(new Font("Arial", Font.BOLD, 20));
+            this.add(labelObjectif, g);
+
+            g.gridy = g.gridy + 1;
+            JScrollPane scrollPane = new JScrollPane(this.table);
+            scrollPane.setPreferredSize(new Dimension(200, 100));
+            if(this.ctrl.getAllCartesObjectif().isEmpty())
+            {
+                this.remove(scrollPane);
+            }
+            else
+            {
+                this.add(scrollPane, g);
+            }
         }
         if(numPanel == 4)
         {
@@ -284,6 +319,28 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             donneesTrajet[i][2] = a.getNoeudarrive().getNom();
         }
         this.table = new JTable(donneesTrajet, entetesTrajet);
+    }
+
+    public void refreshTableObjectif()
+    {
+        System.out.println("refreshTabTrajet");
+        if(this.ctrl.getAllCartesObjectif().isEmpty())
+        {
+            Object[][] donneeObjectif = {{"", "", ""}};
+            this.table = new JTable(donneeObjectif, entetesObjectif);
+            return;
+        }
+        Object[][] donneesObjectif = new Object[this.ctrl.getAllCartesObjectif().size()][3];
+        String[] entetesObjectif = {"Départ", "Arrivée", "Score"};
+        for(int i = 0; i < this.ctrl.getAllCartesObjectif().size(); i++)
+        {
+            CarteObjectif a = this.ctrl.getAllCartesObjectif().get(i);
+            System.out.println("Valll"+a.getNoeud1().getNom() + " " + a.getNoeud2().getNom() + " " + a.getScore());
+            donneesObjectif[i][0] = a.getNoeud1().getNom();
+            donneesObjectif[i][1] = ""+a.getNoeud2().getNom();
+            donneesObjectif[i][2] = a.getScore();
+        }
+        this.table = new JTable(donneesObjectif, entetesObjectif);
     }
 
     @Override
@@ -364,12 +421,10 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         String nom = "";
         this.verif++;
         System.out.println("verif = "+this.verif+"---------------------------------" + e.getSource());
-        
-        if(etat == 1)
+        if( this.etat == 1)
         {
             int x = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).x();
             int y = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).y();
-
             if(this.table.getSelectedColumn() == 0)
             {
                 nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
@@ -392,9 +447,77 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             JButton btn = new JButton("");
             btn.setLocation(x, y);
             this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setButton(btn);
+            this.ctrl.refreshFrame();
         }
-        
-        this.ctrl.refreshFrame();
+
+        if(this.etat == 2)
+        {
+            if(this.table.getSelectedColumn() == 0)
+            {
+                nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllTrajets().get(this.table.getSelectedRow()).getNoeudDepart().setNom(nom);            
+            }
+            if(this.table.getSelectedColumn() == 1)
+            {
+                
+               int nbVoiture;
+               int ancienNbVoiture = this.ctrl.getAllTrajets().get(this.table.getSelectedRow()).getNbVoiture();
+                try {
+                    nbVoiture = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+                    if(nbVoiture > 6 || nbVoiture < 1)
+                    {
+                        this.ctrl.notification("Veuillez inserez un nombre de voiture entre 1 et 6");
+                        nbVoiture = ancienNbVoiture;              
+                    }  
+                } catch (NumberFormatException e1) {
+                    this.ctrl.notification("Veuillez inserez un nombre entier");
+                    nbVoiture = ancienNbVoiture;
+                }
+               
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllTrajets().get(this.table.getSelectedRow()).setNbVoiture(nbVoiture);  
+            }
+            if(this.table.getSelectedColumn() == 2)
+            {   
+                nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllTrajets().get(this.table.getSelectedRow()).getNoeudarrive().setNom(nom);         
+            }
+            this.ctrl.refreshFrame();
+        }
+
+        if(this.etat == 3)
+        {
+            if(this.table.getSelectedColumn() == 0)
+            {
+                nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllCartesObjectif().get(this.table.getSelectedRow()).getNoeud1().setNom(nom);            
+            }
+            if(this.table.getSelectedColumn() == 1)
+            {
+                nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllCartesObjectif().get(this.table.getSelectedRow()).getNoeud2().setNom(nom);            
+            }
+            if(this.table.getSelectedColumn() == 2)
+            {
+                int score;
+                int ancienScore = this.ctrl.getAllCartesObjectif().get(this.table.getSelectedRow()).getScore();
+                try {
+                    score = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+                    System.out.println("colonnes = "+this.table.getSelectedColumn());
+                    this.ctrl.getAllCartesObjectif().get(this.table.getSelectedRow()).setScore(score);   
+                } catch (NumberFormatException e1) {
+                    this.ctrl.notification("Veuillez inserez un nombre entier");
+                    score = ancienScore;
+                }
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllCartesObjectif().get(this.table.getSelectedRow()).setScore(score);            
+            }
+            this.ctrl.refreshFrame();
+        }
     }
     @Override
     public void editingCanceled(ChangeEvent e) {
