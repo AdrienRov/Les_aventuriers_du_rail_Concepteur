@@ -394,6 +394,8 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setButton(btn);
         }
         
+
+        
         this.ctrl.refreshFrame();
     }
     @Override
