@@ -9,7 +9,7 @@ public class Noeud{
     private JButton button;
     private String nom;
 
-    public Noeud(int x, int y, String nom, JButton button) {
+    public Noeud(int x, int y, String nom) {
         this.x = x;
         this.y = y;
         this.button = button;
