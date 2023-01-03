@@ -101,7 +101,11 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 int y2_2 = y2 + (int) (distanceAuBord * Math.sin(angle2));
 
                 // Dessiner le second trajet en utilisant les coordonnées décalées
-                g2d.setColor(Color.BLACK);
+                if(arete.getCouleur() == Color.BLACK)
+                    g2d.setColor(Color.WHITE);
+                else   
+                    g2d.setColor(Color.BLACK);
+                    
                 g2d.setStroke(new BasicStroke(25));
                 g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
 
