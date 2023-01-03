@@ -62,14 +62,14 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.ctrl = ctrl;
         this.setLayout(new GridBagLayout());
 
-        this.btnAjouterImage = new JButton("Ajouter une image de map");
+        this.btnAjouterImage = new JButton("<html>Ajouter une image de map<html>");
         this.btnAjouterNoeud = new JButton("Ajouter");
-        this.btnCouleurNoeud = new JButton("Couleur des noeuds");
+        this.btnCouleurNoeud = new JButton("<html>Couleur des noeuds<html>");
         this.btnParametres = new JButton("Paramètres");
         this.btnSuivant = new JButton("Suivant");
         this.btnPrecedent = new JButton("Precedent");
-        this.btnAjouterTrajet = new JButton("Ajouter un trajet");
-        this.btnGenererXml = new JButton("Générer le fichier XML");
+        this.btnAjouterTrajet = new JButton("<html>Ajouter un trajet<html>");
+        this.btnGenererXml = new JButton("<html>Générer le fichier XML<html>");
         this.btnChangerPolice = new JButton("Police");
         for (int i = 0; i < 3; i++) {
             this.tabTxtNoeud[i] = new JTextField();
@@ -132,10 +132,6 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         for (JButton btn : tabBtn) {
             btn.setPreferredSize(new Dimension(150, 50));
         }
-        g.gridx = 0;
-        g.gridy = 0;
-
-        this.add(tabBtn[0], g);
 
         if (numPanel == 0) {
             g.gridy = g.gridy + 1;
@@ -144,6 +140,10 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             this.add(tabBtn[3], g);
             g.gridy = g.gridy + 1;
             this.add(tabBtn[4], g);
+        } else {
+            g.gridx = 0;
+            g.gridy = 0;
+            this.add(tabBtn[0], g);
         }
 
         if (numPanel == 1) {
@@ -361,6 +361,8 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             }
             if (verif) {
                 this.ctrl.genererXml();
+                JOptionPane.showMessageDialog(null, "Le fichier a été généré", "Succès",
+                        JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Générer XML");
             }
         }
