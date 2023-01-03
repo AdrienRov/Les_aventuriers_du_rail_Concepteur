@@ -125,7 +125,33 @@ public class Controleur
         gui.notification(message);
     }
 
+    public void supprimerNoeud(Noeud noeud) 
+    {
+        if(noeud == null) {
+            throw new IllegalArgumentException("Le noeud n'existe pas.");
+        }
+
+        int i = 0;
+        ArrayList<Integer> alIndice = new ArrayList<Integer>();
+        for (Arete ar : aretes) 
+        {
+            if (ar.getNoeudDepart() == noeud || ar.getNoeudarrive() == noeud)
+            {
+                alIndice.add(i);
+            }
+            i ++;
+        }
+        int ecart = 0;
+        for (int cpt : alIndice) 
+        {
+            aretes.remove(cpt - ecart);
+            ecart ++;
+        }
+        this.noeuds.remove(noeud);
+    }
+
     //supprimer un noeud
+    /* 
     public void supprimerNoeud(Noeud noeud)
     {
         System.out.println("Noeud supprimé");
@@ -142,6 +168,7 @@ public class Controleur
         
         this.gui.refreshTabNoeud();
     }
+    */
     
 
     public int getEtatSelectionNoeud(){return this.gui.getEtatSelectionNoeud();}
