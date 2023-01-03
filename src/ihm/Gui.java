@@ -79,6 +79,10 @@ public class Gui extends JFrame
         this.repaint();
         this.revalidate();
     }
+    public void refreshNomNoeud()
+    {
+        this.panelForm.repaint();
+    }
     public void getParametre(boolean active)
     {
         if(active == true)
