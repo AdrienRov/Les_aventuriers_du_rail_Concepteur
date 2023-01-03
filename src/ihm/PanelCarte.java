@@ -133,6 +133,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 }
             }
 
+            
              // dessiner les nom des noeuds
             for (Noeud noeud : this.allNoeud) {
                 
