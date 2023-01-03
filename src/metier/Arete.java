@@ -2,13 +2,13 @@ package src.metier;
 
 import java.awt.Color;
 
-public class Arete
-{
-    private int n1y ;
-    private int n1x ;
-    private int n2y ;
-    private int n2x ;
- 
+public class Arete {
+    // Attributs
+    private int n1y;
+    private int n1x;
+    private int n2y;
+    private int n2x;
+
     private Noeud noeudDepart;
     private Noeud noeudarrive;
 
@@ -17,12 +17,11 @@ public class Arete
     private Color couleur;
 
     private int nbVoiture;
-    
-    public Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur , Boolean sensUnique)
-    {
+
+    public Arete(Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur, Boolean sensUnique) {
         this.noeudDepart = noeudDepart;
         this.noeudarrive = noeudarrive;
-        
+
         this.nbVoiture = nbVoiture;
         this.n1x = noeudarrive.x();
         this.n1y = noeudarrive.y();
@@ -97,12 +96,9 @@ public class Arete
         return couleur;
     }
 
-    public String toString()
-    {
-        return "Arete [n1x=" + n1x + ", n1y=" + n1y + ", n2x=" + n2x + ", n2y=" + n2y + ", nbVoiture=" + nbVoiture + "]";
+    public String toString() {
+        return "Arete [n1x=" + n1x + ", n1y=" + n1y + ", n2x=" + n2x + ", n2y=" + n2y + ", nbVoiture=" + nbVoiture
+                + "]";
     }
 
-    
-   
 }
-
