@@ -123,8 +123,15 @@ public class Gui extends JFrame
     public void refreshTabTrajet()
     {
         System.out.println("refresh tab trajet");
-        //this.panelForm.refreshTabTrajet();
+        this.panelForm.refreshTabTrajet();
         this.panelForm.initPanel(2);
+    }
+
+    public void refreshTabCarteObjectif()
+    {
+        System.out.println("refresh tab carte objectif");
+        this.panelForm.refreshTableObjectif();
+        this.panelForm.initPanel(3);
     }
    
     

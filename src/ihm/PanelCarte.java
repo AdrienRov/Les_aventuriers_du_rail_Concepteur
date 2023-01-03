@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 import src.Controleur;
 import src.metier.Arete;
+import src.metier.CarteObjectif;
 import src.metier.Noeud;
 
 public class PanelCarte extends JPanel implements MouseListener, ActionListener, MouseMotionListener
@@ -39,6 +40,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     private List<Arete> allTrajets;
     private Controleur ctrl;
     private List<JButton> allBtnNoeud;
+    private List<CarteObjectif> allObjectif;
 
     private int cpt  = 0;
     private int etat = 0;
@@ -54,6 +56,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.ctrl = ctrl;
         this.allTrajets = new ArrayList<Arete>();
         this.allNoeud   = new ArrayList<Noeud>();
+        this.allObjectif = new ArrayList<CarteObjectif>();
         this.image = new ImageIcon("").getImage();
         this.setLayout  (null);
         this.addMouseListener(this);
@@ -106,7 +109,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 else   
                     g2d.setColor(Color.BLACK);
                     
-                g2d.setStroke(new BasicStroke(25));
+                g2d.setStroke(new BasicStroke(10));
                 g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
 
                 // Calculer la distance entre les noeuds du second trajet
@@ -219,6 +222,28 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.repaint();
 
     }
+
+    public void ajouterObjectif(Noeud noeudDepart, Noeud noeudArrivee)
+    {
+        /* 
+        for(CarteObjectuif  : this.allObjectif)
+        {
+            if(arete.getNoeudDepart().equals(noeudDepart) && arete.getNoeudarrive().equals(noeudArrivee))
+            {
+                JOptionPane.showMessageDialog(null, "Le trajet est deja existant");
+                return;
+            }
+        }
+        */
+
+        String input = JOptionPane.showInputDialog("Nombre de point ");
+
+        // recuperer le nombre de point
+        CarteObjectif carteObjectif = new CarteObjectif(noeudDepart, noeudArrivee, Integer.parseInt(input));
+        this.ctrl.ajouteCarteObjectif(carteObjectif);
+
+    }
+
     public void refreshNoeuds()
     {
         this.allNoeud = this.ctrl.getAllNoeuds();
@@ -359,6 +384,44 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     }
                 cpt = 0;
             }
+        }
+        else if(this.ctrl.getEtatPanel()==3)
+        { 
+            System.out.println("active objetcif");
+            allNoeud =  this.ctrl.getAllNoeuds();
+            if(cpt == 0)
+            {
+                for(Noeud n : allNoeud)
+                    if(n.getButton()  == e.getSource())
+                        noeudDepart = n;
+                cpt++;
+                this.ctrl.notification("Selectionner le noeud d'arrivée");
+            }
+            else if(cpt == 1 )
+            {
+                System.out.println("cpt = 1");
+                for(Noeud n : allNoeud)
+                    if(n.getButton() == e.getSource())
+                    {
+                        if(n != noeudDepart)
+                        {
+                            System.out.println("tests");
+                            noeudArrivee = n;
+                            this.ajouterObjectif(noeudDepart, noeudArrivee);
+                            //this.ctrl.setActiveObjectif(false);
+                            this.ctrl.notification("Vous avez ajouté un objectif");
+                        }
+                        else 
+                        {
+                            this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
+                            return;
+                        }
+
+                    }
+                cpt = 0;
+            }
+
+
         }
         else 
         {
