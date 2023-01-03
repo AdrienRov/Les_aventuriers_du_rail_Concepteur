@@ -346,30 +346,36 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         String nom = "";
         this.verif++;
         System.out.println("verif = "+this.verif+"---------------------------------" + e.getSource());
-        int x = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).x();
-        int y = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).y();
-        if(this.table.getSelectedColumn() == 0)
+        
+        if(etat == 1)
         {
-            nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
-            System.out.println("colonnes = "+this.table.getSelectedColumn());
-            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setNom(nom);            
-        }
-        if(this.table.getSelectedColumn() == 1)
-        {
-            x = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
-            System.out.println("colonnes = "+this.table.getSelectedColumn());
-            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setX(x);
+            int x = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).x();
+            int y = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).y();
             
+            if(this.table.getSelectedColumn() == 0)
+            {
+                nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setNom(nom);            
+            }
+            if(this.table.getSelectedColumn() == 1)
+            {
+                x = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setX(x);
+                
+            }
+            if(this.table.getSelectedColumn() == 2)
+            {
+                y = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
+                System.out.println("colonnes = "+this.table.getSelectedColumn());
+                this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setY(y);
+            }
+            JButton btn = new JButton("");
+            btn.setLocation(x, y);
+            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setButton(btn);
         }
-        if(this.table.getSelectedColumn() == 2)
-        {
-            y = Integer.parseInt(this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString());
-            System.out.println("colonnes = "+this.table.getSelectedColumn());
-            this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setY(y);
-        }
-        JButton btn = new JButton("");
-        btn.setLocation(x, y);
-        this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).setButton(btn);
+        
         this.ctrl.refreshFrame();
     }
     @Override
