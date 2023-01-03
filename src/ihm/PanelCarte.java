@@ -73,7 +73,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.allNoeud = this.ctrl.getAllNoeuds();
 
         if (this.allTrajets != null) {
-            for (Arete arete : this.allTrajets) {
+            for (Arete arete : this.allTrajets) 
+            {
 
                 int x1 = arete.getNoeudDepart().x();
                 int y1 = arete.getNoeudDepart().y();
@@ -116,8 +117,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 int distanceEntreVoiture = distance / (arete.getNbVoiture());
 
                 // Placer les voitures sur le second trajet
-                // Placer les voitures sur le second trajet
-                for (int i = 1; i < arete.getNbVoiture() + 1; i++) {
+                for (int i = 1; i < arete.getNbVoiture() + 1; i++) 
+                {
                     int xVoiture = (int) (x1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.cos(angle));
                     int yVoiture = (int) (y1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.sin(angle));
 
@@ -128,9 +129,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     g2d.drawLine(xVoiture + 15, yVoiture + 15, xVoiture2 +15, yVoiture2 + 15);
                     
                 }
-                 
-       
-                }
+            }
 
              // dessiner les nom des noeuds
             for (Noeud noeud : this.allNoeud) {
@@ -221,32 +220,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.repaint();
 
     }
-    public void refreshNoeuds()
-    {
-        
-        //supprimer tout les boutons du panel
-        
-        
-        //ajouter les boutons
-        /*
-        for(Noeud noeud : this.allNoeud)
-        {
-            JButton btn = noeud.getButton();
-            btn.setSize(20,20);
-            btn.setBackground(Color.RED);
-            btn.removeActionListener(this);
-            btn.removeMouseListener(this);
-            btn.removeMouseMotionListener(this);
-            btn.addActionListener(this);
-            btn.addMouseListener(this);
-            btn.addMouseMotionListener(this);
-            this.add(btn);
-        }*/
-        this.repaint();
-        this.revalidate();
-        System.out.println("refresh Carte");
-    }
-
+    
     public void resizeImage(int width, int height)
     {
         this.image = this.image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -262,20 +236,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     private Noeud selectedNoeud;
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        
-        /*
-        for(Noeud noeud : this.allNoeud)
-        {
-            int lx = noeud.x();
-            int ly = noeud.y();
-            if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
-            {
-                this.selectedNoeud = noeud;
-                System.out.println("selected noeud");
-                break;
-            }
-        }*/
+    public void mouseClicked(MouseEvent e) 
+    {
         this.etat = this.ctrl.getEtatPanel();
         if(this.etat == 1)
         {
@@ -367,7 +329,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
                     }
                 }
-                    
                 cpt = 0;
             }
         }
@@ -431,12 +392,5 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        System.out.println("action");
-        
-        if(this.ctrl.getEtatPanel()==2)
-        {
-            
-        }
-       
     }
 }

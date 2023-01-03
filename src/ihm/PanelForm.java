@@ -15,6 +15,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -146,6 +147,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             g.gridy = g.gridy + 1;
             this.add(tabBtn[4], g);
         }
+        
         if(numPanel == 1)
         {
             this.refreshTabNoeud();
@@ -185,6 +187,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             tabBtn[2].setPreferredSize    (new Dimension(100, 25));
             this.add(tabBtn[2],g);
         }
+
         if(numPanel == 2)
         {
             this.refreshTabTrajet();
@@ -334,8 +337,23 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         }
         if(e.getSource() == this.btnGenererXml)
         {
-            this.ctrl.genererXml();
-            System.out.println("Générer XML");
+            boolean verif = true;
+            // Vérification des listes si elles ne sont pas null
+            if(this.ctrl.getAllNoeuds().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Aucun noeud n'a été ajouté", "Erreur", JOptionPane.ERROR_MESSAGE);
+                verif = false;
+            }
+            if(this.ctrl.getAllTrajets().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Aucun trajet n'a été ajouté", "Erreur", JOptionPane.ERROR_MESSAGE);
+                verif = false;
+            }
+            if(verif)
+            {
+                this.ctrl.genererXml();
+                System.out.println("Générer XML");
+            }
         }
     }
 
