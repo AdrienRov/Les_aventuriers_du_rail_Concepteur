@@ -12,11 +12,13 @@ public class Arete
     private Noeud noeudDepart;
     private Noeud noeudarrive;
 
+    private Boolean sensUnique;
+
     private Color couleur;
 
     private int nbVoiture;
     
-    public Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur)
+    public Arete( Noeud noeudDepart, Noeud noeudarrive, int nbVoiture, Color couleur , Boolean sensUnique)
     {
         this.noeudDepart = noeudDepart;
         this.noeudarrive = noeudarrive;
@@ -26,6 +28,7 @@ public class Arete
         this.n1y = noeudarrive.y();
         this.n2x = noeudDepart.x();
         this.n2y = noeudDepart.y();
+        this.sensUnique = sensUnique;
         this.couleur = couleur;
 
     }
@@ -48,6 +51,10 @@ public class Arete
 
     public int getNbVoiture() {
         return nbVoiture;
+    }
+
+    public Boolean getSensUnique() {
+        return sensUnique;
     }
 
     public void setNbVoiture(int nbVoiture) {

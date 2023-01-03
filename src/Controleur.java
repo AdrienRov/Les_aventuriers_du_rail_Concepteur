@@ -273,16 +273,13 @@ public class Controleur
         this.nbJoueurDoublesVoies = nombre;
     }
 
-    public Arete getAreteInverse(Arete arete)
-    {
-        for (Arete a : aretes) 
-        {
-            if (a.getNoeudDepart() == arete.getNoeudarrive() && a.getNoeudarrive() == arete.getNoeudDepart()) 
-            {
-                return a;
+    public boolean verifAreteInvers(Noeud depart, Noeud arrive) {
+        for (Arete a : aretes) {
+            if (a.getNoeudDepart() == arrive && a.getNoeudarrive() == depart) {
+                return false;
             }
         }
-        return null;
+        return true;
     }
 
     public static void main(String[] args) 
