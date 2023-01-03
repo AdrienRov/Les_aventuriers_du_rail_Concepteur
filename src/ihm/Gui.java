@@ -68,6 +68,7 @@ public class Gui extends JFrame
         this.panelCarte.ajouteNoeud(this.panelCarte.getWidth()/2, this.panelCarte.getHeight()/2);
     }
 
+    
     public boolean getActiveTrajet()
     {
         return this.activeTrajet;
