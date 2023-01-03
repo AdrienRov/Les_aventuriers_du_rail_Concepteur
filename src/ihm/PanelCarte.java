@@ -62,7 +62,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.setFocusable(true);
     }
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) 
+    {
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
@@ -84,7 +85,8 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 double angle2;
                 int distanceAuBord;
                 // Décaler l'angle de 90 degrés pour obtenir l'angle de décalage sur l'axe y
-                if (arete.getSensUnique()) {
+                if (arete.getSensUnique()) 
+                {
                     angle2 = angle;
                     distanceAuBord = 0;
                 } else {
@@ -101,6 +103,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 int y2_2 = y2 + (int) (distanceAuBord * Math.sin(angle2));
 
                 // Dessiner le second trajet en utilisant les coordonnées décalées
+                /*
                 if(arete.getCouleur() == Color.BLACK)
                     g2d.setColor(Color.WHITE);
                 else   
@@ -108,7 +111,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     
                 g2d.setStroke(new BasicStroke(25));
                 g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
-
+                */
                 // Calculer la distance entre les noeuds du second trajet
                 int distance = (int) Math.sqrt(Math.pow(x1_2 - x2_2, 2) + Math.pow(y1_2 - y2_2, 2));
                 int distanceEntreVoiture = distance / (arete.getNbVoiture() + 1);
@@ -118,7 +121,12 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     int xVoiture = (int) (x1_2 + (i * distanceEntreVoiture) * Math.cos(angle));
                     int yVoiture = (int) (y1_2 + (i * distanceEntreVoiture) * Math.sin(angle));
                     g2d.setColor(arete.getCouleur());
-                    g2d.fillOval(xVoiture, yVoiture, 25, 25);
+                    g2d.rotate(angle, xVoiture + 12, yVoiture + 12);
+                    //dessiner la voiture avec un rectangle 
+                    //adapter la largeur du rectangle en fonction de la distance entre les deux noeuds
+                    g2d.fillRect(xVoiture, yVoiture, distance/arete.getNbVoiture(), 25);
+
+                    g2d.rotate(-angle, xVoiture + 12, yVoiture + 12);
                 }
 
                
@@ -135,8 +143,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
                 g2d.setColor(Color.BLACK);
                 g2d.drawString(noeud.getNom(), noeud.x() - 16, noeud.y() - 16);
-                
-             
+
+                //dessiner les noeuds
+                g2d.setColor(Color.ORANGE);
+                g2d.fillOval(noeud.x(), noeud.y(), 20, 20);
             }
         }
     }
@@ -156,20 +166,12 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         String input = JOptionPane.showInputDialog("Nom du noeud");
 
         if(input == null)return;
-        
-        JButton btn = new JButton("");
-       
-        btn.setBounds(x, y, 50, 50);
-        btn.setSize(20,20);
-        btn.setBackground(Color.RED);
-       
-        Noeud n = new Noeud(x, y,input, btn);
+ 
+        Noeud n = new Noeud(x, y,input);
         // dessiner le nom du noeud au dessus de 5px
         this.ctrl.ajouteNoeud(n);
-        this.add(btn);
-        btn.addActionListener(this);
-        btn.addMouseListener(this);
-        btn.addMouseMotionListener(this);
+        //this.add(btn);
+        
         this.repaint();
     }
 
@@ -221,11 +223,12 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
     }
     public void refreshNoeuds()
     {
-        this.allNoeud = this.ctrl.getAllNoeuds();
+        
         //supprimer tout les boutons du panel
         
-        this.removeAll();
+        
         //ajouter les boutons
+        /*
         for(Noeud noeud : this.allNoeud)
         {
             JButton btn = noeud.getButton();
@@ -238,7 +241,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             btn.addMouseListener(this);
             btn.addMouseMotionListener(this);
             this.add(btn);
-        }
+        }*/
         this.repaint();
         this.revalidate();
         System.out.println("refresh Carte");
@@ -256,119 +259,33 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
     public int getEtatSelectionNoeud(){return this.cpt;}
    
+    private Noeud selectedNoeud;
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        if ( ctrl.getEtatPanel()==1)
-        {
-            this.ajouteNoeud(e.getX(), e.getY());
-            this.ctrl.notification("Vous avez ajouté une ville");
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        if(this.ctrl.getEtatPanel() == 1 && e.getSource() instanceof JButton && isDragged == true)
-        {
-            for(int i = 0; i<this.ctrl.getAllNoeuds().size();i++)
-            {
-                if(this.ctrl.getAllNoeuds().get(i).getButton() == e.getSource())
-                {
-                    this.ctrl.getAllNoeuds().get(i).setX(e.getX()+xDifference);
-                    this.ctrl.getAllNoeuds().get(i).setY(e.getY()+yDifference);
-                    this.ctrl.getAllNoeuds().get(i).getButton().setLocation(e.getX()+xDifference, e.getY()+yDifference);                                                                                                                                                                                                                                                                                                                                                  
-                    System.out.println("Noeud modifié x:" + e.getX()+xDifference + " y:" + e.getY()+yDifference);
-                    this.ctrl.notification("Vous avez déplacé une ville");
-                }
-            }
-            System.out.println("Sortie du bouton");
-            this.ctrl.refreshFrame();
-            this.refreshNoeuds();
-            isDragged = false;
-        }
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
         
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        if(this.ctrl.getEtatPanel() == 1 && e.getSource() instanceof JButton)
+        /*
+        for(Noeud noeud : this.allNoeud)
         {
-            System.out.println("Modif btn");            
-            isDragged = true;
-            System.out.println("xNew: "+xDifference+" yNew: "+yDifference);
-        }
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        if(e.getSource() == this)
-        {
-            xDifference = e.getX();
-            yDifference = e.getY();
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-        System.out.println("action");
-        
-        if(this.ctrl.getEtatPanel()==2)
-        {
-            System.out.println("active trajet");
-            allNoeud =  this.ctrl.getAllNoeuds();
-            if(cpt == 0)
+            int lx = noeud.x();
+            int ly = noeud.y();
+            if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
             {
-                for(Noeud n : allNoeud)
-                    if(n.getButton()  == e.getSource())
-                        noeudDepart = n;
-                cpt++;
-                this.ctrl.notification("Selectionner le noeud d'arrivée");
+                this.selectedNoeud = noeud;
+                System.out.println("selected noeud");
+                break;
             }
-            else if(cpt == 1 )
-            {
-                System.out.println("cpt = 1");
-                for(Noeud n : allNoeud)
-                    if(n.getButton() == e.getSource())
-                    {
-                        if(n != noeudDepart)
-                        {
-                            noeudArrivee = n;
-                            this.ajouterTrajet(noeudDepart, noeudArrivee);
-                            this.ctrl.setActiveTrajet(false);
-                            this.ctrl.notification("Vous avez ajouté un trajet");
-                        }
-                        else 
-                        {
-                            this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
-                            return;
-                        }
-
-                    }
-                cpt = 0;
-            }
-        }
-        else 
+        }*/
+        this.etat = this.ctrl.getEtatPanel();
+        if(this.etat == 1)
         {
-            //modifier le noeud quand on clique dessus pop up pour modifier le nom ou supprimer le noeud 
-           
             System.out.println("modifier noeud");
             this.allNoeud =  this.ctrl.getAllNoeuds();
-            for(int i = 0; i < allNoeud.size(); i++)
+            for(int i = 0; i < this.allNoeud.size(); i++)
             {
-                if(this.allNoeud.get(i).getButton() == e.getSource())
+                int lx = this.allNoeud.get(i).x();
+                int ly = this.allNoeud.get(i).y();
+                if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
                 {
                     System.out.println("noeud trouvé");
                     
@@ -393,14 +310,133 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     // suppirmer le noeud si la case est coché et enlever le bouton du panel
                     if(check.isSelected())
                     {
-                        this.remove(this.allNoeud.get(i).getButton());
                         this.ctrl.supprimerNoeud(this.allNoeud.get(i));
                     }
                     // recuperer la valeur de la liste déroulante
                     
                     this.repaint();
+                    this.ctrl.refreshFrame();
+                    return;
                 }
             }
+            System.out.println("ajouter noeud");
+            this.ajouteNoeud(e.getX(), e.getY());
+            this.ctrl.notification("Vous avez ajouté une ville");
+            this.repaint();
         }
+
+        if(this.etat == 2)
+        {
+            System.out.println("active trajet");
+            allNoeud =  this.ctrl.getAllNoeuds();
+            if(cpt == 0)
+            {
+                for(Noeud n : allNoeud)
+                {
+                    int lx = n.x();
+                    int ly = n.y();
+                    if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+                    {
+                        noeudDepart = n;
+                    }
+                }
+                cpt++;
+                this.ctrl.notification("Selectionner le noeud d'arrivée");
+            }
+            else if(cpt == 1 )
+            {
+                System.out.println("cpt = 1");
+                for(Noeud n : allNoeud)
+                {
+                    int lx = n.x();
+                    int ly = n.y();
+                    if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+                    {
+                        if(n != noeudDepart)
+                        {
+                            noeudArrivee = n;
+                            this.ajouterTrajet(noeudDepart, noeudArrivee);
+                            this.ctrl.setActiveTrajet(false);
+                            this.ctrl.notification("Vous avez ajouté un trajet");
+                        }
+                        else 
+                        {
+                            this.ctrl.notification("Vous ne pouvez pas selectionner deux fois la même ville ");
+                            return;
+                        }
+
+                    }
+                }
+                    
+                cpt = 0;
+            }
+        }
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) 
+    {
+        for(Noeud noeud : this.allNoeud)
+        {
+            int lx = noeud.x();
+            int ly = noeud.y();
+            if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+            {
+                this.selectedNoeud = noeud;
+                System.out.println("selected noeud");
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        selectedNoeud = null;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void mouseDragged(MouseEvent e) 
+    {
+        // TODO Auto-generated method stub
+        if (this.selectedNoeud != null)
+        {
+            this.selectedNoeud.setX(e.getX() );
+            this.selectedNoeud.setY(e.getY());
+            this.ctrl.refreshFrame();
+            this.repaint();
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) 
+    {
+        // TODO Auto-generated method stub
+        if(e.getSource() == this)
+        {
+            xDifference = e.getX();
+            yDifference = e.getY();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) 
+    {
+        System.out.println("action");
+        
+        if(this.ctrl.getEtatPanel()==2)
+        {
+            
+        }
+       
     }
 }
