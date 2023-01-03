@@ -17,16 +17,12 @@ import java.util.ArrayList;
 
 import src.Controleur;
 
-
-
-public class PanelParametre extends JPanel implements ActionListener
-{
+public class PanelParametre extends JPanel implements ActionListener {
 
     private ArrayList<JTextField> listeTexte;
     private ArrayList<JLabel> listeLabel;
     private ArrayList<JPanel> listePanel;
-    
-    
+
     private JButton btnSauvegarder;
     private JButton btnSuivant;
     private Controleur ctrl;
@@ -34,21 +30,18 @@ public class PanelParametre extends JPanel implements ActionListener
     private JPanel panelSud;
     private JLabel labelTitre;
 
-
-    public PanelParametre(Controleur ctrl)
-    {
+    public PanelParametre(Controleur ctrl) {
         this.ctrl = ctrl;
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(35,31,32));
+        this.setBackground(new Color(35, 31, 32));
 
         this.listeTexte = new ArrayList<JTextField>();
         this.listeLabel = new ArrayList<JLabel>();
         this.listePanel = new ArrayList<JPanel>();
         this.panelCentre = new JPanel();
-        
+
         this.panelCentre.setLayout(null);
-        for(int i=0; i<11; i++)
-        {
+        for (int i = 0; i < 11; i++) {
             this.listeTexte.add(new JTextField());
             this.listeLabel.add(new JLabel());
         }
@@ -70,68 +63,60 @@ public class PanelParametre extends JPanel implements ActionListener
         listeLabel.get(9).setText("<html>Nombre de wagon pour chaque joueur");
         listeLabel.get(10).setText("<html>Nombre de joueur pour ajouter les doubles voies</html>");
 
+        for (JLabel label : listeLabel) {
+            label.setForeground(Color.WHITE);
+        }
         labelTitre = new JLabel("Paramètres");
         btnSauvegarder = new JButton("Sauvegarder");
 
-        //faire un panel au centre pour mettre les labels
-        this.panelCentre.setBackground(new Color(35,31,32));
-   
-        //centrer le titre
+        // faire un panel au centre pour mettre les labels
+        this.panelCentre.setBackground(new Color(35, 31, 32));
+
+        // centrer le titre
         this.labelTitre.setHorizontalAlignment(JLabel.CENTER);
 
         this.labelTitre.setForeground(Color.WHITE);
         this.labelTitre.setFont(new Font("Arial", Font.BOLD, 20));
-        this.btnSauvegarder.setPreferredSize(new Dimension(100, 20));
-        this.btnSauvegarder.setFont(new Font("Arial", Font.BOLD, 10));
         this.btnSuivant = new JButton("Suivant");
-        this.btnSuivant.setPreferredSize(new Dimension(100, 20));
-        this.btnSuivant.setFont(new Font("Arial", Font.BOLD, 10));
 
         this.btnSauvegarder.addActionListener(this);
         this.btnSuivant.addActionListener(this);
 
         this.panelSud = new JPanel();
-        this.panelSud.setBackground(new Color(35,31,32));
+        this.panelSud.setBackground(new Color(35, 31, 32));
         this.panelSud.add(this.btnSauvegarder);
         this.panelSud.add(this.btnSuivant);
-        
+
         this.add(this.labelTitre, BorderLayout.NORTH);
-        this.add(this.panelSud, BorderLayout.SOUTH);      
-        
+        this.add(this.panelSud, BorderLayout.SOUTH);
 
     }
 
-    public void  initParametre(int largeur , int hauteur) 
-    {
+    public void initParametre(int largeur, int hauteur) {
         this.remove(this.panelCentre);
         this.setSize(largeur, hauteur);
-        System.out.println("Largeur :  "+ largeur);
-        System.out.println("Hauteur :  "+ hauteur);
+        System.out.println("Largeur :  " + largeur);
+        System.out.println("Hauteur :  " + hauteur);
         int x = 50;
-        int ecart = largeur/2 + 50;
+        int ecart = largeur / 2 + 50;
         int y = 0;
         int police = 12;
-        if(largeur > 600 && hauteur > 600)
-        {
+        if (largeur > 600 && hauteur > 600) {
             police = 15;
-            x = largeur/5;
-            ecart = largeur/2 + 20;
-        }
-        
-        this.add(listeLabel.get(0));
-        for (int i = 0; i < listeLabel.size(); i++) 
-        {
-            y += hauteur/13 -5 ;
-            System.out.println("y : " + y);
-            listeLabel.get(i).setBounds(x, y, 250,50);
-            listeLabel.get(i).setForeground(Color.WHITE);
-            listeLabel.get(i).setFont(new Font("Arial", Font.BOLD, police));
-            listeTexte.get(i).setBounds(ecart, y, largeur/3, hauteur/20);
+            x = largeur / 5;
+            ecart = largeur / 2 + 20;
         }
 
-        //ajouter les textes au panel
-        for (int i = 0; i < listeTexte.size(); i++) 
-        {
+        this.add(listeLabel.get(0));
+        for (int i = 0; i < listeLabel.size(); i++) {
+            y += hauteur / 13 - 5;
+            System.out.println("y : " + y);
+            listeLabel.get(i).setBounds(x, y, 250, 50);
+            listeTexte.get(i).setBounds(ecart, y, largeur / 3, hauteur / 20);
+        }
+
+        // ajouter les textes au panel
+        for (int i = 0; i < listeTexte.size(); i++) {
             this.panelCentre.add(listeLabel.get(i));
             this.panelCentre.add(listeTexte.get(i));
         }
@@ -140,40 +125,35 @@ public class PanelParametre extends JPanel implements ActionListener
         System.out.println(this.listeLabel.get(10).getBounds());
     }
 
-    public void actionPerformed(ActionEvent e) 
-    {
-        if (e.getSource() == this.btnSauvegarder) 
-        {
-            //vérifier que toutes les valeurs sont rentrées
-            if(this.listeTexte.get(0).getText().equals("")  || this.listeTexte.get(1).getText().equals("") || 
-            this.listeTexte.get(2).getText().equals("")     || this.listeTexte.get(3).getText().equals("") || 
-            this.listeTexte.get(4).getText().equals("")     || this.listeTexte.get(5).getText().equals("") || 
-            this.listeTexte.get(6).getText().equals("")     || this.listeTexte.get(7).getText().equals("") || 
-            this.listeTexte.get(8).getText().equals("")     || this.listeTexte.get(9).getText().equals("") || 
-            this.listeTexte.get(10).getText().equals(""))
-            {
-                JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.btnSauvegarder) {
+            // vérifier que toutes les valeurs sont rentrées et que ce sont des entiers
+            if (this.listeTexte.get(0).getText().equals("") || this.listeTexte.get(1).getText().equals("") ||
+                    this.listeTexte.get(2).getText().equals("") || this.listeTexte.get(3).getText().equals("") ||
+                    this.listeTexte.get(4).getText().equals("") || this.listeTexte.get(5).getText().equals("") ||
+                    this.listeTexte.get(6).getText().equals("") || this.listeTexte.get(7).getText().equals("") ||
+                    this.listeTexte.get(8).getText().equals("") || this.listeTexte.get(9).getText().equals("") ||
+                    this.listeTexte.get(10).getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs", "Erreur",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                System.out.println("Sauvegarder");
+                // récupérer les valeurs des textes et les envoyer au controleur
+                this.ctrl.setNbJoueur(Integer.parseInt(this.listeTexte.get(0).getText()));
+                this.ctrl.setNbWagonJoueur(Integer.parseInt(this.listeTexte.get(1).getText()));
+                this.ctrl.setNbWagonFinPartie(Integer.parseInt(this.listeTexte.get(2).getText()));
+                this.ctrl.setNbPoint1Wagon(Integer.parseInt(this.listeTexte.get(3).getText()));
+                this.ctrl.setNbPoint2Wagon(Integer.parseInt(this.listeTexte.get(4).getText()));
+                this.ctrl.setNbPoint3Wagon(Integer.parseInt(this.listeTexte.get(5).getText()));
+                this.ctrl.setNbPoint4Wagon(Integer.parseInt(this.listeTexte.get(6).getText()));
+                this.ctrl.setNbPoint5Wagon(Integer.parseInt(this.listeTexte.get(7).getText()));
+                this.ctrl.setNbPoint6Wagon(Integer.parseInt(this.listeTexte.get(8).getText()));
+                this.ctrl.setNbJoueurDoublesVoies(Integer.parseInt(this.listeTexte.get(9).getText()));
             }
-            else
-            {
-            System.out.println("Sauvegarder");
-            //récupérer les valeurs des textes et les envoyer au controleur
-            this.ctrl.setNbJoueur(Integer.parseInt(this.listeTexte.get(0).getText()));
-            this.ctrl.setNbWagonJoueur(Integer.parseInt(this.listeTexte.get(1).getText()));
-            this.ctrl.setNbWagonFinPartie(Integer.parseInt(this.listeTexte.get(2).getText()));
-            this.ctrl.setNbPoint1Wagon(Integer.parseInt(this.listeTexte.get(3).getText()));
-            this.ctrl.setNbPoint2Wagon(Integer.parseInt(this.listeTexte.get(4).getText()));
-            this.ctrl.setNbPoint3Wagon(Integer.parseInt(this.listeTexte.get(5).getText()));
-            this.ctrl.setNbPoint4Wagon(Integer.parseInt(this.listeTexte.get(6).getText()));
-            this.ctrl.setNbPoint5Wagon(Integer.parseInt(this.listeTexte.get(7).getText()));
-            this.ctrl.setNbPoint6Wagon(Integer.parseInt(this.listeTexte.get(8).getText()));
-            this.ctrl.setNbJoueurDoublesVoies(Integer.parseInt(this.listeTexte.get(9).getText()));
-            }
-            
+
         }
 
-        if(e.getSource() == this.btnSuivant)
-        {
+        if (e.getSource() == this.btnSuivant) {
             this.ctrl.getParametreSuivant();
         }
     }
