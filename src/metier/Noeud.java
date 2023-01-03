@@ -3,19 +3,15 @@ package src.metier;
 import javax.swing.JButton;
 
 public class Noeud{
-    // getter et setter nom et x et y et button to string
+    // gettrer et setter nom et x et y et button to string
     private int x;
     private int y;
-    private int xText;
-    private int yText;
     private JButton button;
     private String nom;
 
-    public Noeud(int x, int y, String nom) {
+    public Noeud(int x, int y, String nom, JButton button) {
         this.x = x;
         this.y = y;
-        this.xText = x + 30;
-        this.yText = y + 30;
         this.button = button;
         this.nom = nom;
     }
@@ -28,16 +24,6 @@ public class Noeud{
         return y;
     }
 
-    public int xText() 
-    {
-        return xText;
-    }
-
-    public int yText() 
-    {
-        return yText;
-    }
-
     public JButton getButton() {
         return button;
     }
@@ -48,14 +34,6 @@ public class Noeud{
 
     public void setButton(JButton button) {
         this.button = button;
-    }
-
-    public void setXText(int xText) {
-        this.xText = xText;
-    }
-
-    public void setYText(int yText) {
-        this.yText = yText;
     }
 
     public void setNom(String nom) {

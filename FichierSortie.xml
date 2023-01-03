@@ -1,72 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jeu>
 	<listeNoeuds>
-		<noeud nom="Tours">
-			<coordonees x="283" y="210"/>
+		<noeud nom="ktu">
+			<coordonees x="63" y="171"/>
 		</noeud>
-		<noeud nom="Rennes">
-			<coordonees x="1207" y="573"/>
+		<noeud nom="yluu">
+			<coordonees x="204" y="266"/>
 		</noeud>
-		<noeud nom="Paris">
-			<coordonees x="562" y="137"/>
-		</noeud>
-		<noeud nom="Marseille">
-			<coordonees x="691" y="569"/>
+		<noeud nom="jr,t">
+			<coordonees x="292" y="95"/>
 		</noeud>
 	</listeNoeuds>
 	<listeArete>
 		<arete>
-			<noeudDepart nom="Tours"/>
-			<noeudArrive nom="Marseille"/>
-			<coordonneesDepart x="399" y="404"/>
-			<coordonneesArrive x="629" y="445"/>
-			<nbWagon="4"/>
-			<couleur="java.awt.Color[r=255,g=0,b=0]"/>
+			<noeudDepart nom="ktu"/>
+			<noeudArrive nom="jr,t"/>
+			<coordonneesDepart x="63" y="171"/>
+			<coordonneesArrive x="292" y="95"/>
+			<nbWagon="1"/>
+			<couleur="java.awt.Color[r=0,g=255,b=0]"/>
 		</arete>
 		<arete>
-			<noeudDepart nom="Paris"/>
-			<noeudArrive nom="Marseille"/>
-			<coordonneesDepart x="690" y="221"/>
-			<coordonneesArrive x="629" y="445"/>
-			<nbWagon="2"/>
-			<couleur="java.awt.Color[r=255,g=0,b=0]"/>
+			<noeudDepart nom="yluu"/>
+			<noeudArrive nom="jr,t"/>
+			<coordonneesDepart x="204" y="266"/>
+			<coordonneesArrive x="292" y="95"/>
+			<nbWagon="1"/>
+			<couleur="java.awt.Color[r=0,g=255,b=0]"/>
 		</arete>
 		<arete>
-			<noeudDepart nom="Paris"/>
-			<noeudArrive nom="Rennes"/>
-			<coordonneesDepart x="690" y="221"/>
-			<coordonneesArrive x="898" y="421"/>
-			<nbWagon="5"/>
-			<couleur="java.awt.Color[r=255,g=200,b=0]"/>
-		</arete>
-		<arete>
-			<noeudDepart nom="Rennes"/>
-			<noeudArrive nom="Paris"/>
-			<coordonneesDepart x="1207" y="573"/>
-			<coordonneesArrive x="562" y="137"/>
-			<nbWagon="4"/>
-			<couleur="java.awt.Color[r=255,g=255,b=255]"/>
+			<noeudDepart nom="ktu"/>
+			<noeudArrive nom="yluu"/>
+			<coordonneesDepart x="63" y="171"/>
+			<coordonneesArrive x="204" y="266"/>
+			<nbWagon="1"/>
+			<couleur="java.awt.Color[r=0,g=255,b=0]"/>
 		</arete>
 	</listeArete>
 	<listeParametres>
 		<parametre>
-			<nbJoueur="2"/>
-			<nbWagon="2"/>
-			<nbWagonFin="2"/>
-			<nbPoint1="2"/>
-			<nbPoint2="2"/>
+			<nbJoueur="0"/>
+			<nbWagon="0"/>
+			<nbWagonFin="0"/>
+			<nbPoint1="0"/>
+			<nbPoint2="0"/>
+			<nbPoint3="0"/>
+			<nbPoint4="0"/>
+			<nbPoint5="0"/>
+			<nbPoint6="0"/>
+			<nbJoueurDoublesVoies="0"/>
 		</parametre>
 	</listeParametres>
-	<listeImage>
 		<image>
-			<image0="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_blanc.png"/>
-			<image1="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_marron.png"/>
-			<image2="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_bleu.png"/>
-			<image3="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_noir.png"/>
-			<image4="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_jaune.png"/>
-			<image5="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_rouge.png"/>
-			<image6="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_violet.png"/>
-			<image7="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_vert.png"/>
+	<listeImage>
+			<image0="null"/>
+			<image1="null"/>
+			<image2="null"/>
+			<image3="null"/>
+			<image4="null"/>
+			<image5="null"/>
+			<image6="null"/>
+			<image7="null"/>
 	</listeImage>
 		</image>
+		<Cartes Objectif>
+	<listeCarteObjectif>
+		<CarteObjectif>
+			<noeudDepart nom="ktu"/>
+			<noeudArrive nom="jr,t"/>
+			<point="45"/>
+		</CarteObjectif>
+		<CarteObjectif>
+			<noeudDepart nom="yluu"/>
+			<noeudArrive nom="jr,t"/>
+			<point="25"/>
+		</CarteObjectif>
+		</CartesObjectif>
+	</listeCarteObjectif>
 </jeu>
