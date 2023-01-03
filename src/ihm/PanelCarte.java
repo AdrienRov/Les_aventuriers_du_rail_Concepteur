@@ -117,11 +117,22 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     g2d.fillOval(xVoiture, yVoiture, 25, 25);
                 }
 
-                // dessiner les nom des noeuds
-                for (Noeud noeud : this.allNoeud) {
-                    g2d.setColor(Color.BLACK);
-                    g2d.drawString(noeud.getNom(), noeud.x() - 5, noeud.y() - 5);
-                }
+               
+            }
+
+             // dessiner les nom des noeuds
+            for (Noeud noeud : this.allNoeud) {
+            
+                // compter le nombre de lettre dans le nom du noeud
+                int nbLettre = noeud.getNom().length();
+                // dessiner un carre blanc pour surligner le nom du noeud
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(noeud.x() - 20, noeud.y() - 32, nbLettre * 13, 20);
+
+                g2d.setColor(Color.BLACK);
+                g2d.drawString(noeud.getNom(), noeud.x() - 16, noeud.y() - 16);
+                
+             
             }
         }
     }
