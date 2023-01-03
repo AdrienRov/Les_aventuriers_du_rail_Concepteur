@@ -26,6 +26,7 @@ public class Controleur
     private List<Noeud> noeuds;
     private Iterator<Noeud> itNoeud ;
     private List<Arete> aretes;
+    private String []cheminImage;
     private int widthPanelCarte;
     private int numPanel = 0;
     private int nbJoueur;
@@ -48,6 +49,7 @@ public class Controleur
         this.cartesVoiture  = new ArrayList<CartesVoitures>();
         this.noeuds         = new ArrayList<Noeud>();
         this.aretes         = new ArrayList<Arete>();
+        this.cheminImage = new String[8];
     }
 
     public void afficherCarte(String path)
@@ -125,7 +127,33 @@ public class Controleur
         gui.notification(message);
     }
 
+    public void supprimerNoeud(Noeud noeud) 
+    {
+        if(noeud == null) {
+            throw new IllegalArgumentException("Le noeud n'existe pas.");
+        }
+
+        int i = 0;
+        ArrayList<Integer> alIndice = new ArrayList<Integer>();
+        for (Arete ar : aretes) 
+        {
+            if (ar.getNoeudDepart() == noeud || ar.getNoeudarrive() == noeud)
+            {
+                alIndice.add(i);
+            }
+            i ++;
+        }
+        int ecart = 0;
+        for (int cpt : alIndice) 
+        {
+            aretes.remove(cpt - ecart);
+            ecart ++;
+        }
+        this.noeuds.remove(noeud);
+    }
+
     //supprimer un noeud
+    /* 
     public void supprimerNoeud(Noeud noeud)
     {
         System.out.println("Noeud supprimé");
@@ -142,6 +170,7 @@ public class Controleur
         
         this.gui.refreshTabNoeud();
     }
+    */
     
 
     public int getEtatSelectionNoeud(){return this.gui.getEtatSelectionNoeud();}
@@ -215,6 +244,15 @@ public class Controleur
             pw.println("\t\t\t<nbPoint2=\"" + this.nbPoint2 + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
+
+            pw.println("\t<listeImage>");
+            pw.println("\t\t<image>");
+            for(int i = 0; i < this.cheminImage.length; i++)
+            {
+                pw.println("\t\t\t<image" + i + "=\"" + this.cheminImage[i] + "\"/>");
+            }
+            pw.println("\t</listeImage>");
+            pw.println("\t\t</image>");
             pw.println("</jeu>");
             pw.close();
         } catch (Exception e) 
@@ -273,16 +311,18 @@ public class Controleur
         this.nbJoueurDoublesVoies = nombre;
     }
 
-    public Arete getAreteInverse(Arete arete)
+    public void setCheminImage(int i, String chemin)
     {
-        for (Arete a : aretes) 
-        {
-            if (a.getNoeudDepart() == arete.getNoeudarrive() && a.getNoeudarrive() == arete.getNoeudDepart()) 
-            {
-                return a;
+        this.cheminImage[i] = chemin;
+    }
+
+    public boolean verifAreteInvers(Noeud depart, Noeud arrive) {
+        for (Arete a : aretes) {
+            if (a.getNoeudDepart() == arrive && a.getNoeudarrive() == depart) {
+                return false;
             }
         }
-        return null;
+        return true;
     }
 
     public static void main(String[] args) 

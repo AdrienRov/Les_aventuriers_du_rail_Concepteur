@@ -62,57 +62,84 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         this.setFocusable(true);
     }
 
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
-        //augmenter la taille de la police
+        // augmenter la taille de la police
         g2d.setFont(g2d.getFont().deriveFont(20f));
         this.allTrajets = this.ctrl.getAllTrajets();
         this.allNoeud = this.ctrl.getAllNoeuds();
-        
-        if(this.allTrajets != null)
-        {
-            for(Arete arete : this.allTrajets)
-            {
-                if(this.ctrl.getAreteInverse(arete) != null)
-                {
-                    Arete areteInverse = this.ctrl.getAreteInverse(arete);
-                    g2d.setColor(areteInverse.getCouleur());
-                    g2d.setStroke(new BasicStroke(5));
-                    g2d.drawLine(areteInverse.getNoeudDepart().x()+5, areteInverse.getNoeudDepart().y()+5, areteInverse.getNoeudarrive().x()+5, areteInverse.getNoeudarrive().y()+5);
-                    int x = (areteInverse.getNoeudDepart().x() + areteInverse.getNoeudarrive().x())/2;
-                    int y = (areteInverse.getNoeudDepart().y() + areteInverse.getNoeudarrive().y())/2;
-                    g2d.setColor(Color.BLACK);
-                    g2d.drawString(areteInverse.getNbVoiture()+"", x+20, y+20);
+
+        if (this.allTrajets != null) {
+            for (Arete arete : this.allTrajets) {
+
+                int x1 = arete.getNoeudDepart().x();
+                int y1 = arete.getNoeudDepart().y();
+                int x2 = arete.getNoeudarrive().x();
+                int y2 = arete.getNoeudarrive().y();
+
+                // Calculer l'angle entre les deux noeuds du premier trajet
+                double angle = Math.atan2(y2 - y1, x2 - x1);
+                double angle2;
+                int distanceAuBord;
+                // Décaler l'angle de 90 degrés pour obtenir l'angle de décalage sur l'axe y
+                if (arete.getSensUnique()) {
+                    angle2 = angle;
+                    distanceAuBord = 0;
+                } else {
+                    angle2 = angle + Math.PI / 2;
+                    distanceAuBord = 25;
+
                 }
 
-                g2d.setColor(arete.getCouleur());
-                g2d.setStroke(new BasicStroke(5));
-                g2d.drawLine(arete.getNoeudDepart().x()+15, arete.getNoeudDepart().y()+15, arete.getNoeudarrive().x()+15, arete.getNoeudarrive().y()+15);
-                int x = (arete.getNoeudDepart().x() + arete.getNoeudarrive().x())/2;
-                int y = (arete.getNoeudDepart().y() + arete.getNoeudarrive().y())/2;
-                g2d.setColor(Color.BLACK);
-                g2d.drawString(arete.getNbVoiture()+"", x, y);
-                
-                //g2d.setColor(arete.getCouleur());
-                //g2d.setStroke(new BasicStroke(5));
-                //g2d.drawLine(arete.getNoeudDepart().x()+15, arete.getNoeudDepart().y()+15, arete.getNoeudarrive().x()+15, arete.getNoeudarrive().y()+15);
-                //int x = (arete.getNoeudDepart().x() + arete.getNoeudarrive().x())/2;
-                //int y = (arete.getNoeudDepart().y() + arete.getNoeudarrive().y())/2;
-                //g2d.setColor(Color.BLACK);
-                //g2d.drawString(arete.getNbVoiture()+"", x, y);
+                // Décaler les coordonnées des noeuds du second trajet en utilisant l'angle
+                // calculé précédemment
+                int x1_2 = x1 + (int) (distanceAuBord * Math.cos(angle2));
+                int y1_2 = y1 + (int) (distanceAuBord * Math.sin(angle2));
+                int x2_2 = x2 + (int) (distanceAuBord * Math.cos(angle2));
+                int y2_2 = y2 + (int) (distanceAuBord * Math.sin(angle2));
+
+                // Dessiner le second trajet en utilisant les coordonnées décalées
+                if(arete.getCouleur() == Color.BLACK)
+                    g2d.setColor(Color.WHITE);
+                else   
+                    g2d.setColor(Color.BLACK);
+                    
+                g2d.setStroke(new BasicStroke(25));
+                g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
+
+                // Calculer la distance entre les noeuds du second trajet
+                int distance = (int) Math.sqrt(Math.pow(x1_2 - x2_2, 2) + Math.pow(y1_2 - y2_2, 2));
+                int distanceEntreVoiture = distance / (arete.getNbVoiture() + 1);
+
+                // Placer les voitures sur le second trajet
+                for (int i = 1; i < arete.getNbVoiture() + 1; i++) {
+                    int xVoiture = (int) (x1_2 + (i * distanceEntreVoiture) * Math.cos(angle));
+                    int yVoiture = (int) (y1_2 + (i * distanceEntreVoiture) * Math.sin(angle));
+                    g2d.setColor(arete.getCouleur());
+                    g2d.fillOval(xVoiture, yVoiture, 25, 25);
+                }
+
+               
             }
-            // dessiner les nom des noeuds
-            for(Noeud noeud : this.allNoeud)
-            {
+
+             // dessiner les nom des noeuds
+            for (Noeud noeud : this.allNoeud) {
+            
+                // compter le nombre de lettre dans le nom du noeud
+                int nbLettre = noeud.getNom().length();
+                // dessiner un carre blanc pour surligner le nom du noeud
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(noeud.x() - 20, noeud.y() - 32, nbLettre * 13, 20);
+
                 g2d.setColor(Color.BLACK);
-                g2d.drawString(noeud.getNom(), noeud.x()-5, noeud.y()-5);
+                g2d.drawString(noeud.getNom(), noeud.x() - 16, noeud.y() - 16);
+                
+             
             }
         }
     }
-
     public void addCarte(String path) 
     {
         this.image = new ImageIcon(path).getImage();
@@ -186,7 +213,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
         JOptionPane.showMessageDialog(null, panel, "Trajet", JOptionPane.PLAIN_MESSAGE);
         // recuperer la valeur de la liste déroulante
-        Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()), colors[listCouleur.getSelectedIndex()]);
+        Arete arete = new Arete(noeudDepart, noeudArrivee, Integer.parseInt((String) listValeur.getSelectedItem()), colors[listCouleur.getSelectedIndex()], this.ctrl.verifAreteInvers(noeudDepart, noeudArrivee));
     
         this.ctrl.ajouteArete(arete);
         this.repaint();
