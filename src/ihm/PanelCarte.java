@@ -92,7 +92,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     distanceAuBord = 0;
                 } else {
                     angle2 = angle + Math.PI / 2;
-                    distanceAuBord = 25;
+                    distanceAuBord = 15;
 
                 }
 
@@ -109,8 +109,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     g2d.setColor(Color.WHITE);
                 else   
                     g2d.setColor(Color.BLACK);
-                g2d.setStroke(new BasicStroke(25));
-                g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
+
+                
+                g2d.setStroke(new BasicStroke(15));
+                g2d.drawLine(x1_2 +15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
                 
                 // Calculer la distance entre les noeuds du second trajet
                 int distance = (int) Math.sqrt(Math.pow(x1_2 - x2_2, 2) + Math.pow(y1_2 - y2_2, 2));
@@ -122,10 +124,10 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     int xVoiture = (int) (x1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.cos(angle));
                     int yVoiture = (int) (y1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.sin(angle));
 
-                    int xVoiture2 = (int) (x1_2 + (i * distanceEntreVoiture - 10 ) * Math.cos(angle));
-                    int yVoiture2 = (int) (y1_2 + (i * distanceEntreVoiture - 10 ) * Math.sin(angle));
+                    int xVoiture2 = (int) (x1_2 + (i * distanceEntreVoiture - 7 ) * Math.cos(angle));
+                    int yVoiture2 = (int) (y1_2 + (i * distanceEntreVoiture - 7 ) * Math.sin(angle));
                     g2d.setColor(arete.getCouleur());
-                    g2d.setStroke(new BasicStroke(15));
+                    g2d.setStroke(new BasicStroke(10));
                     g2d.drawLine(xVoiture + 15, yVoiture + 15, xVoiture2 +15, yVoiture2 + 15);
                     
                 }
@@ -133,19 +135,24 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
              // dessiner les nom des noeuds
             for (Noeud noeud : this.allNoeud) {
-            
+                
+                g2d.setStroke(new BasicStroke(4));
                 // compter le nombre de lettre dans le nom du noeud
                 int nbLettre = noeud.getNom().length();
                 // dessiner un carre blanc pour surligner le nom du noeud
                 g2d.setColor(Color.WHITE);
-                g2d.fillRect(noeud.x() - 20, noeud.y() - 32, nbLettre * 13, 20);
+                g2d.fillRect(noeud.x() - 35, noeud.y() - 45, nbLettre * 13, 20);
 
                 g2d.setColor(Color.BLACK);
-                g2d.drawString(noeud.getNom(), noeud.x() - 16, noeud.y() - 16);
+                g2d.drawString(noeud.getNom(), noeud.x() - 30, noeud.y() - 30);
 
                 //dessiner les noeuds
                 g2d.setColor(Color.ORANGE);
-                g2d.fillOval(noeud.x(), noeud.y(), 20, 20);
+                g2d.fillOval(noeud.x(), noeud.y(), 35, 35);
+
+                //dessiner un cercke noir autour du noeud
+                g2d.setColor(Color.BLACK);
+                g2d.drawOval(noeud.x(), noeud.y(), 35, 35);
             }
         }
         }
@@ -247,7 +254,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
             {
                 int lx = this.allNoeud.get(i).x();
                 int ly = this.allNoeud.get(i).y();
-                if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+                if (lx <= e.getX() && e.getX() <= lx + 35 && ly <= e.getY() && e.getY() <= ly + 35)
                 {
                     System.out.println("noeud trouvé");
                     
@@ -297,7 +304,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 {
                     int lx = n.x();
                     int ly = n.y();
-                    if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+                    if (lx <= e.getX() && e.getX() <= lx + 35 && ly <= e.getY() && e.getY() <= ly + 35)
                     {
                         noeudDepart = n;
                     }
@@ -312,7 +319,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 {
                     int lx = n.x();
                     int ly = n.y();
-                    if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+                    if (lx <= e.getX() && e.getX() <= lx + 35 && ly <= e.getY() && e.getY() <= ly + 35)
                     {
                         if(n != noeudDepart)
                         {
@@ -342,7 +349,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         {
             int lx = noeud.x();
             int ly = noeud.y();
-            if (lx <= e.getX() && e.getX() <= lx + 20 && ly <= e.getY() && e.getY() <= ly + 20)
+            if (lx <= e.getX() && e.getX() <= lx + 35 && ly <= e.getY() && e.getY() <= ly + 35)
             {
                 this.selectedNoeud = noeud;
                 System.out.println("selected noeud");
