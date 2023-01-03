@@ -68,13 +68,13 @@ public class Gui extends JFrame
         this.panelCarte.ajouteNoeud(this.panelCarte.getWidth()/2, this.panelCarte.getHeight()/2);
     }
 
+    
     public boolean getActiveTrajet()
     {
         return this.activeTrajet;
     }
     public void refresh()
     {
-        panelCarte.refreshNoeuds();
         this.refreshTabNoeud();
         this.repaint();
         this.revalidate();
@@ -123,15 +123,8 @@ public class Gui extends JFrame
     public void refreshTabTrajet()
     {
         System.out.println("refresh tab trajet");
-        this.panelForm.refreshTabTrajet();
+        //this.panelForm.refreshTabTrajet();
         this.panelForm.initPanel(2);
-    }
-
-    public void refreshTabCarteObjectif()
-    {
-        System.out.println("refresh tab carte objectif");
-        this.panelForm.refreshTableObjectif();
-        this.panelForm.initPanel(3);
     }
    
     

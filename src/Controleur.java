@@ -80,7 +80,6 @@ public class Controleur
     public void ajouteCarteObjectif(CarteObjectif carte)
     {
         this.cartesObjectif.add(carte);
-        this.gui.refreshTabCarteObjectif();
     }
 
     public void ajouteNoeud(Noeud noeud)
@@ -116,11 +115,6 @@ public class Controleur
     public List<Noeud> getAllNoeuds()
     {
         return this.noeuds;
-    }
-
-    public List<CarteObjectif> getAllCartesObjectif()
-    {
-        return this.cartesObjectif;
     }
 
     public void setActiveTrajet(boolean active)
@@ -202,6 +196,7 @@ public class Controleur
         return this.numPanel;
     }
 
+
     public void getParametre(boolean etat)
     {
         this.gui.getParametre(etat);
@@ -247,34 +242,17 @@ public class Controleur
             pw.println("\t\t\t<nbWagonFin=\"" + this.nbWagonsFin + "\"/>");
             pw.println("\t\t\t<nbPoint1=\"" + this.nbPoint1 + "\"/>");
             pw.println("\t\t\t<nbPoint2=\"" + this.nbPoint2 + "\"/>");
-            pw.println("\t\t\t<nbPoint3=\"" + this.nbPoint3 + "\"/>");
-            pw.println("\t\t\t<nbPoint4=\"" + this.nbPoint4 + "\"/>");
-            pw.println("\t\t\t<nbPoint5=\"" + this.nbPoint5 + "\"/>");
-            pw.println("\t\t\t<nbPoint6=\"" + this.nbPoint6 + "\"/>");
-            pw.println("\t\t\t<nbJoueurDoublesVoies=\"" + this.nbJoueurDoublesVoies + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
 
-            pw.println("\t\t<image>");
             pw.println("\t<listeImage>");
+            pw.println("\t\t<image>");
             for(int i = 0; i < this.cheminImage.length; i++)
             {
                 pw.println("\t\t\t<image" + i + "=\"" + this.cheminImage[i] + "\"/>");
             }
             pw.println("\t</listeImage>");
             pw.println("\t\t</image>");
-
-            pw.println("\t\t<CartesObjectif>");
-            pw.println("\t<listeCarteObjectif>");
-            for (CarteObjectif co : cartesObjectif) {
-                pw.println("\t\t<CarteObjectif>");
-                pw.println("\t\t\t<noeudDepart nom=\"" + co.getNoeud1().getNom() + "\"/>");
-                pw.println("\t\t\t<noeudArrive nom=\"" + co.getNoeud2().getNom() + "\"/>");
-                pw.println("\t\t\t<point=\"" + co.getScore() + "\"/>");
-                pw.println("\t\t</CarteObjectif>");
-            }
-            pw.println("\t\t</CartesObjectif>");
-            pw.println("\t</listeCarteObjectif>");
             pw.println("</jeu>");
             pw.close();
         } catch (Exception e) 
