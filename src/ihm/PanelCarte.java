@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -70,8 +71,9 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         g2d.drawImage(image, 0, 0, this);
-        // augmenter la taille de la police
-        g2d.setFont(g2d.getFont().deriveFont(20f));
+        
+        // set la police des noms des noeuds avec le getPolice du controleur en le décodant avec la fonction decode de Font pour remettre en Font le String
+        
         this.allTrajets = this.ctrl.getAllTrajets();
         this.allNoeud = this.ctrl.getAllNoeuds();
 
@@ -148,6 +150,12 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 g2d.fillRect(noeud.x() - 35, noeud.y() - 45, nbLettre * 13, 20);
 
                 g2d.setColor(Color.BLACK);
+
+                Font font = null;
+                font = Font.decode(this.ctrl.getPolice());
+                System.out.println("DECODE FONT ------- " + font);
+                g2d.setFont(font);
+
                 g2d.drawString(noeud.getNom(), noeud.x() - 30, noeud.y() - 30);
 
                 //dessiner les noeuds
@@ -159,7 +167,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                 g2d.drawOval(noeud.x(), noeud.y(), 35, 35);
             }
         }
-        }
+    }
     public void addCarte(String path) 
     {
         this.image = new ImageIcon(path).getImage();

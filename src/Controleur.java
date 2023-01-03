@@ -39,6 +39,7 @@ public class Controleur
     private int nbPoint5;
     private int nbPoint6;
     private int nbJoueurDoublesVoies;
+    private String nomPolice;
 
     public Controleur()
     {
@@ -347,6 +348,18 @@ public class Controleur
         return true;
     }
 
+    public void setPolice(String police) 
+    {
+        this.nomPolice = police;
+        System.out.println("encode police :");
+        System.out.println(this.nomPolice);
+        this.gui.refresh();
+
+    }
+    public String getPolice()
+    {
+        return this.nomPolice;
+    }
     public static void main(String[] args) 
     {
         new Controleur();

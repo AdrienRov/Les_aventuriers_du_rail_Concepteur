@@ -13,6 +13,7 @@ import java.io.File;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,6 +41,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
     private JButton btnPrecedent;
     private JButton btnAjouterTrajet;
     private JButton btnGenererXml;
+    private JButton btnChangerPolice;
     private JTextField  tabTxtNoeud[] = new JTextField[3];
     private JTextField  tabTxtTrajet[] = new JTextField[3];
     private JTextField  tabTxtObjectif[] = new JTextField[3];
@@ -63,13 +65,14 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.setLayout(new GridBagLayout());
         
         this.btnAjouterImage    = new JButton("Ajouter une image de map");
-        this.btnAjouterNoeud    = new JButton("Ajouter"        );
+        this.btnAjouterNoeud    = new JButton("Ajouter"                 );
         this.btnCouleurNoeud    = new JButton("Couleur des noeuds"      );
         this.btnParametres      = new JButton("Paramètres"              );
         this.btnSuivant         = new JButton("Suivant"                 );
         this.btnPrecedent       = new JButton("Precedent"               );
         this.btnAjouterTrajet   = new JButton("Ajouter un trajet"       );
         this.btnGenererXml      = new JButton("Générer le fichier XML"  );
+        this.btnChangerPolice   = new JButton("Police"                  );
         for(int i = 0; i < 3; i++)
         {
             this.tabTxtNoeud[i] = new JTextField();
@@ -93,6 +96,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         this.btnPrecedent.addActionListener(this);
         this.btnParametres.addActionListener(this);
         this.btnGenererXml.addActionListener(this);
+        this.btnChangerPolice.addActionListener(this);
 
         this.setBackground(new Color(35,31,32));
 
@@ -131,7 +135,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         numPanel = this.etat;
         System.out.println("numPanel = " + numPanel);
         this.removeAll();
-        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet, this.btnGenererXml};
+        JButton[] tabBtn = {  this.btnPrecedent, this.btnAjouterImage, this.btnAjouterNoeud, this.btnCouleurNoeud, this.btnParametres, this.btnSuivant, this.btnAjouterTrajet, this.btnGenererXml, this.btnChangerPolice};
         GridBagConstraints g = new GridBagConstraints();
         g.insets = new Insets(10,10,10,10);
 
@@ -190,8 +194,12 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             }
             
             g.gridy = g.gridy + 1;
+            JPanel panelBasBouton = new JPanel(new GridLayout(1, 2));
+            panelBasBouton.add(tabBtn[2]);
+            panelBasBouton.add(tabBtn[8]);
+            tabBtn[8].setPreferredSize    (new Dimension(100, 25));
             tabBtn[2].setPreferredSize    (new Dimension(100, 25));
-            this.add(tabBtn[2],g);
+            this.add(panelBasBouton,g);
         }
 
         if(numPanel == 2)
@@ -411,6 +419,27 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
                 this.ctrl.genererXml();
                 System.out.println("Générer XML");
             }
+        }
+        if(e.getSource() == this.btnChangerPolice)
+        {
+            // Liste des polices utilisables
+            Object[] nomPolice = {"Arial", "Calibri", "Times New Roman", "Verdana", "Courier New", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Impact", "Georgia"};
+            String[] police = {"Arial-plain-12", "Calibri-plain-12", "Times New Roman-plain-12", "Verdana-plain-12", "Courier New-plain-12", "Comic Sans MS-plain-12", "Tahoma-plain-12", "Trebuchet MS-plain-12", "Impact-plain-12", "Georgia-plain-12"};
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(2,1,2,2));
+        
+            JComboBox listePolice = new JComboBox(nomPolice);
+
+            JLabel labelNomPolice = new JLabel("Nom de la police :");
+            
+            listePolice.setSelectedIndex(0);
+            panel.add(labelNomPolice);
+            panel.add(listePolice);
+
+            JOptionPane.showMessageDialog(null, panel, "Trajet", JOptionPane.INFORMATION_MESSAGE);
+
+            this.ctrl.setPolice(police[listePolice.getSelectedIndex()]);
         }
     }
 
