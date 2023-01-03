@@ -3,7 +3,7 @@ package src.metier;
 import javax.swing.JButton;
 
 public class Noeud{
-    // gettrer et setter nom et x et y et button to string
+    // getter et setter nom et x et y et button to string
     private int x;
     private int y;
     private JButton button;

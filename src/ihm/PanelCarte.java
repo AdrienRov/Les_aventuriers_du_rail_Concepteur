@@ -105,7 +105,6 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
                     g2d.setColor(Color.WHITE);
                 else   
                     g2d.setColor(Color.BLACK);
-                    
                 g2d.setStroke(new BasicStroke(25));
                 g2d.drawLine(x1_2 + 15, y1_2 + 15, x2_2 + 15, y2_2 + 15);
 
