@@ -110,18 +110,23 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
                 // Calculer la distance entre les noeuds du second trajet
                 int distance = (int) Math.sqrt(Math.pow(x1_2 - x2_2, 2) + Math.pow(y1_2 - y2_2, 2));
-                int distanceEntreVoiture = distance / (arete.getNbVoiture() + 1);
+                int distanceEntreVoiture = distance / (arete.getNbVoiture());
 
                 // Placer les voitures sur le second trajet
-                for (int i = 1; i < arete.getNbVoiture() + 1; i++) {
-                    int xVoiture = (int) (x1_2 + (i * distanceEntreVoiture) * Math.cos(angle));
-                    int yVoiture = (int) (y1_2 + (i * distanceEntreVoiture) * Math.sin(angle));
-                    g2d.setColor(arete.getCouleur());
-                    g2d.fillOval(xVoiture, yVoiture, 25, 25);
-                }
+                 for (int i = 1; i < arete.getNbVoiture() + 1; i++) {
+                    int xVoiture = (int) (x1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.cos(angle));
+                    int yVoiture = (int) (y1_2 + ((i-1) * distanceEntreVoiture + 10) * Math.sin(angle));
 
-               
-            }
+                    int xVoiture2 = (int) (x1_2 + (i * distanceEntreVoiture - 10 ) * Math.cos(angle));
+                    int yVoiture2 = (int) (y1_2 + (i * distanceEntreVoiture - 10 ) * Math.sin(angle));
+                    g2d.setColor(arete.getCouleur());
+                    g2d.setStroke(new BasicStroke(15));
+                    g2d.drawLine(xVoiture + 15, yVoiture + 15, xVoiture2 +15, yVoiture2 + 15);
+                    
+                }
+                 
+       
+                }
 
              // dessiner les nom des noeuds
             for (Noeud noeud : this.allNoeud) {
@@ -138,7 +143,7 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
              
             }
         }
-    }
+        }
     public void addCarte(String path) 
     {
         this.image = new ImageIcon(path).getImage();
