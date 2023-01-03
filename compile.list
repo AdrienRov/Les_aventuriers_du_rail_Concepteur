@@ -6,6 +6,7 @@
 ./src/ihm/panelParametre.java
 ./src/ihm/panelParamSuivant.java
 ./src/ihm/RoundedBorder.java
+./src/ihm/PanelCouleur.java
 
 ./src/metier/Arete.java
 ./src/metier/Noeud.java
