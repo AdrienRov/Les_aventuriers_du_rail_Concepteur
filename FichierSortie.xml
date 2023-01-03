@@ -1,24 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jeu>
 	<listeNoeuds>
+		<noeud nom="Tours">
+			<coordonees x="283" y="210"/>
+		</noeud>
+		<noeud nom="Rennes">
+			<coordonees x="1207" y="573"/>
+		</noeud>
+		<noeud nom="Paris">
+			<coordonees x="562" y="137"/>
+		</noeud>
+		<noeud nom="Marseille">
+			<coordonees x="691" y="569"/>
+		</noeud>
 	</listeNoeuds>
 	<listeArete>
 		<arete>
-			<noeudDepart nom="jrnrg"/>
-			<noeudArrive nom="nfrknfrkgn"/>
-			<coordonneesDepart x="169" y="194"/>
-			<coordonneesArrive x="185" y="319"/>
-			<nbWagon="1"/>
-			<couleur="java.awt.Color[r=0,g=255,b=0]"/>
+			<noeudDepart nom="Tours"/>
+			<noeudArrive nom="Marseille"/>
+			<coordonneesDepart x="399" y="404"/>
+			<coordonneesArrive x="629" y="445"/>
+			<nbWagon="4"/>
+			<couleur="java.awt.Color[r=255,g=0,b=0]"/>
+		</arete>
+		<arete>
+			<noeudDepart nom="Paris"/>
+			<noeudArrive nom="Marseille"/>
+			<coordonneesDepart x="690" y="221"/>
+			<coordonneesArrive x="629" y="445"/>
+			<nbWagon="2"/>
+			<couleur="java.awt.Color[r=255,g=0,b=0]"/>
+		</arete>
+		<arete>
+			<noeudDepart nom="Paris"/>
+			<noeudArrive nom="Rennes"/>
+			<coordonneesDepart x="690" y="221"/>
+			<coordonneesArrive x="898" y="421"/>
+			<nbWagon="5"/>
+			<couleur="java.awt.Color[r=255,g=200,b=0]"/>
+		</arete>
+		<arete>
+			<noeudDepart nom="Rennes"/>
+			<noeudArrive nom="Paris"/>
+			<coordonneesDepart x="1207" y="573"/>
+			<coordonneesArrive x="562" y="137"/>
+			<nbWagon="4"/>
+			<couleur="java.awt.Color[r=255,g=255,b=255]"/>
 		</arete>
 	</listeArete>
 	<listeParametres>
 		<parametre>
-			<nbJoueur="0"/>
-			<nbWagon="0"/>
-			<nbWagonFin="0"/>
-			<nbPoint1="0"/>
-			<nbPoint2="0"/>
+			<nbJoueur="2"/>
+			<nbWagon="2"/>
+			<nbWagonFin="2"/>
+			<nbPoint1="2"/>
+			<nbPoint2="2"/>
 		</parametre>
 	</listeParametres>
+	<listeImage>
+		<image>
+			<image0="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_blanc.png"/>
+			<image1="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_marron.png"/>
+			<image2="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_bleu.png"/>
+			<image3="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_noir.png"/>
+			<image4="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_jaune.png"/>
+			<image5="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_rouge.png"/>
+			<image6="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_violet.png"/>
+			<image7="/home/etudiant/ca212858/Bureau/Les_aventuriers_du_rail/images/Wagon_vert.png"/>
+	</listeImage>
+		</image>
 </jeu>
