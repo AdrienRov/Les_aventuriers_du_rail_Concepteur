@@ -351,7 +351,7 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
         {
             int x = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).x();
             int y = this.ctrl.getAllNoeuds().get(this.table.getSelectedRow()).y();
-            
+
             if(this.table.getSelectedColumn() == 0)
             {
                 nom = this.table.getValueAt(this.table.getSelectedRow(), this.table.getSelectedColumn()).toString();
