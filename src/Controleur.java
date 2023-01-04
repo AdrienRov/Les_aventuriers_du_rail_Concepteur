@@ -228,22 +228,22 @@ public class Controleur
             pw.println("\t</listeArete>");
             pw.println("\t<listeParametres>");
             pw.println("\t\t<parametre>");
-            pw.println("\t\t\t<nbJoueur=\"" + this.nbJoueur + "\"/>");
-            pw.println("\t\t\t<nbWagon=\"" + this.nbWagons + "\"/>");
-            pw.println("\t\t\t<nbWagonFin=\"" + this.nbWagonsFin + "\"/>");
-            pw.println("\t\t\t<nbPoint1=\"" + this.nbPoint1 + "\"/>");
-            pw.println("\t\t\t<nbPoint2=\"" + this.nbPoint2 + "\"/>");
-            pw.println("\t\t\t<nbPoint3=\"" + this.nbPoint3 + "\"/>");
-            pw.println("\t\t\t<nbPoint4=\"" + this.nbPoint4 + "\"/>");
-            pw.println("\t\t\t<nbPoint5=\"" + this.nbPoint5 + "\"/>");
-            pw.println("\t\t\t<nbPoint6=\"" + this.nbPoint6 + "\"/>");
-            pw.println("\t\t\t<nbJoueurDoublesVoies=\"" + this.nbJoueurDoublesVoies + "\"/>");
+            pw.println("\t\t\t<nbJoueur =\"" + this.nbJoueur + "\"/>");
+            pw.println("\t\t\t<nbWagon =\"" + this.nbWagons + "\"/>");
+            pw.println("\t\t\t<nbWagonFin =\"" + this.nbWagonsFin + "\"/>");
+            pw.println("\t\t\t<nbPoint1 =\"" + this.nbPoint1 + "\"/>");
+            pw.println("\t\t\t<nbPoint2 =\"" + this.nbPoint2 + "\"/>");
+            pw.println("\t\t\t<nbPoint3 =\"" + this.nbPoint3 + "\"/>");
+            pw.println("\t\t\t<nbPoint4 =\"" + this.nbPoint4 + "\"/>");
+            pw.println("\t\t\t<nbPoint5 =\"" + this.nbPoint5 + "\"/>");
+            pw.println("\t\t\t<nbPoint6 =\"" + this.nbPoint6 + "\"/>");
+            pw.println("\t\t\t<nbJoueurDoublesVoies =\"" + this.nbJoueurDoublesVoies + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
             pw.println("\t<listeImage>");
             for(int i = 0; i < this.cheminImage.length; i++)
             {
-                pw.println("\t\t\t<image" + i + "=\"" + this.cheminImage[i] + "\"/>");
+                pw.println("\t\t\t<image" + i + " idImage=\"" + this.cheminImage[i] + "\" nom=\"image"+i+"\" />");
             }
             pw.println("\t</listeImage>");
             pw.println("\t\t<CartesObjectif>");
