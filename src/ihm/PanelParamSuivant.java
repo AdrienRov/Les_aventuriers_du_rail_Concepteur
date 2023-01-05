@@ -18,16 +18,16 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
 
     private Controleur ctrl;
 
-    JLabel[] listeLabel;
+    JLabel[]  listeLabel;
     JButton[] listeBtn;
-    JPanel[] listePanel;
-    File[] listeFichier;
+    JPanel[]  listePanel;
+    File[]    listeFichier;
 
-    private JButton btnPrecedent;
-    private JButton btnSauvegarder;
-    private JPanel panelSud;
-    private JPanel panelCentre;
-    private JLabel labelTitre;
+    private JButton      btnPrecedent;
+    private JButton      btnSauvegarder;
+    private JPanel       panelSud;
+    private JPanel       panelCentre;
+    private JLabel       labelTitre;
     private JFileChooser fc = new JFileChooser();
 
     public PanelParamSuivant(Controleur ctrl) {
@@ -35,9 +35,9 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(35, 31, 32));
 
-        this.listeBtn = new JButton[10];
-        this.listeLabel = new JLabel[10];
-        this.listePanel = new JPanel[5];
+        this.listeBtn     = new JButton[10];
+        this.listeLabel   = new JLabel[10];
+        this.listePanel   = new JPanel[5];
         this.listeFichier = new File[10];
 
         for (int i = 0; i < listeLabel.length; i++) {
@@ -89,34 +89,38 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
             listePanel[2].add(listeLabel[i]);
             listePanel[2].add(listeBtn[i]);
         }
-        for (int i = 6; i < 8; i++) {
+        for (int i = 6; i < 8; i++) 
+        {
             listePanel[3].add(listeLabel[i]);
             listePanel[3].add(listeBtn[i]);
         }
-        for (int i = 8; i < 10; i++) {
+        for (int i = 8; i < 10; i++) 
+        {
             listePanel[4].add(listeLabel[i]);
             listePanel[4].add(listeBtn[i]);
         }
 
-        this.btnPrecedent = new JButton("Précédent");
+        this.btnPrecedent   = new JButton("Précédent");
         this.btnPrecedent.addActionListener(this);
 
         this.btnSauvegarder = new JButton("Sauvegarder");
         this.btnSauvegarder.addActionListener(this);
 
-        this.panelSud = new JPanel();
+        this.panelSud       = new JPanel();
         this.panelSud.setBackground(new Color(35, 31, 32));
-        this.panelCentre = new JPanel();
+        this.panelCentre    = new JPanel();
         this.panelCentre.setLayout(new GridLayout(7, 1, 0, 0));
         this.panelCentre.setBackground(new Color(35, 31, 32));
         this.panelSud.add(this.btnPrecedent);
         this.panelSud.add(this.btnSauvegarder);
 
-        for (JPanel panel : listePanel) {
+        for (JPanel panel : listePanel) 
+        {
             this.panelCentre.add(panel);
         }
 
-        for (JButton bouton : listeBtn) {
+        for (JButton bouton : listeBtn) 
+        {
             bouton.addActionListener(this);
         }
         this.add(panelSud, BorderLayout.SOUTH);
@@ -125,21 +129,24 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-
-        for (int i = 0; i < listeBtn.length; i++) {
-            if (e.getSource() == this.listeBtn[i]) {
+    public void actionPerformed(ActionEvent e) 
+    {
+        for (int i = 0; i < listeBtn.length; i++) 
+        {
+            if (e.getSource() == this.listeBtn[i]) 
+            {
                 this.fc.setDialogType(JFileChooser.OPEN_DIALOG);
                 int valeurFC = this.fc.showDialog(this, "Ouvrir une image de fond");
 
-                if (valeurFC == JFileChooser.APPROVE_OPTION) {
+                if (valeurFC == JFileChooser.APPROVE_OPTION) 
+                {
 
                     File fichier = fc.getSelectedFile();
                     String nomFichier = fichier.getName();
                     String extension = nomFichier.substring(nomFichier.lastIndexOf("."));
 
-                    if (extension.equals(".jpeg") || extension.equals(".png") || extension.equals(".jpg")) {
+                    if (extension.equals(".jpeg") || extension.equals(".png") || extension.equals(".jpg")) 
+                    {
                         Image image = new ImageIcon(fichier.getPath()).getImage();
                         this.listeBtn[i].setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
                         // définir la taille de l'image dans le bouton
@@ -148,28 +155,32 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
                         this.listeBtn[i].setFocusPainted(false);
                         this.listeBtn[i].setOpaque(false);
                         this.listeBtn[i].setBorder(null);
-
                         this.listeFichier[i] = fichier;
-
                     }
                 }
             }
         }
 
-        if (e.getSource() == this.btnPrecedent) {
+        if (e.getSource() == this.btnPrecedent) 
+        {
             this.ctrl.getParametre(true);
         }
 
-        if (e.getSource() == this.btnSauvegarder) {
-            System.out.println(this.listeBtn[0].getIcon().toString());
+        if (e.getSource() == this.btnSauvegarder) 
+        {
 
             // récupere le chemin des images
-            for (int i = 0; i < 8; i++) {
-                if (this.listeBtn[i].getIcon() != null && this.listeBtn[i].getIcon() instanceof ImageIcon) {
-                    this.ctrl.setCheminImage(i, this.listeFichier[i].getAbsolutePath());
+            for (int i = 0; i < listeBtn.length; i++) 
+            {
+                if (this.listeBtn[i].getIcon() != null && this.listeBtn[i].getIcon() instanceof ImageIcon) 
+                {
+                    this.ctrl.setCheminImage(i, this.ctrl.fileToString(this.listeFichier[i]));
 
                 }
             }
+
+            this.ctrl.getParametre(false);
+
 
         }
 

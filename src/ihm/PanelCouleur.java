@@ -124,7 +124,6 @@ public class PanelCouleur extends JPanel implements ActionListener
 
     public void  initCouleur(int largeur , int hauteur) 
     {
-        //this.remove(this.panelCentre);
         this.setSize(largeur, hauteur);
         System.out.println("Largeur :  "+ largeur);
         System.out.println("Hauteur :  "+ hauteur);
