@@ -2,29 +2,31 @@ package src.metier;
 
 import javax.swing.JButton;
 
-public class Noeud{
+public class Noeud
+{
     // getter et setter nom et x et y et button to string
-    private int x;
-    private int y;
-    private int xText;
-    private int yText;
-    private JButton button;
-    private String nom;
+    private int     x;
+    private int     y;
+    private int     xText;
+    private int     yText;
+    private String  nom;
 
-    public Noeud(int x, int y, String nom) {
-        this.x = x;
-        this.y = y;
-        this.xText = x + 30;
-        this.yText = y + 30;
-        this.button = button;
+    public Noeud(int x, int y, String nom, int xText, int yText) 
+    {
+        this.x      = x;
+        this.y      = y;
+        this.xText  = xText;
+        this.yText  = yText;
         this.nom = nom;
     }
 
-    public int x() {
+    public int x() 
+    {
         return x;
     }
 
-    public int y() {
+    public int y() 
+    {
         return y;
     }
 
@@ -38,41 +40,40 @@ public class Noeud{
         return yText;
     }
 
-    public JButton getButton() {
-        return button;
-    }
-
-    public String getNom() {
+    public String getNom() 
+    {
         return nom;
     }
 
-    public void setButton(JButton button) {
-        this.button = button;
-    }
-
-    public void setXText(int xText) {
+    public void setXText(int xText) 
+    {
         this.xText = xText;
     }
 
-    public void setYText(int yText) {
+    public void setYText(int yText) 
+    {
         this.yText = yText;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom) 
+    {
         this.nom = nom;
     }
 
-    public void setX(int x) {
+    public void setX(int x) 
+    {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(int y) 
+    {
         this.y = y;
     }
 
     @Override
-    public String toString() {
-        return "Noeud [button=" + button + ", nom=" + nom + ", x=" + x + ", y=" + y + "]";
+    public String toString() 
+    {
+        return "Noeud [nom=" + nom + ", x=" + x + ", y=" + y + "]";
     }
 
 

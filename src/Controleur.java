@@ -7,10 +7,13 @@ import src.metier.CartesVoitures;
 import src.metier.Joueur;
 import src.metier.Noeud;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,26 +23,26 @@ import javax.swing.ImageIcon;
 public class Controleur 
 {
     private Gui gui;
-    private List<Joueur> joueurs;
-    private List<CartesVoitures> cartesVoiture;
-    private List<CarteObjectif> cartesObjectif;
-    private List<Noeud> noeuds;
-    private Iterator<Noeud> itNoeud ;
-    private List<Arete> aretes;
-    private String []cheminImage;
-    private int widthPanelCarte;
-    private int numPanel = 0;
-    private int nbJoueur;
-    private int nbWagons;
-    private int nbWagonsFin;
-    private int nbPoint1;
-    private int nbPoint2;
-    private int nbPoint3;
-    private int nbPoint4;
-    private int nbPoint5;
-    private int nbPoint6;
-    private int nbJoueurDoublesVoies;
-    private String nomPolice;
+    private List<Joueur>            joueurs;
+    private List<CartesVoitures>    cartesVoiture;
+    private List<CarteObjectif>     cartesObjectif;
+    private List<Noeud>             noeuds;
+    private Iterator<Noeud>         itNoeud ;
+    private List<Arete>             aretes;
+    private String[]                cheminImage;
+    private int     widthPanelCarte;
+    private int     numPanel = 0;
+    private int     nbJoueur;
+    private int     nbWagons;
+    private int     nbWagonsFin;
+    private int     nbPoint1;
+    private int     nbPoint2;
+    private int     nbPoint3;
+    private int     nbPoint4;
+    private int     nbPoint5;
+    private int     nbPoint6;
+    private int     nbJoueurDoublesVoies;
+    private String  nomPolice;
 
     public Controleur()
     {
@@ -50,7 +53,7 @@ public class Controleur
         this.cartesVoiture  = new ArrayList<CartesVoitures>();
         this.noeuds         = new ArrayList<Noeud>();
         this.aretes         = new ArrayList<Arete>();
-        this.cheminImage = new String[8];
+        this.cheminImage    = new String[8];
     }
 
     public void afficherCarte(String path)
@@ -136,7 +139,8 @@ public class Controleur
 
     public void supprimerNoeud(Noeud noeud) 
     {
-        if(noeud == null) {
+        if(noeud == null) 
+        {
             throw new IllegalArgumentException("Le noeud n'existe pas.");
         }
 
@@ -159,33 +163,11 @@ public class Controleur
         this.noeuds.remove(noeud);
     }
 
-    //supprimer un noeud
-    /* 
-    public void supprimerNoeud(Noeud noeud)
-    {
-        System.out.println("Noeud supprimé");
-        
-        this.itNoeud        = this.noeuds.iterator();
-        while(this.itNoeud.hasNext())
-        {
-            Noeud n = this.itNoeud.next();
-            if(n.equals(noeud))
-            {
-                this.itNoeud.remove();
-            }
-        }
-        
-        this.gui.refreshTabNoeud();
-    }
-    */
-    
-
     public int getEtatSelectionNoeud(){return this.gui.getEtatSelectionNoeud();}
 
     public void refreshFrame()
     {
         this.gui.refresh();
-        System.out.println("Refresh Frame");
     }
     //Modifier le numero du panel actuel
     public void setEtatPanel(int etat)
@@ -223,9 +205,11 @@ public class Controleur
             pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
             pw.println("<jeu>");
             pw.println("\t<listeNoeuds>");
-            for (Noeud n : noeuds) {
+            for (Noeud n : noeuds) 
+            {
                 pw.println("\t\t<noeud nom=\"" + n.getNom() + "\">");
                 pw.println("\t\t\t<coordonees x=\"" + n.x() + "\" y=\"" + n.y() + "\"/>");
+                pw.println("\t\t\t<coordoneesTexte x=\"" + n.xText() + "\" y=\"" + n.yText() + "\"/>");
                 pw.println("\t\t</noeud>");
             }
             pw.println("\t</listeNoeuds>");
@@ -256,18 +240,16 @@ public class Controleur
             pw.println("\t\t\t<nbJoueurDoublesVoies=\"" + this.nbJoueurDoublesVoies + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
-            
-            pw.println("\t\t<image>");
             pw.println("\t<listeImage>");
             for(int i = 0; i < this.cheminImage.length; i++)
             {
                 pw.println("\t\t\t<image" + i + "=\"" + this.cheminImage[i] + "\"/>");
             }
             pw.println("\t</listeImage>");
-            pw.println("\t\t</image>");
             pw.println("\t\t<CartesObjectif>");
             pw.println("\t<listeCarteObjectif>");
-            for (CarteObjectif co : cartesObjectif) {
+            for (CarteObjectif co : cartesObjectif) 
+            {
                 pw.println("\t\t<CarteObjectif>");
                 pw.println("\t\t\t<noeudDepart nom=\"" + co.getNoeud1().getNom() + "\"/>");
                 pw.println("\t\t\t<noeudArrive nom=\"" + co.getNoeud2().getNom() + "\"/>");
@@ -339,9 +321,11 @@ public class Controleur
         this.cheminImage[i] = chemin;
     }
 
-    public boolean verifAreteInvers(Noeud depart, Noeud arrive) {
+    public boolean verifDouble(Noeud depart, Noeud arrive) 
+    {
         for (Arete a : aretes) {
-            if (a.getNoeudDepart() == arrive && a.getNoeudarrive() == depart) {
+            if (a.getNoeudDepart() == arrive && a.getNoeudarrive() == depart || a.getNoeudDepart() == depart && a.getNoeudarrive() == arrive) 
+            {
                 return false;
             }
         }
@@ -351,8 +335,6 @@ public class Controleur
     public void setPolice(String police) 
     {
         this.nomPolice = police;
-        System.out.println("encode police :");
-        System.out.println(this.nomPolice);
         this.gui.refresh();
 
     }
@@ -360,6 +342,25 @@ public class Controleur
     {
         return this.nomPolice;
     }
+
+    public void getCouleur(boolean etat)
+    {
+        this.gui.getCouleur(etat);
+    }
+
+    public String fileToString(File file) {
+        try {
+            FileInputStream r = new FileInputStream(file);
+            byte[] bytes = new byte[(int) file.length()];
+            r.read(bytes);
+            r.close();
+            return Base64.getEncoder().encodeToString(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static void main(String[] args) 
     {
         new Controleur();
