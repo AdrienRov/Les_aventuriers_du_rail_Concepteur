@@ -250,7 +250,6 @@ public class Controleur
                 pw.println("\t\t<image idImage=\"" + this.cheminImage[i] + "\" nom=\""+ this.nomImage[i] +"\" />");
             }
             pw.println("\t</listeImage>");
-            pw.println("\t\t<CartesObjectif>");
             pw.println("\t<listeCarteObjectif>");
             for (CarteObjectif co : cartesObjectif) 
             {
@@ -260,7 +259,6 @@ public class Controleur
                 pw.println("\t\t\t<point pts=\"" + co.getScore() + "\"/>");
                 pw.println("\t\t</CarteObjectif>");
             }
-            pw.println("\t\t</CartesObjectif>");
             pw.println("\t</listeCarteObjectif>");
             pw.println("</root>");
             pw.close();
