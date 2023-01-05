@@ -22,6 +22,7 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
     JButton[] listeBtn;
     JPanel[]  listePanel;
     File[]    listeFichier;
+    String[]  listeNomImage;
 
     private JButton      btnPrecedent;
     private JButton      btnSauvegarder;
@@ -39,6 +40,7 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
         this.listeLabel   = new JLabel[10];
         this.listePanel   = new JPanel[5];
         this.listeFichier = new File[10];
+        this.listeNomImage = new String[10];
 
         for (int i = 0; i < listeLabel.length; i++) {
             this.listeLabel[i] = new JLabel();
@@ -148,6 +150,7 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
                     if (extension.equals(".jpeg") || extension.equals(".png") || extension.equals(".jpg")) 
                     {
                         Image image = new ImageIcon(fichier.getPath()).getImage();
+                        this.listeNomImage[i] = nomFichier;
                         this.listeBtn[i].setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
                         // définir la taille de l'image dans le bouton
                         this.listeBtn[i].setBorderPainted(false);
@@ -174,8 +177,11 @@ public class PanelParamSuivant extends JPanel implements ActionListener {
             {
                 if (this.listeBtn[i].getIcon() != null && this.listeBtn[i].getIcon() instanceof ImageIcon) 
                 {
-                    this.ctrl.setCheminImage(i, this.ctrl.fileToString(this.listeFichier[i]));
-
+                    System.out.println("TU ARRIVES ICI");
+                    int index = listeNomImage[i].lastIndexOf(".");
+                    String nomImage = listeNomImage[i].substring(0,index);
+                    this.ctrl.setCheminImage(i, this.ctrl.fileToString(this.listeFichier[i]), nomImage);
+                
                 }
             }
 

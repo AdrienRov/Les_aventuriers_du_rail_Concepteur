@@ -374,6 +374,9 @@ public class PanelForm extends JPanel implements ActionListener, CellEditorListe
             if (f != null) 
             {
                 this.ctrl.afficherCarte(f.getAbsolutePath());
+                int index = f.getName().indexOf('.');
+                String nomImage = f.getName().substring(0, index);
+                this.ctrl.setCheminImage(10, this.ctrl.fileToString(f), nomImage);
             }
         }
         if (e.getSource() == this.btnSuivant) 

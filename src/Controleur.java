@@ -29,7 +29,9 @@ public class Controleur
     private List<Noeud>             noeuds;
     private Iterator<Noeud>         itNoeud ;
     private List<Arete>             aretes;
+    private List<String>            listeImages;
     private String[]                cheminImage;
+    private String[]                nomImage;
     private int     widthPanelCarte;
     private int     numPanel = 0;
     private int     nbJoueur;
@@ -53,7 +55,9 @@ public class Controleur
         this.cartesVoiture  = new ArrayList<CartesVoitures>();
         this.noeuds         = new ArrayList<Noeud>();
         this.aretes         = new ArrayList<Arete>();
-        this.cheminImage    = new String[8];
+        this.listeImages    = new ArrayList<String>();
+        this.cheminImage    = new String[10];
+        this.nomImage       = new String[10];
     }
 
     public void afficherCarte(String path)
@@ -203,7 +207,7 @@ public class Controleur
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("FichierSortie.xml"), "UTF-8"));
 
             pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-            pw.println("<jeu>");
+            pw.println("<root>");
             pw.println("\t<listeNoeuds>");
             for (Noeud n : noeuds) 
             {
@@ -221,29 +225,29 @@ public class Controleur
                 pw.println("\t\t\t<noeudArrive nom=\"" + arete.getNoeudarrive().getNom() + "\"/>");
                 pw.println("\t\t\t<coordonneesDepart x=\"" + arete.getN2x() + "\" y=\"" + arete.getN2y() + "\"/>");
                 pw.println("\t\t\t<coordonneesArrive x=\"" + arete.getN1x() + "\" y=\"" + arete.getN1y() + "\"/>");
-                pw.println("\t\t\t<nbWagon=\"" + arete.getNbVoiture() + "\"/>");
-                pw.println("\t\t\t<couleur=\"" + arete.getCouleur() + "\"/>");
+                pw.println("\t\t\t<nbWagon nb=\"" + arete.getNbVoiture() + "\"/>");
+                pw.println("\t\t\t<couleur couleur=\"" + arete.getCouleur() + "\"/>");
                 pw.println("\t\t</arete>");
             }
             pw.println("\t</listeArete>");
             pw.println("\t<listeParametres>");
             pw.println("\t\t<parametre>");
-            pw.println("\t\t\t<nbJoueur =\"" + this.nbJoueur + "\"/>");
-            pw.println("\t\t\t<nbWagon =\"" + this.nbWagons + "\"/>");
-            pw.println("\t\t\t<nbWagonFin =\"" + this.nbWagonsFin + "\"/>");
-            pw.println("\t\t\t<nbPoint1 =\"" + this.nbPoint1 + "\"/>");
-            pw.println("\t\t\t<nbPoint2 =\"" + this.nbPoint2 + "\"/>");
-            pw.println("\t\t\t<nbPoint3 =\"" + this.nbPoint3 + "\"/>");
-            pw.println("\t\t\t<nbPoint4 =\"" + this.nbPoint4 + "\"/>");
-            pw.println("\t\t\t<nbPoint5 =\"" + this.nbPoint5 + "\"/>");
-            pw.println("\t\t\t<nbPoint6 =\"" + this.nbPoint6 + "\"/>");
-            pw.println("\t\t\t<nbJoueurDoublesVoies =\"" + this.nbJoueurDoublesVoies + "\"/>");
+            pw.println("\t\t\t<nbJoueur nb=\"" + this.nbJoueur + "\"/>");
+            pw.println("\t\t\t<nbWagon nb=\"" + this.nbWagons + "\"/>");
+            pw.println("\t\t\t<nbWagonFin nb=\"" + this.nbWagonsFin + "\"/>");
+            pw.println("\t\t\t<nbPoint1 nb=\"" + this.nbPoint1 + "\"/>");
+            pw.println("\t\t\t<nbPoint2 nb=\"" + this.nbPoint2 + "\"/>");
+            pw.println("\t\t\t<nbPoint3 nb=\"" + this.nbPoint3 + "\"/>");
+            pw.println("\t\t\t<nbPoint4 nb=\"" + this.nbPoint4 + "\"/>");
+            pw.println("\t\t\t<nbPoint5 nb=\"" + this.nbPoint5 + "\"/>");
+            pw.println("\t\t\t<nbPoint6 nb=\"" + this.nbPoint6 + "\"/>");
+            pw.println("\t\t\t<nbJoueurDoublesVoies nb=\"" + this.nbJoueurDoublesVoies + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
             pw.println("\t<listeImage>");
             for(int i = 0; i < this.cheminImage.length; i++)
             {
-                pw.println("\t\t\t<image" + i + " idImage=\"" + this.cheminImage[i] + "\" nom=\"image"+i+"\" />");
+                pw.println("\t\t<image idImage=\"" + this.cheminImage[i] + "\" nom=\""+ this.nomImage[i] +"\" />");
             }
             pw.println("\t</listeImage>");
             pw.println("\t\t<CartesObjectif>");
@@ -253,12 +257,12 @@ public class Controleur
                 pw.println("\t\t<CarteObjectif>");
                 pw.println("\t\t\t<noeudDepart nom=\"" + co.getNoeud1().getNom() + "\"/>");
                 pw.println("\t\t\t<noeudArrive nom=\"" + co.getNoeud2().getNom() + "\"/>");
-                pw.println("\t\t\t<point=\"" + co.getScore() + "\"/>");
+                pw.println("\t\t\t<point pts=\"" + co.getScore() + "\"/>");
                 pw.println("\t\t</CarteObjectif>");
             }
             pw.println("\t\t</CartesObjectif>");
             pw.println("\t</listeCarteObjectif>");
-            pw.println("</jeu>");
+            pw.println("</root>");
             pw.close();
         } catch (Exception e) 
         {
@@ -316,9 +320,10 @@ public class Controleur
         this.nbJoueurDoublesVoies = nombre;
     }
 
-    public void setCheminImage(int i, String chemin)
+    public void setCheminImage(int i, String chemin, String nomImage)
     {
         this.cheminImage[i] = chemin;
+        this.nomImage[i] = nomImage;
     }
 
     public boolean verifDouble(Noeud depart, Noeud arrive) 
