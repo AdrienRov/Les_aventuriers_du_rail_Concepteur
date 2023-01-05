@@ -212,8 +212,8 @@ public class Controleur
             for (Noeud n : noeuds) 
             {
                 pw.println("\t\t<noeud nom=\"" + n.getNom() + "\">");
-                pw.println("\t\t\t<coordonees x=\"" + n.x() + "\" y=\"" + n.y() + "\"/>");
-                pw.println("\t\t\t<coordoneesTexte x=\"" + n.xText() + "\" y=\"" + n.yText() + "\"/>");
+                pw.println("\t\t\t<coordonnees x=\"" + n.x() + "\" y=\"" + n.y() + "\"/>");
+                pw.println("\t\t\t<coordonneesTexte x=\"" + n.xText() + "\" y=\"" + n.yText() + "\"/>");
                 pw.println("\t\t</noeud>");
             }
             pw.println("\t</listeNoeuds>");
