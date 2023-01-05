@@ -170,9 +170,5 @@ public class Gui extends JFrame {
         this.panelNotification.setBackground(Color.GRAY);
         this.add(this.panelNotification, BorderLayout.NORTH);
         this.validate();
-<<<<<<< HEAD
-=======
-
->>>>>>> c9e7382b43ae1370826de2d3633b53b710b72b58
     }
 }
