@@ -16,36 +16,44 @@
 	</listeNoeuds>
 	<listeArete>
 		<arete>
-			<noeudDepart nom="Adrien"/>
-			<noeudArrive nom="Louis"/>
-			<coordonneesDepart x="154" y="128"/>
-			<coordonneesArrive x="505" y="485"/>
-			<nbWagon nb="5"/>
-			<couleur couleur="java.awt.Color[r=0,g=255,b=0]"/>
+			<noeudDepart nom="gheht"/>
+			<noeudArrive nom="jhrt"/>
+			<coordonneesDepart x="490" y="289"/>
+			<coordonneesArrive x="534" y="451"/>
+			<nbWagon nb="6"/>
+			<couleur couleur="-16776961"/>
 		</arete>
 		<arete>
-			<noeudDepart nom="Adrien"/>
-			<noeudArrive nom="Theo"/>
-			<coordonneesDepart x="154" y="128"/>
-			<coordonneesArrive x="824" y="136"/>
-			<nbWagon nb="5"/>
-			<couleur couleur="java.awt.Color[r=255,g=200,b=0]"/>
+			<noeudDepart nom="Marseille"/>
+			<noeudArrive nom="jhrt"/>
+			<coordonneesDepart x="683" y="311"/>
+			<coordonneesArrive x="534" y="451"/>
+			<nbWagon nb="6"/>
+			<couleur couleur="-14336"/>
 		</arete>
 		<arete>
-			<noeudDepart nom="Louis"/>
-			<noeudArrive nom="Theo"/>
-			<coordonneesDepart x="505" y="485"/>
-			<coordonneesArrive x="824" y="136"/>
-			<nbWagon nb="3"/>
-			<couleur couleur="java.awt.Color[r=0,g=0,b=0]"/>
-		</arete>
-		<arete>
-			<noeudDepart nom="Louis"/>
-			<noeudArrive nom="Theo"/>
-			<coordonneesDepart x="505" y="485"/>
-			<coordonneesArrive x="824" y="136"/>
+			<noeudDepart nom="Marseille"/>
+			<noeudArrive nom="hrt"/>
+			<coordonneesDepart x="683" y="311"/>
+			<coordonneesArrive x="890" y="464"/>
 			<nbWagon nb="4"/>
-			<couleur couleur="java.awt.Color[r=255,g=255,b=0]"/>
+			<couleur couleur="-16777216"/>
+		</arete>
+		<arete>
+			<noeudDepart nom="gheht"/>
+			<noeudArrive nom="Marseille"/>
+			<coordonneesDepart x="490" y="289"/>
+			<coordonneesArrive x="683" y="311"/>
+			<nbWagon nb="1"/>
+			<couleur couleur="-14336"/>
+		</arete>
+		<arete>
+			<noeudDepart nom="jhrt"/>
+			<noeudArrive nom="hrt"/>
+			<coordonneesDepart x="534" y="451"/>
+			<coordonneesArrive x="890" y="464"/>
+			<nbWagon nb="3"/>
+			<couleur couleur="-14336"/>
 		</arete>
 	</listeArete>
 	<listeParametres>
