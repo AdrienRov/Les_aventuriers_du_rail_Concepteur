@@ -175,8 +175,18 @@ public class PanelCarte extends JPanel implements MouseListener, ActionListener,
 
     public void addCarte(String path) 
     {
+        Image img = new ImageIcon(path).getImage();
         this.image = new ImageIcon(path).getImage();
+        //Si la largeur de l'image est plus grande que 1200 et plus grande que 800 alors on return; 
+        if (img.getWidth(null) > 1200 && img.getHeight(null) > 800) 
+        {
+            JOptionPane.showMessageDialog(null, "La taille de l'image est trop grande (taille maximum : 1200 x 800)", "Erreur", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        this.image = img;
         this.setSize(this.image.getWidth(null), this.image.getHeight(null));
+        System.out.println("WIDTH : " + this.image.getWidth(null));
+        System.out.println("HEIGHT : " + this.image.getHeight(null));
 
         this.ctrl.resizeGui(this.image.getWidth(null), this.image.getHeight(null));
         this.repaint();

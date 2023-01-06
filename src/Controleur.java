@@ -56,8 +56,8 @@ public class Controleur
         this.noeuds         = new ArrayList<Noeud>();
         this.aretes         = new ArrayList<Arete>();
         this.listeImages    = new ArrayList<String>();
-        this.cheminImage    = new String[10];
-        this.nomImage       = new String[10];
+        this.cheminImage    = new String[11];
+        this.nomImage       = new String[11];
     }
 
     public void afficherCarte(String path)
