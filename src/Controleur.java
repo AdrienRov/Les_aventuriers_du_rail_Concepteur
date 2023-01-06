@@ -226,7 +226,7 @@ public class Controleur
                 pw.println("\t\t\t<coordonneesDepart x=\"" + arete.getN2x() + "\" y=\"" + arete.getN2y() + "\"/>");
                 pw.println("\t\t\t<coordonneesArrive x=\"" + arete.getN1x() + "\" y=\"" + arete.getN1y() + "\"/>");
                 pw.println("\t\t\t<nbWagon nb=\"" + arete.getNbVoiture() + "\"/>");
-                pw.println("\t\t\t<couleur couleur=\"" + arete.getCouleur() + "\"/>");
+                pw.println("\t\t\t<couleur couleur=\"" + arete.getCouleur().getRGB() + "\"/>");
                 pw.println("\t\t</arete>");
             }
             pw.println("\t</listeArete>");
