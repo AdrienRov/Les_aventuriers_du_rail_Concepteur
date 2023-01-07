@@ -44,6 +44,8 @@ public class Controleur
     private int     nbPoint5;
     private int     nbPoint6;
     private int     nbJoueurDoublesVoies;
+    private int     nbWagonCouleur;
+    private int     nbJoker;
     private String  nomPolice;
 
     public Controleur()
@@ -242,6 +244,8 @@ public class Controleur
             pw.println("\t\t\t<nbPoint5 nb=\"" + this.nbPoint5 + "\"/>");
             pw.println("\t\t\t<nbPoint6 nb=\"" + this.nbPoint6 + "\"/>");
             pw.println("\t\t\t<nbJoueurDoublesVoies nb=\"" + this.nbJoueurDoublesVoies + "\"/>");
+            pw.println("\t\t\t<nbWagonCouleur nb=\"" + this.nbWagonCouleur + "\"/>");
+            pw.println("\t\t\t<nbJoker nb=\"" + this.nbJoker + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
             pw.println("\t<listeImage>");
@@ -316,6 +320,16 @@ public class Controleur
     public void setNbJoueurDoublesVoies(int nombre)
     {
         this.nbJoueurDoublesVoies = nombre;
+    }
+
+    public void setNbWagonCouleur(int nombre)
+    {
+        this.nbWagonCouleur = nombre;
+    }
+
+    public void setNbJoker(int nombre)
+    {
+        this.nbJoker = nombre;
     }
 
     public void setCheminImage(int i, String chemin, String nomImage)
