@@ -248,7 +248,7 @@ public class Controleur
             pw.println("\t\t\t<nbPoint4 nb=\"" + this.nbPoint4 + "\"/>");
             pw.println("\t\t\t<nbPoint5 nb=\"" + this.nbPoint5 + "\"/>");
             pw.println("\t\t\t<nbPoint6 nb=\"" + this.nbPoint6 + "\"/>");
-            pw.println("\t\t\t<nbCarteJoeur nb=\"" + this.nbCarteJoeur + "\"/>");
+            pw.println("\t\t\t<nbCarteJoueur nb=\"" + this.nbCarteJoeur + "\"/>");
             pw.println("\t\t\t<nbJoueurDoublesVoies nb=\"" + this.nbJoueurDoublesVoies + "\"/>");
             pw.println("\t\t\t<nbWagonCouleur nb=\"" + this.nbWagonCouleur + "\"/>");
             pw.println("\t\t\t<nbJoker nb=\"" + this.nbJoker + "\"/>");
