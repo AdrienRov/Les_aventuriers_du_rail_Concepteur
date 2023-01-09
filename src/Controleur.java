@@ -34,7 +34,9 @@ public class Controleur
     private String[]                nomImage;
     private int     widthPanelCarte;
     private int     numPanel = 0;
-    private int     nbJoueur;
+    private int     nbJoueurMin;
+    private int     nbJoueurMax;
+    private int     pion;
     private int     nbWagons;
     private int     nbWagonsFin;
     private int     nbPoint1;
@@ -43,6 +45,7 @@ public class Controleur
     private int     nbPoint4;
     private int     nbPoint5;
     private int     nbPoint6;
+    private int     nbCarteJoeur;
     private int     nbJoueurDoublesVoies;
     private int     nbWagonCouleur;
     private int     nbJoker;
@@ -229,13 +232,15 @@ public class Controleur
                 pw.println("\t\t\t<coordonneesArrive x=\"" + arete.getN1x() + "\" y=\"" + arete.getN1y() + "\"/>");
                 pw.println("\t\t\t<nbWagon nb=\"" + arete.getNbVoiture() + "\"/>");
                 pw.println("\t\t\t<couleur couleur=\"" + arete.getCouleur().getRGB() + "\"/>");
+                pw.println("\t\t\t<sens sens=\"" + arete.getSensUnique() + "\"/>");
                 pw.println("\t\t</arete>");
             }
             pw.println("\t</listeArete>");
             pw.println("\t<listeParametres>");
             pw.println("\t\t<parametre>");
-            pw.println("\t\t\t<nbJoueur nb=\"" + this.nbJoueur + "\"/>");
-            pw.println("\t\t\t<nbWagon nb=\"" + this.nbWagons + "\"/>");
+            pw.println("\t\t\t<nbJoueurMin nb=\"" + this.nbJoueurMin + "\"/>");
+            pw.println("\t\t\t<nbJoueurMax nb=\"" + this.nbJoueurMax + "\"/>");
+            pw.println("\t\t\t<nbPion nb=\"" + this.pion + "\"/>");
             pw.println("\t\t\t<nbWagonFin nb=\"" + this.nbWagonsFin + "\"/>");
             pw.println("\t\t\t<nbPoint1 nb=\"" + this.nbPoint1 + "\"/>");
             pw.println("\t\t\t<nbPoint2 nb=\"" + this.nbPoint2 + "\"/>");
@@ -243,6 +248,7 @@ public class Controleur
             pw.println("\t\t\t<nbPoint4 nb=\"" + this.nbPoint4 + "\"/>");
             pw.println("\t\t\t<nbPoint5 nb=\"" + this.nbPoint5 + "\"/>");
             pw.println("\t\t\t<nbPoint6 nb=\"" + this.nbPoint6 + "\"/>");
+            pw.println("\t\t\t<nbCarteJoeur nb=\"" + this.nbCarteJoeur + "\"/>");
             pw.println("\t\t\t<nbJoueurDoublesVoies nb=\"" + this.nbJoueurDoublesVoies + "\"/>");
             pw.println("\t\t\t<nbWagonCouleur nb=\"" + this.nbWagonCouleur + "\"/>");
             pw.println("\t\t\t<nbJoker nb=\"" + this.nbJoker + "\"/>");
@@ -272,9 +278,19 @@ public class Controleur
         }
     }
 
-    public void setNbJoueur(int nombre)
+    public void setNbJoueurMin(int nombre)
     {
-        this.nbJoueur = nombre;   
+        this.nbJoueurMin = nombre;   
+    }
+
+    public void setNbJoueurMax(int nombre)
+    {
+        this.nbJoueurMax = nombre;   
+    }
+
+    public void setNbPion(int nombre)
+    {
+        this.pion = nombre;
     }
 
     public void setNbWagonJoueur(int nombre)
@@ -315,6 +331,11 @@ public class Controleur
     public void setNbPoint6Wagon(int nombre)
     {
         this.nbPoint6 = nombre;
+    }
+
+    public void setNbCarteJoueur(int nombre)
+    {
+        this.nbCarteJoeur = nombre;
     }
 
     public void setNbJoueurDoublesVoies(int nombre)

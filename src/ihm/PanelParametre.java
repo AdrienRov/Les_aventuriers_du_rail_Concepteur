@@ -43,7 +43,7 @@ public class PanelParametre extends JPanel implements ActionListener
         this.panelCentre    = new JPanel();
 
         this.panelCentre.setLayout(null);
-        for (int i = 0; i < 13; i++) 
+        for (int i = 0; i < 14; i++) 
         {
             this.listeTexte.add(new JTextField());
             this.listeLabel.add(new JLabel());
@@ -57,17 +57,18 @@ public class PanelParametre extends JPanel implements ActionListener
 
         listeLabel.get(0).setText("Nombre de Joueur minimum");
         listeLabel.get(1).setText("Nombre de Joueur maximum");
-        listeLabel.get(2).setText("<html>Nombre de wagon que détient un joueur déclanchant la fin de partie</html>");
-        listeLabel.get(3).setText("<html>Nombre de points pour 1 wagon</html>");
-        listeLabel.get(4).setText("<html>Nombre de points pour 2 wagons</html>");
-        listeLabel.get(5).setText("<html>Nombre de points pour 3 wagons</html>");
-        listeLabel.get(6).setText("<html>Nombre de points pour 4 wagons</html>");
-        listeLabel.get(7).setText("<html>Nombre de points pour 5 wagons</html>");
-        listeLabel.get(8).setText("<html>Nombre de points pour 6 wagons</html>");
-        listeLabel.get(9).setText("<html>Nombre de wagon pour chaque joueur");
-        listeLabel.get(10).setText("<html>Nombre de joueur pour ajouter les doubles voies</html>");
-        listeLabel.get(11).setText("<html>Nombre de wagon par couleur</html>");
-        listeLabel.get(12).setText("<html>Nombre de carte joker</html>");
+        listeLabel.get(2).setText("<html>Nombre pion pour chaque joueur</html>");
+        listeLabel.get(3).setText("<html>Nombre de wagon que détient un joueur déclanchant la fin de partie</html>");
+        listeLabel.get(4).setText("<html>Nombre de points pour 1 wagon</html>");
+        listeLabel.get(5).setText("<html>Nombre de points pour 2 wagons</html>");
+        listeLabel.get(6).setText("<html>Nombre de points pour 3 wagons</html>");
+        listeLabel.get(7).setText("<html>Nombre de points pour 4 wagons</html>");
+        listeLabel.get(8).setText("<html>Nombre de points pour 5 wagons</html>");
+        listeLabel.get(9).setText("<html>Nombre de points pour 6 wagons</html>");
+        listeLabel.get(10).setText("<html>Nombre de wagon pour chaque joueur");
+        listeLabel.get(11).setText("<html>Nombre de joueur pour ajouter les doubles voies</html>");
+        listeLabel.get(12).setText("<html>Nombre de wagon par couleur</html>");
+        listeLabel.get(13).setText("<html>Nombre de carte joker</html>");
 
 
         for (JLabel label : listeLabel) 
@@ -117,9 +118,9 @@ public class PanelParametre extends JPanel implements ActionListener
         this.add(listeLabel.get(0));
         for (int i = 0; i < listeLabel.size(); i++) 
         {
-            y += hauteur / 14 - 5;
+            y += hauteur / 15 - 5;
             listeLabel.get(i).setBounds(x, y, 250, 50);
-            listeTexte.get(i).setBounds(ecart, y, largeur / 3, hauteur / 20);
+            listeTexte.get(i).setBounds(ecart, y, largeur / 3, hauteur / 22);
         }
 
         // ajoute les textes au panel
@@ -150,21 +151,24 @@ public class PanelParametre extends JPanel implements ActionListener
                         JOptionPane.ERROR_MESSAGE);
                     }
                 // passage des valeurs en entier
-                int nbJoueur                = Integer.parseInt(this.listeTexte.get(0).getText());
-                int nbWagonJoueur           = Integer.parseInt(this.listeTexte.get(1).getText());
-                int nbWagonFinPartie        = Integer.parseInt(this.listeTexte.get(2).getText());
-                int nbPoint1Wagon           = Integer.parseInt(this.listeTexte.get(3).getText());
-                int nbPoint2Wagon           = Integer.parseInt(this.listeTexte.get(4).getText());
-                int nbPoint3Wagon           = Integer.parseInt(this.listeTexte.get(5).getText());
-                int nbPoint4Wagon           = Integer.parseInt(this.listeTexte.get(6).getText());
-                int nbPoint5Wagon           = Integer.parseInt(this.listeTexte.get(7).getText());
-                int nbPoint6Wagon           = Integer.parseInt(this.listeTexte.get(8).getText());
-                int nbJoueurDoublesVoies    = Integer.parseInt(this.listeTexte.get(9).getText());
-                int nbWagonCouleur          = Integer.parseInt(this.listeTexte.get(10).getText());
-                int nbJoker            = Integer.parseInt(this.listeTexte.get(11).getText());
+                int nbJoueurMin             = Integer.parseInt(this.listeTexte.get(0).getText());
+                int nbJoueurMax             = Integer.parseInt(this.listeTexte.get(1).getText());
+                int nbWagonJoueur           = Integer.parseInt(this.listeTexte.get(2).getText());
+                int nbWagonFinPartie        = Integer.parseInt(this.listeTexte.get(3).getText());
+                int nbPoint1Wagon           = Integer.parseInt(this.listeTexte.get(4).getText());
+                int nbPoint2Wagon           = Integer.parseInt(this.listeTexte.get(5).getText());
+                int nbPoint3Wagon           = Integer.parseInt(this.listeTexte.get(6).getText());
+                int nbPoint4Wagon           = Integer.parseInt(this.listeTexte.get(7).getText());
+                int nbPoint5Wagon           = Integer.parseInt(this.listeTexte.get(8).getText());
+                int nbPoint6Wagon           = Integer.parseInt(this.listeTexte.get(9).getText());
+                int nbCarteJoueur            = Integer.parseInt(this.listeTexte.get(10).getText());
+                int nbJoueurDoublesVoies    = Integer.parseInt(this.listeTexte.get(11).getText());
+                int nbWagonCouleur          = Integer.parseInt(this.listeTexte.get(12).getText());
+                int nbJoker                 = Integer.parseInt(this.listeTexte.get(13).getText());
                 // passage des valeurs au controleur
-                this.ctrl.setNbJoueur(nbJoueur);
-                this.ctrl.setNbWagonJoueur(nbWagonJoueur);
+                this.ctrl.setNbJoueurMin(nbJoueurMin);
+                this.ctrl.setNbJoueurMax(nbJoueurMax);
+                this.ctrl.setNbPion(nbWagonJoueur);
                 this.ctrl.setNbWagonFinPartie(nbWagonFinPartie);
                 this.ctrl.setNbPoint1Wagon(nbPoint1Wagon);
                 this.ctrl.setNbPoint2Wagon(nbPoint2Wagon);
@@ -172,6 +176,7 @@ public class PanelParametre extends JPanel implements ActionListener
                 this.ctrl.setNbPoint4Wagon(nbPoint4Wagon);
                 this.ctrl.setNbPoint5Wagon(nbPoint5Wagon);
                 this.ctrl.setNbPoint6Wagon(nbPoint6Wagon);
+                this.ctrl.setNbCarteJoueur(nbCarteJoueur);
                 this.ctrl.setNbJoueurDoublesVoies(nbJoueurDoublesVoies);
                 this.ctrl.setNbWagonCouleur(nbWagonCouleur);
                 this.ctrl.setNbJoker(nbJoker);
@@ -191,18 +196,20 @@ public class PanelParametre extends JPanel implements ActionListener
             
         
                 // récupére les valeurs des textes et les envoyer au controleur
-                this.ctrl.setNbJoueur(Integer.parseInt(this.listeTexte.get(0).getText()));
-                this.ctrl.setNbWagonJoueur(Integer.parseInt(this.listeTexte.get(1).getText()));
-                this.ctrl.setNbWagonFinPartie(Integer.parseInt(this.listeTexte.get(2).getText()));
-                this.ctrl.setNbPoint1Wagon(Integer.parseInt(this.listeTexte.get(3).getText()));
-                this.ctrl.setNbPoint2Wagon(Integer.parseInt(this.listeTexte.get(4).getText()));
-                this.ctrl.setNbPoint3Wagon(Integer.parseInt(this.listeTexte.get(5).getText()));
-                this.ctrl.setNbPoint4Wagon(Integer.parseInt(this.listeTexte.get(6).getText()));
-                this.ctrl.setNbPoint5Wagon(Integer.parseInt(this.listeTexte.get(7).getText()));
-                this.ctrl.setNbPoint6Wagon(Integer.parseInt(this.listeTexte.get(8).getText()));
-                this.ctrl.setNbJoueurDoublesVoies(Integer.parseInt(this.listeTexte.get(9).getText()));
-                this.ctrl.setNbWagonCouleur(Integer.parseInt(this.listeTexte.get(10).getText()));
-                this.ctrl.setNbJoker(Integer.parseInt(this.listeTexte.get(11).getText()));
+                this.ctrl.setNbJoueurMin(Integer.parseInt(this.listeTexte.get(0).getText()));
+                this.ctrl.setNbJoueurMax(Integer.parseInt(this.listeTexte.get(1).getText()));
+                this.ctrl.setNbPion(Integer.parseInt(this.listeTexte.get(2).getText()));
+                this.ctrl.setNbWagonFinPartie(Integer.parseInt(this.listeTexte.get(3).getText()));
+                this.ctrl.setNbPoint1Wagon(Integer.parseInt(this.listeTexte.get(4).getText()));
+                this.ctrl.setNbPoint2Wagon(Integer.parseInt(this.listeTexte.get(5).getText()));
+                this.ctrl.setNbPoint3Wagon(Integer.parseInt(this.listeTexte.get(6).getText()));
+                this.ctrl.setNbPoint4Wagon(Integer.parseInt(this.listeTexte.get(7).getText()));
+                this.ctrl.setNbPoint5Wagon(Integer.parseInt(this.listeTexte.get(8).getText()));
+                this.ctrl.setNbPoint6Wagon(Integer.parseInt(this.listeTexte.get(9).getText()));
+                this.ctrl.setNbCarteJoueur(Integer.parseInt(this.listeTexte.get(10).getText()));
+                this.ctrl.setNbJoueurDoublesVoies(Integer.parseInt(this.listeTexte.get(11).getText()));
+                this.ctrl.setNbWagonCouleur(Integer.parseInt(this.listeTexte.get(12).getText()));
+                this.ctrl.setNbJoker(Integer.parseInt(this.listeTexte.get(13).getText()));
                 System.out.println("ss");
                 // affiche la fenêtre suivante
                 this.ctrl.getParametreSuivant();
