@@ -6,6 +6,7 @@ import src.metier.CarteObjectif;
 import src.metier.CartesVoitures;
 import src.metier.Joueur;
 import src.metier.Noeud;
+import java.awt.Color;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +33,7 @@ public class Controleur
     private List<String>            listeImages;
     private String[]                cheminImage;
     private String[]                nomImage;
+    private int                  couleurNoeud;
     private int     widthPanelCarte;
     private int     numPanel = 0;
     private int     nbJoueurMin;
@@ -254,6 +256,9 @@ public class Controleur
             pw.println("\t\t\t<nbJoker nb=\"" + this.nbJoker + "\"/>");
             pw.println("\t\t</parametre>");
             pw.println("\t</listeParametres>");
+            pw.println("\t<couleurNoeud>");
+            pw.println("\t\t\t<couleur couleur=\"" + this.couleurNoeud + "\"/>");
+            pw.println("\t</couleurNoeud>");
             pw.println("\t<listeImage>");
             for(int i = 0; i < this.cheminImage.length; i++)
             {
@@ -276,6 +281,11 @@ public class Controleur
         {
             e.printStackTrace();
         }
+    }
+
+    public void setCouleur(Color couleur)
+    {
+        this.couleurNoeud = couleur.getRGB();
     }
 
     public void setNbJoueurMin(int nombre)
