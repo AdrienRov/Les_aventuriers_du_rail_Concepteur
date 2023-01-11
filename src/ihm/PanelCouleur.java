@@ -157,5 +157,7 @@ public class PanelCouleur extends JPanel implements ActionListener
         if(e.getSource() == this.btnMarron)    {couleurNoeud = new Color(139,69,19);}
         if(e.getSource() == this.btnCyan)      {couleurNoeud = Color.CYAN;}
         if(e.getSource() == this.btnVertFonce) {couleurNoeud = new Color(0,100,0);}
+
+        
     }
 }
